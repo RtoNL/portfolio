@@ -1,0 +1,290 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Yuqing Xu — design engineering, AI workflows, and interactive product systems.">
+  <title>Yuqing Xu — Design Engineering</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23101828'/%3E%3Ctext x='32' y='43' font-family='Georgia' font-size='27' font-weight='bold' fill='white' text-anchor='middle'%3EYX%3C/text%3E%3C/svg%3E">
+  <link rel="stylesheet" href="styles.css">
+  <noscript><style>.reveal{opacity:1!important;transform:none!important}</style></noscript>
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="#top" aria-label="Back to top">YX<span>®</span></a>
+    <nav aria-label="Primary navigation">
+      <a href="#work">Work</a>
+      <a href="#about">Approach</a>
+      <a href="mailto:xyqapply@gmail.com">Contact</a>
+    </nav>
+  </header>
+
+  <main id="top">
+    <section class="hero section-shell">
+      <div class="hero-copy reveal">
+        <p class="eyebrow">DESIGN ENGINEER · SEATTLE</p>
+        <h1>I turn design systems into <span>working AI experiences.</span></h1>
+        <p class="hero-lede">I bridge product intent, interaction design, and production code — from Figma-to-code systems to agent workflows that can read schemas, reuse components, and validate what they generate.</p>
+        <div class="hero-actions">
+          <a class="button primary" href="#work">View selected work</a>
+          <a class="button secondary" href="mailto:xyqapply@gmail.com">Let’s talk ↗</a>
+        </div>
+      </div>
+      <div class="hero-object reveal" aria-label="A diagram connecting design, systems, and code">
+        <div class="orbital-stage">
+          <div class="orbit orbit-one"></div>
+          <div class="orbit orbit-two"></div>
+          <div class="core-mark">YX</div>
+          <span class="orbit-label label-design">FIGMA</span>
+          <span class="orbit-label label-agent">AGENTS</span>
+          <span class="orbit-label label-code">CODE</span>
+          <span class="orbit-label label-system">SYSTEMS</span>
+        </div>
+      </div>
+      <div class="hero-meta reveal">
+        <span>01 Design systems</span>
+        <span>02 AI workflow tools</span>
+        <span>03 Interactive prototypes</span>
+      </div>
+    </section>
+
+    <section id="work" class="work-index section-shell">
+      <div class="section-kicker">SELECTED WORK · 2025–2026</div>
+      <a class="index-row" href="#codeagent"><span>01</span><strong>CodeAgent Workbench</strong><em>Design system · MCP · AI coding</em><b>↘</b></a>
+      <a class="index-row" href="#flowcanvas"><span>02</span><strong>Farris FlowCanvas</strong><em>Agent workflow editor · Schema-driven UI</em><b>↘</b></a>
+      <a class="index-row" href="#tiktok"><span>03</span><strong>TikTok Shop Figma-to-Code</strong><em>Tokens · Creator products · Global scale</em><b>↘</b></a>
+    </section>
+
+    <article id="codeagent" class="case-study case-blue">
+      <div class="section-shell">
+        <header class="case-header reveal">
+          <div>
+            <p class="case-number">CASE 01 / OPEN SOURCE</p>
+            <h2>CodeAgent<br>Workbench System</h2>
+          </div>
+          <p class="case-summary">A design system and agent-ready workbench for turning natural-language intent into validated application artifacts.</p>
+        </header>
+
+        <div class="case-facts reveal">
+          <div><span>ROLE</span><strong>Core maintainer · Design engineering</strong></div>
+          <div><span>SCOPE</span><strong>System, prototypes, MCP context</strong></div>
+          <div><span>STACK</span><strong>SolidJS · CSS tokens · TypeScript/Bun</strong></div>
+          <div><span>RECOGNITION</span><strong>OpenAtom First Prize · Gitee GVP · WIC Wuzhen MVC</strong></div>
+        </div>
+
+        <figure class="product-frame reveal">
+          <div class="frame-bar"><span></span><span></span><span></span><b>CodeAgent / Workbench</b></div>
+          <picture>
+            <source media="(prefers-color-scheme: dark)" srcset="assets/codeagent-dark.png">
+            <img src="assets/codeagent-light.png" alt="CodeAgent workbench with navigation, sessions, and an ocean-themed welcome experience">
+          </picture>
+          <figcaption>Production UI using the Ocean token system. Light and dark themes share the same semantic token layer.</figcaption>
+        </figure>
+
+        <div class="story-grid">
+          <section class="story-block reveal">
+            <p class="story-label">THE PROBLEM</p>
+            <h3>AI-generated interfaces drift when the system is only visual.</h3>
+            <p>The workbench needed a coherent product shell for conversations, missions, knowledge, previews, and validation. More importantly, agents needed machine-readable constraints — not screenshots — to generate usable UI.</p>
+          </section>
+          <section class="story-block reveal">
+            <p class="story-label">MY ROLE</p>
+            <h3>I connected the design language to the generation pipeline.</h3>
+            <p>I authored the Ocean visual style guide and <code>--ca-*</code> token layer, prototyped the core flows, and helped expose schemas, templates, examples, and validation rules through MCP.</p>
+          </section>
+        </div>
+
+        <section class="decisions reveal">
+          <p class="story-label">KEY DESIGN DECISIONS</p>
+          <div class="decision-list">
+            <div class="decision"><span>01</span><div><h4>Make the system semantic, not page-specific.</h4><p>Tokens such as primary, surface, selected, and text roles let the same components survive theme changes — and give agents stable names to reason about.</p></div></div>
+            <div class="decision"><span>02</span><div><h4>Give agents constrained building blocks.</h4><p>MCP retrieves schemas, templates, examples, APIs, and validation rules on demand. Generation becomes selection and composition, not unconstrained styling.</p></div></div>
+            <div class="decision"><span>03</span><div><h4>Prototype the shell before scaling features.</h4><p>Home, inbox, and login prototypes tested hierarchy and navigation before implementation expanded into missions, knowledge, preview, and verify surfaces.</p></div></div>
+          </div>
+        </section>
+
+        <div class="system-board reveal" aria-label="CodeAgent design token palette">
+          <div class="system-copy"><span>OCEAN SYSTEM</span><h3>One source of visual truth</h3><p>Semantic CSS tokens map the workbench to a bright ocean theme and a deep-sea dark mode without hard-coded component colors.</p></div>
+          <div class="swatches">
+            <div style="--swatch:#1e9be6"><i></i><b>Primary</b><code>#1E9BE6</code></div>
+            <div style="--swatch:#2fd0d9"><i></i><b>Aqua</b><code>#2FD0D9</code></div>
+            <div style="--swatch:#15397a"><i></i><b>Deep sea</b><code>#15397A</code></div>
+            <div style="--swatch:#eef6fc"><i></i><b>Page</b><code>#EEF6FC</code></div>
+          </div>
+        </div>
+
+        <section class="prototype-gallery reveal">
+          <p class="story-label">PROTOTYPES BEFORE IMPLEMENTATION</p>
+          <h3>Core flows were tested as interactive HTML before any production code.</h3>
+          <div class="proto-grid">
+            <figure class="proto-card proto-wide">
+              <img src="assets/prototype-hifi.png" alt="High-fidelity workbench dashboard with gradient banner, onboarding steps, and task statistics">
+              <figcaption><b>Workbench dashboard hi-fi.</b> Gradient banner, onboarding checklist, and stat cards established the information hierarchy first.</figcaption>
+            </figure>
+            <figure class="proto-card">
+              <img src="assets/prototype-home.png" alt="Home mode-selection prototype with three work modes">
+              <figcaption><b>Home / mode selection.</b> Three entry modes framed how users start a request.</figcaption>
+            </figure>
+            <figure class="proto-card">
+              <img src="assets/prototype-inbox.png" alt="Inbox prototype with task list and detail panel">
+              <figcaption><b>Inbox / task triage.</b> List-and-detail layout for handling agent notifications.</figcaption>
+            </figure>
+            <figure class="proto-card">
+              <img src="assets/prototype-login.png" alt="Login prototype with marketing panel and sign-in form">
+              <figcaption><b>Login / workspace entry.</b> Value proposition and sign-in share one screen.</figcaption>
+            </figure>
+          </div>
+        </section>
+
+        <div class="impact-row reveal">
+          <div><strong>6</strong><span>domain coding agents</span></div>
+          <div><strong>90%+</strong><span>smaller configuration via semantic DSL</span></div>
+          <div><strong>~5.6k</strong><span>files in the evaluation repository</span></div>
+          <div><strong>24</strong><span>automated CI quality-gate cases (C1–C24)</span></div>
+        </div>
+      </div>
+    </article>
+
+    <article id="flowcanvas" class="case-study case-ink">
+      <div class="section-shell">
+        <header class="case-header reveal">
+          <div><p class="case-number">CASE 02 / OPEN SOURCE</p><h2>Farris<br>FlowCanvas</h2></div>
+          <p class="case-summary">A visual editor for composing AI-agent workflows with reusable nodes, smart connections, and schema-driven property panels.</p>
+        </header>
+
+        <div class="case-facts reveal">
+          <div><span>ROLE</span><strong>Design engineering · Frontend</strong></div>
+          <div><span>TEAM</span><strong>Inspur · OpenAtom farris-vue</strong></div>
+          <div><span>STACK</span><strong>Vue 3 · TypeScript · SVG · JSON Schema</strong></div>
+          <div><span>SCALE</span><strong>10+ node types · 50+ node graphs</strong></div>
+        </div>
+
+        <section class="canvas-demo reveal" aria-label="Interactive reconstruction of a workflow editor">
+          <div class="demo-toolbar"><div><span class="status-dot"></span> Interactive reconstruction</div><div>Drag nodes · Select to inspect</div></div>
+          <div class="demo-body">
+            <div class="node-library">
+              <b>NODES</b>
+              <span>Trigger</span><span>LLM</span><span>Knowledge</span><span>Condition</span><span>Output</span>
+            </div>
+            <div class="workflow-stage" id="workflow-stage">
+              <svg class="edges" id="edges" aria-hidden="true"></svg>
+              <button class="flow-node trigger selected" data-node="trigger" style="left:7%;top:42%"><i>↗</i><span>Input</span><small>User request</small></button>
+              <button class="flow-node agent" data-node="agent" style="left:35%;top:25%"><i>✦</i><span>Plan</span><small>Agent reasoning</small></button>
+              <button class="flow-node knowledge" data-node="knowledge" style="left:35%;top:62%"><i>⌕</i><span>Retrieve</span><small>MCP context</small></button>
+              <button class="flow-node output" data-node="output" style="left:70%;top:42%"><i>✓</i><span>Validate</span><small>Schema gate</small></button>
+            </div>
+            <aside class="property-panel" id="property-panel">
+              <p>PROPERTIES</p><h4>Input</h4><label>Node type<input value="Trigger" readonly></label><label>Variable<input value="user_request" readonly></label><label>Required<span class="toggle on"></span></label>
+            </aside>
+          </div>
+        </section>
+
+        <section class="evidence-gallery reveal" aria-label="FlowCanvas product evidence">
+          <figure class="evidence-primary">
+            <img src="assets/flowcanvas-property-panel.png" alt="FlowCanvas selector node connected to a schema-driven condition editor">
+            <figcaption><b>Schema-driven configuration.</b> A selector node and its multi-branch property editor share the same underlying model.</figcaption>
+          </figure>
+          <figure>
+            <img src="assets/flowcanvas-routing.png" alt="FlowCanvas multi-output selector node with three routed connections">
+            <figcaption><b>Ports as reusable objects.</b> Normalized port IDs support one input and multiple conditional outputs.</figcaption>
+          </figure>
+          <figure class="architecture-figure">
+            <img src="assets/flowcanvas-architecture.png" alt="FlowCanvas architecture separated into rendering, interaction, business, and model layers">
+            <figcaption><b>Layered architecture.</b> Rendering, interaction, business logic, and schema models can evolve independently.</figcaption>
+          </figure>
+        </section>
+
+        <div class="story-grid">
+          <section class="story-block reveal"><p class="story-label">THE PROBLEM</p><h3>Complex workflows became fragile when every node was custom.</h3><p>Node types, ports, connection rules, and properties needed a shared model. Without one, adding a node duplicated UI logic and large graphs triggered expensive full-canvas updates.</p></section>
+          <section class="story-block reveal"><p class="story-label">MY ROLE</p><h3>I turned Figma interactions into a reusable editor architecture.</h3><p>I translated flows into Vue components, designed metadata-driven node definitions, and separated graph rendering, edge routing, state, and property editing into maintainable layers.</p></section>
+        </div>
+
+        <section class="decisions reveal">
+          <p class="story-label">KEY DESIGN DECISIONS</p>
+          <div class="decision-list">
+            <div class="decision"><span>01</span><div><h4>Normalize ports instead of duplicating arrays.</h4><p>After comparing separate input/output arrays, a single typed collection, and a more redundant model, the team kept only direction, position, parent, and auto-connect fields. One parser could then handle simple and conditional ports.</p></div></div>
+            <div class="decision"><span>02</span><div><h4>Let schemas create nodes and property UI.</h4><p><code>NodeFactory</code> reads each node schema to build its model. Adding a node type becomes a schema-and-component task rather than another branch in a monolithic editor.</p></div></div>
+            <div class="decision"><span>03</span><div><h4>Redraw only connections affected by a drag.</h4><p>Dragging one node should not recompute the whole canvas. Parent-level events update the relevant Bézier routes while node components remain independently testable.</p></div></div>
+          </div>
+        </section>
+
+        <div class="impact-row reveal">
+          <div><strong>10+</strong><span>agent node types</span></div>
+          <div><strong>50+</strong><span>nodes in complex workflows</span></div>
+          <div><strong>~2×</strong><span>interaction responsiveness</span></div>
+          <div><strong>Top 10</strong><span>repository contributor</span></div>
+        </div>
+      </div>
+    </article>
+
+    <article id="tiktok" class="case-study case-coral">
+      <div class="section-shell">
+        <header class="case-header reveal">
+          <div><p class="case-number">CASE 03 / PRODUCT SYSTEMS</p><h2>TikTok Shop<br>Figma-to-Code</h2></div>
+          <p class="case-summary">A lightweight token-mapping and implementation workflow that reduced ambiguity between design files and a multi-region creator product codebase.</p>
+        </header>
+
+        <div class="case-facts reveal">
+          <div><span>ROLE</span><strong>Software engineer intern</strong></div>
+          <div><span>PRODUCT</span><strong>Creator-facing global commerce</strong></div>
+          <div><span>SCOPE</span><strong>10+ regions · Hundreds of thousands of creators</strong></div>
+          <div><span>CONSTRAINT</span><strong>Reconstructed, no internal UI shown</strong></div>
+        </div>
+
+        <section class="token-demo reveal">
+          <div class="confidentiality"><strong>Public-safe reconstruction</strong><span>This diagram uses generic tokens and contains no TikTok internal screenshots or proprietary UI.</span></div>
+          <div class="token-flow">
+            <div class="flow-step"><span>01</span><b>Figma semantics</b><code>surface / primary / muted</code></div>
+            <div class="flow-arrow">→</div>
+            <div class="flow-step"><span>02</span><b>Mapping contract</b><code>documented source of truth</code></div>
+            <div class="flow-arrow">→</div>
+            <div class="flow-step"><span>03</span><b>Code tokens</b><code>theme.color.primary</code></div>
+            <div class="flow-arrow">→</div>
+            <div class="flow-step"><span>04</span><b>Component QA</b><code>states · locales · fallback</code></div>
+          </div>
+          <div class="mapping-table">
+            <div class="table-head"><span>Figma semantic</span><span>Code token</span><span>Use</span><span>Status</span></div>
+            <div><span><i style="--dot:#2f88ff"></i>Action / Primary</span><code>color.action.primary</code><span>CTA, links</span><b>Mapped</b></div>
+            <div><span><i style="--dot:#f5f7fa"></i>Surface / Base</span><code>color.surface.base</code><span>Cards, panels</span><b>Mapped</b></div>
+            <div><span><i style="--dot:#667085"></i>Text / Secondary</span><code>color.text.muted</code><span>Metadata</span><b>Mapped</b></div>
+            <div><span><i style="--dot:#e5484d"></i>Status / Error</span><code>color.status.negative</code><span>Validation</span><b>Mapped</b></div>
+          </div>
+        </section>
+
+        <div class="story-grid">
+          <section class="story-block reveal"><p class="story-label">THE PROBLEM</p><h3>Figma and code used different token languages.</h3><p>During a high-pressure global commerce campaign, engineers repeatedly cross-checked colors by hand. The mismatch slowed implementation and made design review harder across regions and localized states.</p></section>
+          <section class="story-block reveal"><p class="story-label">MY ROLE</p><h3>I turned repeated translation into a shared contract.</h3><p>I reconciled the two token systems, published a mapping table, and aligned designers and engineers on how components should consume semantic values.</p></section>
+        </div>
+
+        <section class="decisions reveal">
+          <p class="story-label">KEY DESIGN DECISIONS</p>
+          <div class="decision-list">
+            <div class="decision"><span>01</span><div><h4>Map by meaning, not hex value.</h4><p>Semantic roles survive visual refreshes and regional themes; literal color-to-color mappings become obsolete as soon as a palette changes.</p></div></div>
+            <div class="decision"><span>02</span><div><h4>Keep the artifact small enough to use.</h4><p>A practical table linked the names designers saw to the variables engineers shipped, reducing the need for another heavyweight process.</p></div></div>
+            <div class="decision"><span>03</span><div><h4>Validate states, content, and locales together.</h4><p>Visual fidelity is not only the default frame. Fallbacks, long translations, targeting, and pagination all affect the final experience.</p></div></div>
+          </div>
+        </section>
+
+        <div class="impact-row reveal">
+          <div><strong>Large scale</strong><span>hundreds of thousands of creators</span></div>
+          <div><strong>10+</strong><span>regions supported</span></div>
+          <div><strong>Fewer</strong><span>cross-region integration defects</span></div>
+          <div><strong>Higher</strong><span>banner engagement after iteration</span></div>
+        </div>
+      </div>
+    </article>
+
+    <section id="about" class="closing section-shell">
+      <p class="eyebrow">HOW I WORK</p>
+      <h2>Design the system.<br>Prototype the behavior.<br>Ship the real thing.</h2>
+      <div class="closing-grid">
+        <p>I work best where design and engineering overlap: translating ambiguous product intent into reusable components, machine-readable rules, interactive prototypes, and production implementation.</p>
+        <div class="closing-links"><a href="Yuqing-Xu-Resume.pdf" target="_blank" rel="noopener">Download résumé ↗</a><a href="mailto:xyqapply@gmail.com">xyqapply@gmail.com ↗</a><a href="https://linkedin.com/in/yuqingxu">LinkedIn ↗</a><a href="https://gitee.com/ubml/code-agent">CodeAgent ↗</a></div>
+      </div>
+    </section>
+  </main>
+
+  <footer><span>Yuqing Xu · Seattle, WA</span><span>Designed and built in code · 2026</span></footer>
+  <script src="app.js"></script>
+</body>
+</html>

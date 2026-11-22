@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Playground — wireframes, prototypes, and interaction experiments by Yuqing Xu.">
+  <title>Playground — Yuqing Xu</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23111'/%3E%3Ctext x='32' y='42' font-family='Helvetica' font-size='26' font-weight='bold' fill='white' text-anchor='middle'%3EYX%3C/text%3E%3C/svg%3E">
+  <link rel="stylesheet" href="styles.css">
+  <noscript><style>.reveal{opacity:1!important;transform:none!important}</style></noscript>
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="index.html" aria-label="Home"><b>Yuqing</b><span>Xu</span></a>
+    <nav aria-label="Primary navigation">
+      <a href="index.html#work">Work</a>
+      <a href="playground.html">Playground</a>
+      <a href="about.html">About</a>
+      <a class="nav-resume" href="Yuqing-Xu-Resume.pdf" target="_blank" rel="noopener">Résumé</a>
+    </nav>
+  </header>
+
+  <main class="shell">
+    <section class="about-hero">
+      <p class="kicker">PLAYGROUND</p>
+      <h1 class="display">The working layer<br><span>behind the case studies.</span></h1>
+      <p class="lede">Wireframes, hi-fi prototypes, and interaction experiments. Most of these were built with AI coding tools from my direction, then reviewed and refined by hand.</p>
+    </section>
+
+    <section class="pg-sec reveal">
+      <h2>Try it: a workflow canvas</h2>
+      <p>Drag nodes and select one — the property panel follows your selection. A reconstruction of the FlowCanvas interaction model.</p>
+      <section class="canvas-demo" aria-label="Interactive reconstruction of a workflow editor">
+            <div class="demo-toolbar"><div><span class="status-dot"></span> Interactive reconstruction</div><div>Drag nodes · Select to inspect</div></div>
+            <div class="demo-body">
+              <div class="node-library"><b>NODES</b><span>Trigger</span><span>LLM</span><span>Knowledge</span><span>Condition</span><span>Output</span></div>
+              <div class="workflow-stage" id="workflow-stage">
+                <svg class="edges" id="edges" aria-hidden="true"></svg>
+                <button class="flow-node selected" data-node="trigger" style="left:7%;top:42%"><i>↗</i><span>Input</span><small>User request</small></button>
+                <button class="flow-node" data-node="agent" style="left:35%;top:22%"><i>✦</i><span>Plan</span><small>Agent reasoning</small></button>
+                <button class="flow-node" data-node="knowledge" style="left:35%;top:62%"><i>⌕</i><span>Retrieve</span><small>MCP context</small></button>
+                <button class="flow-node" data-node="output" style="left:68%;top:42%"><i>✓</i><span>Validate</span><small>Schema gate</small></button>
+              </div>
+              <aside class="property-panel" id="property-panel"><p>PROPERTIES</p><h4>Input</h4><label>Node type<input value="Trigger" readonly></label><label>Variable<input value="user_request" readonly></label><label>Required<span class="toggle on"></span></label></aside>
+            </div>
+          </section>
+    </section>
+
+    <section class="pg-sec reveal">
+      <h2>Hi-fi prototypes</h2>
+      <p>Clickable HTML prototypes for CodeAgent, used to test hierarchy and navigation before implementation.</p>
+      <div class="gallery">
+        <figure class="wide"><img src="assets/prototype-hifi.png" alt="Workbench dashboard prototype"><figcaption><b>Workbench dashboard.</b> Banner, onboarding checklist, and stat cards.</figcaption></figure>
+        <figure><img src="assets/prototype-home.png" alt="Home prototype" loading="lazy"><figcaption><b>Home.</b> Three entry modes for starting a request.</figcaption></figure>
+        <figure><img src="assets/prototype-inbox.png" alt="Inbox prototype" loading="lazy"><figcaption><b>Inbox.</b> List and detail for agent notifications.</figcaption></figure>
+        <figure><img src="assets/prototype-login.png" alt="Login prototype" loading="lazy"><figcaption><b>Workspace entry.</b> Value proposition and sign-in.</figcaption></figure>
+      </div>
+    </section>
+
+    <section class="pg-sec reveal">
+      <h2>Wireframes</h2>
+      <p>Twenty low-fidelity requirement wireframes I wrote for CodeAgent. Each pairs a layout with numbered use cases, so engineers and agents build against the same picture.</p>
+      <div class="wf-grid">
+          <figure><img src="assets/wf/01-development-workbench_14-agent-collaboration.jpg" alt="Agent team wireframe" loading="lazy"><figcaption>Agent team</figcaption></figure>
+          <figure><img src="assets/wf/01-development-workbench_15-subagent-display-name.jpg" alt="Sub-agent call card wireframe" loading="lazy"><figcaption>Sub-agent call card</figcaption></figure>
+          <figure><img src="assets/wf/01-development-workbench_16-customize-panel.jpg" alt="Customize panel wireframe" loading="lazy"><figcaption>Customize panel</figcaption></figure>
+          <figure><img src="assets/wf/01-development-workbench_17-status-board.jpg" alt="Status board wireframe" loading="lazy"><figcaption>Status board</figcaption></figure>
+          <figure><img src="assets/wf/02-requirement-modeling_06-repair-from-check.jpg" alt="Repair from check results wireframe" loading="lazy"><figcaption>Repair from check results</figcaption></figure>
+          <figure><img src="assets/wf/08-e2e-platform-control_01-workspace.jpg" alt="Workspace & members wireframe" loading="lazy"><figcaption>Workspace & members</figcaption></figure>
+          <figure><img src="assets/wf/08-e2e-platform-control_02-work-item.jpg" alt="Work item wireframe" loading="lazy"><figcaption>Work item</figcaption></figure>
+          <figure><img src="assets/wf/08-e2e-platform-control_03-daemon-and-run.jpg" alt="Long-running runs wireframe" loading="lazy"><figcaption>Long-running runs</figcaption></figure>
+          <figure><img src="assets/wf/08-e2e-platform-control_04-capability-pack.jpg" alt="Capability packs & skills wireframe" loading="lazy"><figcaption>Capability packs & skills</figcaption></figure>
+          <figure><img src="assets/wf/08-e2e-platform-control_05-code-host.jpg" alt="Code host integration wireframe" loading="lazy"><figcaption>Code host integration</figcaption></figure>
+          <figure><img src="assets/wf/08-e2e-platform-control_06-autopilot.jpg" alt="Autopilot wireframe" loading="lazy"><figcaption>Autopilot</figcaption></figure>
+          <figure><img src="assets/wf/08-e2e-platform-control_07-workspace-navigation.jpg" alt="Workspace navigation wireframe" loading="lazy"><figcaption>Workspace navigation</figcaption></figure>
+          <figure><img src="assets/wf/10-product-fusion_01-fused-workbench.jpg" alt="Fused workbench wireframe" loading="lazy"><figcaption>Fused workbench</figcaption></figure>
+          <figure><img src="assets/wf/11-dual-lens_01-stage-track.jpg" alt="Development stages wireframe" loading="lazy"><figcaption>Development stages</figcaption></figure>
+          <figure><img src="assets/wf/11-dual-lens_02-conversation-flow.jpg" alt="Conversation flow wireframe" loading="lazy"><figcaption>Conversation flow</figcaption></figure>
+          <figure><img src="assets/wf/11-dual-lens_03-requirement-board.jpg" alt="Requirement board wireframe" loading="lazy"><figcaption>Requirement board</figcaption></figure>
+          <figure><img src="assets/wf/11-dual-lens_04-team-home.jpg" alt="Team home wireframe" loading="lazy"><figcaption>Team home</figcaption></figure>
+          <figure><img src="assets/wf/11-dual-lens_05-primary-nav.jpg" alt="Primary navigation wireframe" loading="lazy"><figcaption>Primary navigation</figcaption></figure>
+          <figure><img src="assets/wf/11-dual-lens_06-getting-started.jpg" alt="Getting started wireframe" loading="lazy"><figcaption>Getting started</figcaption></figure>
+          <figure><img src="assets/wf/11-dual-lens_07-onboarding-tour.jpg" alt="Onboarding tour wireframe" loading="lazy"><figcaption>Onboarding tour</figcaption></figure>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer shell"><span>Yuqing Xu · Seattle, WA</span><a href="mailto:xyqapply@gmail.com">Get in touch ↗</a></footer>
+  <script src="app.js"></script>
+</body>
+</html>

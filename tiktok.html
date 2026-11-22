@@ -1,0 +1,209 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Case study: helping 430K+ TikTok Shop creators find the right campaign in every region.">
+  <title>TikTok Shop creator campaigns — Yuqing Xu</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23111'/%3E%3Ctext x='32' y='42' font-family='Helvetica' font-size='26' font-weight='bold' fill='white' text-anchor='middle'%3EYX%3C/text%3E%3C/svg%3E">
+  <link rel="stylesheet" href="styles.css">
+  <noscript><style>.reveal{opacity:1!important;transform:none!important}</style></noscript>
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="index.html" aria-label="Home"><b>Yuqing</b><span>Xu</span></a>
+    <nav aria-label="Primary navigation">
+      <a href="index.html#work">Work</a>
+      <a href="playground.html">Playground</a>
+      <a href="about.html">About</a>
+      <a href="mailto:xyqapply@gmail.com">Contact</a>
+      <a class="nav-resume" href="Yuqing-Xu-Resume.pdf" target="_blank" rel="noopener">Résumé</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="cs-hero shell">
+      <a class="cs-back" href="index.html#work">← All work</a>
+      <p class="kicker">CASE 01 · TIKTOK SHOP · CREATOR PRODUCTS</p>
+      <h1 class="display">The right campaign, for the right creator,<br><span>in every region.</span></h1>
+      <p class="lede">Redesigning how 430K+ creators across 10+ regions discover campaigns — from one banner for everyone to targeted, localized, measurable entry points — and prototyping every state in code before it shipped.</p>
+      <dl class="facts" style="margin-top:36px">
+        <div><dt>Role</dt><dd>Design engineer (SWE intern) — UX judgment, prototyping, implementation</dd></div>
+        <div><dt>Team</dt><dd>Product manager, product designers, backend engineers</dd></div>
+        <div><dt>Timeline</dt><dd>Sep 2025 – Jan 2026 · incl. BFCM launch</dd></div>
+        <div><dt>Note</dt><dd>Public-safe reconstruction — no internal UI or data</dd></div>
+      </dl>
+      <dl class="tldr"><div><dt>PROBLEM</dt><dd>One banner showed every creator the same campaign, in every region.</dd></div><div><dt>DECISION</dt><dd>Target by segment and region, show visible pagination, and define a fallback for every field.</dd></div><div><dt>TRADE-OFF</dt><dd>Later slides get less exposure; a missing translation falls back to English.</dd></div><div><dt>RESULT</dt><dd>~25% higher click-through; ~40% fewer integration defects.</dd></div></dl>
+      <figure class="cs-cover"><img src="assets/work/tiktok-cover.jpg" alt="Three reconstructed creator home screens showing different campaigns for a new creator, a fashion seller, and a live host"></figure>
+    </section>
+
+    <div class="cs-layout shell">
+      <nav class="cs-toc" aria-label="Case study sections">
+        <a href="#problem">Problem</a>
+        <a href="#insight">UX judgment</a>
+        <a href="#explore">Exploration</a>
+        <a href="#tradeoff">Trade-offs</a>
+        <a href="#prototype">Prototype &amp; test</a>
+        <a href="#system">Scaling it</a>
+        <a href="#result">Result</a>
+        <a href="#reflect">Reflection</a>
+      </nav>
+
+      <div>
+        <section id="problem" class="cs-sec reveal">
+          <p class="kicker"><span>1</span>PROBLEM</p>
+          <h2>One banner was trying to speak to every creator — and ended up speaking to none.</h2>
+          <p>Campaigns are how TikTok Shop creators find new earning opportunities. The creator home had a single promotional slot, and it showed the same message to a brand-new creator in Indonesia and an established live host in the US.</p>
+          <div class="bvsa">
+            <div><h5>BEFORE · ONE MESSAGE FOR EVERYONE</h5><div class="phones"><div class="mini"><b style="background:#9aa3ae">Shop campaign</b><span></span><span></span><span></span><small>New · ID</small></div><div class="mini"><b style="background:#9aa3ae">Shop campaign</b><span></span><span></span><span></span><small>Fashion · MX</small></div><div class="mini"><b style="background:#9aa3ae">Shop campaign</b><span></span><span></span><span></span><small>Live · US</small></div></div><p>Same banner, whoever and wherever you are.</p></div>
+            <div><h5>AFTER · THE RIGHT CAMPAIGN FIRST</h5><div class="phones"><div class="mini"><b style="background:#3b6cf6">Start your first campaign<em class="dots"><i class="on"></i><i></i><i></i></em></b><span></span><span></span><span></span><small>New · ID</small></div><div class="mini"><b style="background:#c0466e">Fall fashion week picks<em class="dots"><i class="on"></i><i></i><i></i></em></b><span></span><span></span><span></span><small>Fashion · MX</small></div><div class="mini"><b style="background:#e46b2e">Go live: holiday deals<em class="dots"><i class="on"></i><i></i><i></i></em></b><span></span><span></span><span></span><small>Live · US</small></div></div><p>Targeted by segment and region, localized, with visible pagination.</p></div>
+          </div>
+          <p class="pull">How might we help each creator notice the one campaign that fits them — without rebuilding the page for every market?</p>
+        </section>
+
+        <section id="insight" class="cs-sec reveal">
+          <p class="kicker"><span>2</span>UX JUDGMENT</p>
+          <h2>Three calls I made before touching the layout.</h2>
+          <div class="insights">
+            <div><b>01 · RELEVANCE</b><h4>Relevance beats volume.</h4><p>More banners would not help. Each creator should see campaigns targeted to their segment and region first.</p></div>
+            <div><b>02 · AFFORDANCE</b><h4>If there is more, show it.</h4><p>A rotating slot only works when people can tell there is more than one item. Pagination had to be visible and tappable.</p></div>
+            <div><b>03 · REAL CONTENT</b><h4>Design for the longest string.</h4><p>Localized titles and missing translations break layouts. Every slide needed a defined fallback, not a blank or a raw key.</p></div>
+          </div>
+        </section>
+
+        <section id="explore" class="cs-sec reveal">
+          <p class="kicker"><span>3</span>EXPLORATION</p>
+          <h2>Three ways to use the same slot.</h2>
+          <p>I compared options against what creators need on this screen: a quick read of what matters today, without pushing their own sales data below the fold.</p>
+          <div class="options">
+            <div class="option">
+              <div class="viz"><svg viewBox="0 0 200 150" aria-hidden="true"><rect x="60" y="10" width="80" height="130" rx="12" fill="#fff" stroke="#d0d5dd"/><rect x="68" y="26" width="64" height="34" rx="6" fill="#c7cdd6"/><rect x="68" y="68" width="64" height="8" rx="4" fill="#eceef1"/><rect x="68" y="82" width="50" height="8" rx="4" fill="#eceef1"/><rect x="68" y="96" width="58" height="8" rx="4" fill="#eceef1"/></svg></div>
+              <h4>A · One static banner</h4>
+              <ul><li class="pro">Simplest to build and localize</li><li class="con">Same message for every creator</li><li class="con">Nothing to learn from beyond one number</li></ul>
+            </div>
+            <div class="option chosen">
+              <span class="badge-pick">Chosen</span>
+              <div class="viz"><svg viewBox="0 0 200 150" aria-hidden="true"><rect x="60" y="10" width="80" height="130" rx="12" fill="#fff" stroke="#111214"/><rect x="68" y="26" width="64" height="34" rx="6" fill="#111214"/><rect x="134" y="26" width="20" height="34" rx="6" fill="#c7cdd6"/><circle cx="92" cy="55" r="2" fill="#fff"/><rect x="97" y="54" width="8" height="2.5" rx="1.2" fill="#fff"/><circle cx="110" cy="55" r="2" fill="#9aa3ae"/><rect x="68" y="68" width="64" height="8" rx="4" fill="#eceef1"/><rect x="68" y="82" width="50" height="8" rx="4" fill="#eceef1"/><rect x="68" y="96" width="58" height="8" rx="4" fill="#eceef1"/></svg></div>
+              <h4>B · Targeted carousel</h4>
+              <ul><li class="pro">Slides chosen per segment and region</li><li class="pro">Visible pagination signals more</li><li class="pro">Tap tracking per slide shows what works</li><li class="con">Needs strict fallback rules</li></ul>
+            </div>
+            <div class="option">
+              <div class="viz"><svg viewBox="0 0 200 150" aria-hidden="true"><rect x="60" y="10" width="80" height="130" rx="12" fill="#fff" stroke="#d0d5dd"/><rect x="68" y="22" width="64" height="22" rx="5" fill="#c7cdd6"/><rect x="68" y="48" width="64" height="22" rx="5" fill="#c7cdd6"/><rect x="68" y="74" width="64" height="22" rx="5" fill="#c7cdd6"/><rect x="68" y="102" width="64" height="8" rx="4" fill="#eceef1"/></svg></div>
+              <h4>C · Stacked campaign cards</h4>
+              <ul><li class="pro">Everything visible at once</li><li class="con">Pushes creators’ own data far down</li><li class="con">Long translations multiply the height</li></ul>
+            </div>
+          </div>
+          <p style="margin-top:26px">I recommended <b>B</b>: it keeps the page height fixed, lets targeting do the prioritizing, and turns the slot into something we can measure and iterate on.</p>
+        </section>
+
+        <section id="tradeoff" class="cs-sec reveal">
+          <p class="kicker"><span>4</span>TRADE-OFFS</p>
+          <h2>What the carousel cost — and why it was worth it.</h2>
+          <div class="tradeoffs">
+            <div><div class="gave"><h5>WE GAVE UP</h5><p>Equal exposure: slides two and three are seen less than the first.</p></div><em>→</em><div><h5>TO GET</h5><p>A fixed-height slot. Targeting decides the order, so the most relevant campaign is always first.</p></div></div>
+            <div><div class="gave"><h5>WE GAVE UP</h5><p>Perfect language: a missing translation falls back to English.</p></div><em>→</em><div><h5>TO GET</h5><p>No creator misses a campaign because of a blank card or a raw content key.</p></div></div>
+            <div><div class="gave"><h5>WE GAVE UP</h5><p>Simplicity: configuration can be wrong in new ways.</p></div><em>→</em><div><h5>TO GET</h5><p>New markets ship as configuration, guarded by schema validation and feature flags.</p></div></div>
+          </div>
+        </section>
+
+        <section id="prototype" class="cs-sec reveal">
+          <p class="kicker"><span>5</span>PROTOTYPE &amp; TEST</p>
+          <h2>I built the states in code, so the team reviewed reality instead of a perfect mock.</h2>
+          <p>Static frames only show the happy path. I used a coded prototype to walk PM and design through the states that usually surface after launch: different creator segments, long translations, and missing copy. Try it — this is a public-safe reconstruction of the same logic.</p>
+          <div class="proto-wrap" id="tt-proto">
+            <div class="phone" aria-label="Interactive prototype of a creator home screen">
+              <div class="phone-screen">
+                <div class="ph-top"><b>Creator Center</b><span></span></div>
+                <div class="ph-tabs"><span class="on">Home</span><span>Campaigns</span><span>Data</span></div>
+                <div class="car" id="car">
+                  <div class="car-track" id="car-track"></div>
+                  <div class="car-dots" id="car-dots"></div>
+                </div>
+                <div class="ph-list"><div><i></i><span></span></div><div><i></i><span></span></div><div><i></i><span></span></div><div><i></i><span></span></div></div>
+              </div>
+            </div>
+            <div class="proto-ctl">
+              <h4>Who is looking?</h4>
+              <p>Targeting picks which campaigns appear and in what order.</p>
+              <div class="seg" id="seg-segment">
+                <button data-v="new" class="on">New creator</button>
+                <button data-v="fashion">Fashion seller</button>
+                <button data-v="live">Live host</button>
+              </div>
+              <h4>Which market?</h4>
+              <p>Switch languages to stress-test long titles and CTAs.</p>
+              <div class="seg" id="seg-lang">
+                <button data-v="en" class="on">English</button>
+                <button data-v="es">Español (MX)</button>
+                <button data-v="id">Bahasa Indonesia</button>
+                <button data-v="th">ไทย</button>
+                <button data-v="vi">Tiếng Việt</button>
+              </div>
+              <label class="toggle-row"><input type="checkbox" id="fallback" checked> Fall back to English when a translation is missing</label>
+              <p class="proto-log" id="proto-log">Tap a slide or a dot — each tap is logged per slide, like the real click tracking.</p>
+            </div>
+          </div>
+          <div class="ba" style="margin-top:22px">
+            <div><h4>WHAT THE PROTOTYPE CAUGHT</h4><p style="font-size:14.5px;margin:0">Without a fallback, a missing translation showed a raw content key to creators. Long Thai and Vietnamese titles wrapped to three lines and covered the CTA.</p></div>
+            <div><h4>WHAT WE CHANGED</h4><p style="font-size:14.5px;margin:0">Defined a fallback order for every field, capped titles at two lines with a full-text detail page, and kept CTAs to one line with truncation rules agreed with design.</p></div>
+          </div>
+        </section>
+
+        <section id="system" class="cs-sec reveal">
+          <p class="kicker"><span>6</span>SCALING IT</p>
+          <h2>Making consistency the default, not a heroic effort.</h2>
+          <p><b>Map tokens by meaning, not by hex.</b> During BFCM, designers and engineers matched colors by hand. A shared mapping by semantic role made every review a one-line check.</p>
+          <div class="map-viz">
+            <div>
+              <h4>Before · matched by hex</h4>
+              <p>Breaks as soon as a palette changes.</p>
+              <div class="map-row"><span><i style="background:#2f88ff"></i>#2F88FF</span><em>→</em><span><i style="background:#2f88ff"></i>blue-500</span></div>
+              <div class="map-row"><span><i style="background:#2f7bff"></i>#2F7BFF</span><em>→</em><span class="bad"><i style="background:#2f7bff"></i>no match?</span></div>
+              <div class="map-row"><span><i style="background:#667085"></i>#667085</span><em>→</em><span><i style="background:#667085"></i>gray-600</span></div>
+            </div>
+            <div>
+              <h4>After · matched by role</h4>
+              <p>Survives refreshes and regional themes.</p>
+              <div class="map-row"><span><i style="background:#2f88ff"></i>Action / Primary</span><em>→</em><span>action.primary</span></div>
+              <div class="map-row"><span><i style="background:#e9edf2"></i>Surface / Base</span><em>→</em><span>surface.base</span></div>
+              <div class="map-row"><span><i style="background:#667085"></i>Text / Secondary</span><em>→</em><span>text.muted</span></div>
+            </div>
+          </div>
+          <div class="flowline">
+            <div><small>01</small><b>Figma semantics</b><p>Designers name roles, not values</p></div><i>→</i>
+            <div><small>02</small><b>Shared mapping</b><p>One documented source of truth</p></div><i>→</i>
+            <div><small>03</small><b>Validated config</b><p>Regions, segments, fallbacks</p></div><i>→</i>
+            <div><small>04</small><b>State review</b><p>Locales, empty, long text</p></div>
+          </div>
+          <details class="more"><summary>How it scaled across regions</summary><div>
+          <p><b>Let configuration carry regional differences.</b> Lifecycle stages, content, routing, and creator segments moved into validated configuration with fallbacks and feature flags, so a new market became a configuration change rather than a new build.</p>
+          <p><b>Agree on the data before the pixels.</b> I ran field and naming reviews with product and backend so components received data in the shape the design assumed — the biggest source of cross-region bugs.</p>
+          </div></details>
+        </section>
+
+        <section id="result" class="cs-sec reveal">
+          <p class="kicker"><span>7</span>RESULT</p>
+          <h2>A slot that earns its place — and a launch process that scales.</h2>
+          <div class="results">
+            <div><strong>~25%</strong><span>higher banner click-through rate</span></div>
+            <div><strong>~40%</strong><span>fewer frontend integration defects across multi-region releases</span></div>
+            <div><strong>430K+</strong><span>creators across 10+ regions reached through configuration</span></div>
+          </div>
+          <p style="margin-top:26px">The token mapping became the shared reference for designers and engineers during the BFCM launch, and new-market experiences shipped through configuration.</p>
+        </section>
+
+        <section id="reflect" class="cs-sec reveal">
+          <p class="kicker"><span>8</span>REFLECTION</p>
+          <h2>What I would do next.</h2>
+          <p>Click-through tells us a slide was noticed, not that it helped. Next I would pair it with campaign join and completion rates, and run short usability sessions with creators in two or three markets to hear how they decide which campaign is worth their time.</p>
+        </section>
+      </div>
+    </div>
+
+    <a class="next-case shell" href="codeagent.html"><div><small>NEXT CASE</small><b>CodeAgent — a design system agents can read</b></div><span class="pill-link"><i>→</i></span></a>
+  </main>
+
+  <footer class="site-footer shell"><span>Yuqing Xu · Seattle, WA</span><a href="mailto:xyqapply@gmail.com">Get in touch ↗</a></footer>
+  <script src="app.js"></script>
+</body>
+</html>

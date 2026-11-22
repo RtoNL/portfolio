@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Case study: a visual editor for composing AI-agent workflows.">
+  <title>FlowCanvas agent workflow editor — Yuqing Xu</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23111'/%3E%3Ctext x='32' y='42' font-family='Helvetica' font-size='26' font-weight='bold' fill='white' text-anchor='middle'%3EYX%3C/text%3E%3C/svg%3E">
+  <link rel="stylesheet" href="styles.css">
+  <noscript><style>.reveal{opacity:1!important;transform:none!important}</style></noscript>
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="index.html" aria-label="Home"><b>Yuqing</b><span>Xu</span></a>
+    <nav aria-label="Primary navigation">
+      <a href="index.html#work">Work</a>
+      <a href="playground.html">Playground</a>
+      <a href="about.html">About</a>
+      <a href="mailto:xyqapply@gmail.com">Contact</a>
+      <a class="nav-resume" href="Yuqing-Xu-Resume.pdf" target="_blank" rel="noopener">Résumé</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="cs-hero shell">
+      <a class="cs-back" href="index.html#work">← All work</a>
+      <p class="kicker">CASE 03 · FARRIS FLOWCANVAS · OPEN SOURCE</p>
+      <h1 class="display">Composing agent workflows<br><span>without fighting the canvas.</span></h1>
+      <p class="lede">A visual editor where people build AI-agent workflows from reusable nodes, branch them with conditions, and configure each step in a panel that follows their selection.</p>
+      <dl class="facts" style="margin-top:36px">
+        <div><dt>Role</dt><dd>Design engineering · front end — Figma to working interactions</dd></div>
+        <div><dt>Team</dt><dd>Inspur Farris design &amp; engineering · OpenAtom farris-vue</dd></div>
+        <div><dt>Timeline</dt><dd>Jun – Aug 2025</dd></div>
+        <div><dt>Recognition</dt><dd>Top 10 repository contributor</dd></div>
+      </dl>
+      <dl class="tldr"><div><dt>PROBLEM</dt><dd>Each node type connected differently, and large graphs lagged.</dd></div><div><dt>DECISION</dt><dd>One typed port model for every node; settings that follow the selection.</dd></div><div><dt>TRADE-OFF</dt><dd>Less per-node visual freedom, for connections that behave the same everywhere.</dd></div><div><dt>RESULT</dt><dd>10+ node types on one model; ~2× faster on 50+ nodes.</dd></div></dl>
+      <figure class="cs-cover stage"><div class="win"><span class="win-bar"><i></i><i></i><i></i></span><img src="assets/flowcanvas-property-panel.png" alt="FlowCanvas selector node connected to a schema-driven condition editor"></div></figure>
+    </section>
+
+    <div class="cs-layout shell">
+      <nav class="cs-toc" aria-label="Case study sections">
+        <a href="#problem">Problem</a>
+        <a href="#insight">UX judgment</a>
+        <a href="#explore">Exploration</a>
+        <a href="#tradeoff">Trade-offs</a>
+        <a href="#prototype">Prototype &amp; test</a>
+        <a href="#result">Result</a>
+      </nav>
+      <div>
+        <section id="problem" class="cs-sec reveal">
+          <p class="kicker"><span>1</span>PROBLEM</p>
+          <h2>Every new node made the editor harder to use — and slower.</h2>
+          <p>Each node type had its own ports, connection rules, and settings, built one by one. Adding a node duplicated interface logic, behaviour drifted between node types, and dragging in a large graph redrew the whole canvas.</p>
+          <p class="pull">How might we make branching workflows feel predictable to build, at 5 nodes or 50?</p>
+        </section>
+
+        <section id="insight" class="cs-sec reveal">
+          <p class="kicker"><span>2</span>UX JUDGMENT</p>
+          <h2>What people building workflows need from the canvas.</h2>
+          <div class="insights">
+            <div><b>01 · PREDICTABLE</b><h4>Every node connects the same way.</h4><p>Inputs on one side, outputs on the other, conditions as extra outputs — no per-node surprises.</p></div>
+            <div><b>02 · IN CONTEXT</b><h4>Settings follow selection.</h4><p>Select a node, its properties appear beside the canvas — no modal that hides the graph.</p></div>
+            <div><b>03 · INSTANT</b><h4>Dragging must never lag.</h4><p>On a 50-node graph, moving one node should feel as light as on a 5-node graph.</p></div>
+          </div>
+        </section>
+
+        <section id="explore" class="cs-sec reveal">
+          <p class="kicker"><span>3</span>EXPLORATION</p>
+          <h2>Three ways to model a port — the decision behind “predictable”.</h2>
+          <p>How ports are modelled decides how connections behave on screen. We compared three models against one test: can a single rule handle both a simple node and a three-way condition?</p>
+          <div class="options">
+            <div class="option">
+              <div class="viz"><svg viewBox="0 0 200 150" aria-hidden="true"><g font-family="-apple-system,Helvetica" font-size="9" fill="#3a3d42"><rect x="66" y="45" width="68" height="60" rx="8" fill="#fff" stroke="#9aa3ae"/><circle cx="66" cy="75" r="5" fill="#fff" stroke="#3a3d42"/><circle cx="134" cy="62" r="5" fill="#fff" stroke="#3a3d42"/><circle cx="134" cy="88" r="5" fill="#fff" stroke="#3a3d42"/><text x="12" y="30">inputs[ ]</text><text x="140" y="30">outputs[ ]</text><text x="12" y="132" fill="#b42318">two parsers, rules drift</text></g></svg></div>
+              <h4>A · Separate input &amp; output lists</h4>
+              <ul><li class="pro">Easy to read for simple nodes</li><li class="con">Conditions need special cases</li><li class="con">Two code paths behave differently</li></ul>
+            </div>
+            <div class="option chosen">
+              <span class="badge-pick">Chosen</span>
+              <div class="viz"><svg viewBox="0 0 200 150" aria-hidden="true"><g font-family="-apple-system,Helvetica" font-size="9" fill="#3a3d42"><rect x="66" y="45" width="68" height="60" rx="8" fill="#fff" stroke="#111214"/><circle cx="66" cy="75" r="5" fill="#111214"/><circle cx="134" cy="55" r="5" fill="#111214"/><circle cx="134" cy="75" r="5" fill="#111214"/><circle cx="134" cy="95" r="5" fill="#111214"/><text x="44" y="30">ports[ ] · direction · position</text><text x="60" y="132">one rule for every node</text></g></svg></div>
+              <h4>B · One typed port list</h4>
+              <ul><li class="pro">Only direction, position, parent, auto-connect</li><li class="pro">Simple and conditional nodes share one rule</li><li class="con">Needs clear defaults for position</li></ul>
+            </div>
+            <div class="option">
+              <div class="viz"><svg viewBox="0 0 200 150" aria-hidden="true"><g font-family="-apple-system,Helvetica" font-size="9" fill="#3a3d42"><rect x="66" y="45" width="68" height="60" rx="8" fill="#fff" stroke="#9aa3ae"/><circle cx="66" cy="75" r="5" fill="#fff" stroke="#3a3d42"/><circle cx="134" cy="62" r="5" fill="#fff" stroke="#3a3d42"/><circle cx="134" cy="88" r="5" fill="#fff" stroke="#3a3d42"/><text x="20" y="24">id · type · label · style · rules ·</text><text x="20" y="36">limits · colors · offsets · …</text><text x="24" y="132" fill="#b42318">heavy, easy to get out of sync</text></g></svg></div>
+              <h4>C · Rich, redundant model</h4>
+              <ul><li class="pro">Every visual detail configurable</li><li class="con">Duplicated data drifts out of sync</li><li class="con">Harder for new node authors</li></ul>
+            </div>
+          </div>
+          <p style="margin-top:26px">We kept <b>B</b>. On screen, that means every node connects the same way, and a new node type is a schema plus a component — not another special case people have to learn.</p>
+        </section>
+
+        <section id="tradeoff" class="cs-sec reveal">
+          <p class="kicker"><span>4</span>TRADE-OFFS</p>
+          <h2>Predictability over flexibility.</h2>
+          <div class="tradeoffs">
+            <div><div class="gave"><h5>WE GAVE UP</h5><p>Per-node visual freedom: every node follows one port model.</p></div><em>→</em><div><h5>TO GET</h5><p>Connections behave the same everywhere, and a new node type needs no new rules to learn.</p></div></div>
+            <div><div class="gave"><h5>WE GAVE UP</h5><p>Canvas width: the property panel stays docked beside the graph.</p></div><em>→</em><div><h5>TO GET</h5><p>Settings that never hide the workflow, unlike a modal.</p></div></div>
+          </div>
+        </section>
+
+        <section id="prototype" class="cs-sec reveal">
+          <p class="kicker"><span>5</span>PROTOTYPE &amp; TEST</p>
+          <h2>Interactions were tested in a working canvas, not in static frames.</h2>
+          <p>I translated the team’s Figma flows into components and tested drag, selection, and branching directly in the browser. Try the reconstruction: drag nodes and select one to see its properties follow.</p>
+          <section class="canvas-demo" aria-label="Interactive reconstruction of a workflow editor" style="margin-top:26px">
+            <div class="demo-toolbar"><div><span class="status-dot"></span> Interactive reconstruction</div><div>Drag nodes · Select to inspect</div></div>
+            <div class="demo-body">
+              <div class="node-library"><b>NODES</b><span>Trigger</span><span>LLM</span><span>Knowledge</span><span>Condition</span><span>Output</span></div>
+              <div class="workflow-stage" id="workflow-stage">
+                <svg class="edges" id="edges" aria-hidden="true"></svg>
+                <button class="flow-node selected" data-node="trigger" style="left:7%;top:42%"><i>↗</i><span>Input</span><small>User request</small></button>
+                <button class="flow-node" data-node="agent" style="left:35%;top:22%"><i>✦</i><span>Plan</span><small>Agent reasoning</small></button>
+                <button class="flow-node" data-node="knowledge" style="left:35%;top:62%"><i>⌕</i><span>Retrieve</span><small>MCP context</small></button>
+                <button class="flow-node" data-node="output" style="left:68%;top:42%"><i>✓</i><span>Validate</span><small>Schema gate</small></button>
+              </div>
+              <aside class="property-panel" id="property-panel"><p>PROPERTIES</p><h4>Input</h4><label>Node type<input value="Trigger" readonly></label><label>Variable<input value="user_request" readonly></label><label>Required<span class="toggle on"></span></label></aside>
+            </div>
+          </section>
+          <div class="gallery">
+            <figure><img src="assets/flowcanvas-routing.png" alt="Selector node with three routed connections"><figcaption><b>Conditions as outputs.</b> One input, multiple conditional outputs — same rule as every other node.</figcaption></figure>
+            <figure><img src="assets/flowcanvas-property-panel.png" alt="Schema-driven condition editor"><figcaption><b>Panel follows selection.</b> The property editor is generated from the node’s schema.</figcaption></figure>
+            <figure><img src="assets/flowcanvas-architecture.png" alt="Layered editor architecture"><figcaption><b>Only what moved redraws.</b> Dragging updates the affected connections, not the whole canvas.</figcaption></figure>
+          </div>
+        </section>
+
+        <section id="result" class="cs-sec reveal">
+          <p class="kicker"><span>6</span>RESULT</p>
+          <h2>Bigger workflows, same lightness.</h2>
+          <div class="results">
+            <div><strong>10+</strong><span>agent node types on one connection model</span></div>
+            <div><strong>~2×</strong><span>more responsive interactions on 50+ node workflows</span></div>
+            <div><strong>Top 10</strong><span>contributor to the open-source repository</span></div>
+          </div>
+        </section>
+      </div>
+    </div>
+
+    <a class="next-case shell" href="badge.html"><div><small>NEXT CASE</small><b>One red dot you can trust</b></div><span class="pill-link"><i>→</i></span></a>
+  </main>
+
+  <footer class="site-footer shell"><span>Yuqing Xu · Seattle, WA</span><a href="mailto:xyqapply@gmail.com">Get in touch ↗</a></footer>
+  <script src="app.js"></script>
+</body>
+</html>

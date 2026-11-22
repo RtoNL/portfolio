@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Case study: turning a design system into constraints AI coding agents can read and follow.">
+  <title>CodeAgent design system for agents — Yuqing Xu</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23111'/%3E%3Ctext x='32' y='42' font-family='Helvetica' font-size='26' font-weight='bold' fill='white' text-anchor='middle'%3EYX%3C/text%3E%3C/svg%3E">
+  <link rel="stylesheet" href="styles.css">
+  <noscript><style>.reveal{opacity:1!important;transform:none!important}</style></noscript>
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="index.html" aria-label="Home"><b>Yuqing</b><span>Xu</span></a>
+    <nav aria-label="Primary navigation">
+      <a href="index.html#work">Work</a>
+      <a href="playground.html">Playground</a>
+      <a href="about.html">About</a>
+      <a href="mailto:xyqapply@gmail.com">Contact</a>
+      <a class="nav-resume" href="Yuqing-Xu-Resume.pdf" target="_blank" rel="noopener">Résumé</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="cs-hero shell">
+      <a class="cs-back" href="index.html#work">← All work</a>
+      <p class="kicker">CASE 02 · CODEAGENT · OPEN SOURCE</p>
+      <h1 class="display">A design system that<br><span>AI agents can actually read.</span></h1>
+      <p class="lede">AI coding agents are fast, but they don’t understand a design system from screenshots. I worked out how to keep their speed while making every design decision inspectable — from semantic tokens, to schemas, to an MCP layer agents query on demand.</p>
+      <dl class="facts" style="margin-top:36px">
+        <div><dt>Role</dt><dd>Core maintainer · design engineering, prototypes, interaction specs</dd></div>
+        <div><dt>Users</dt><dd>Developers reviewing output · agents generating it</dd></div>
+        <div><dt>Timeline</dt><dd>2026 · open source</dd></div>
+        <div><dt>Recognition</dt><dd>OpenAtom First Prize · Gitee GVP · WIC Wuzhen MVC</dd></div>
+      </dl>
+      <dl class="tldr"><div><dt>PROBLEM</dt><dd>Agents were either fast and wrong, or right and slow.</dd></div><div><dt>DECISION</dt><dd>Treat the agent as a user of the design system, and give it context on demand.</dd></div><div><dt>TRADE-OFF</dt><dd>Less styling freedom and one extra call, for output that is correct and checkable.</dd></div><div><dt>RESULT</dt><dd>6 agents on one shared system; 24 quality-gate cases.</dd></div></dl>
+      <figure class="cs-cover stage"><div class="win"><span class="win-bar"><i></i><i></i><i></i></span><img src="assets/prototype-hifi.png" alt="High-fidelity CodeAgent workbench dashboard prototype"></div></figure>
+    </section>
+
+    <div class="cs-layout shell">
+      <nav class="cs-toc" aria-label="Case study sections">
+        <a href="#problem">Problem</a>
+        <a href="#insight">UX judgment</a>
+        <a href="#explore">Exploration</a>
+        <a href="#tradeoff">Trade-offs</a>
+        <a href="#prototype">Prototype &amp; test</a>
+        <a href="#result">Result</a>
+        <a href="#reflect">Reflection</a>
+      </nav>
+      <div>
+        <section id="problem" class="cs-sec reveal">
+          <p class="kicker"><span>1</span>PROBLEM</p>
+          <h2>Agents were either fast and wrong, or right and slow.</h2>
+          <p>Testing real agent runs against the workbench surfaced two baselines, and neither was acceptable for a product team.</p>
+          <div class="ba">
+            <div><h4>BASELINE A · HIGH AUTOMATION, LOW CONTROL</h4><p style="font-size:14.5px;margin:0">Agents generate full screens from a prompt. Styles drift, components that don’t exist get referenced, required fields go missing.</p></div>
+            <div><h4>BASELINE B · HIGH CONTROL, LOW AUTOMATION</h4><p style="font-size:14.5px;margin:0">People hand over files, schemas, and token references for every task. Output is correct, but the manual work cancels the speed agents promised.</p></div>
+          </div>
+          <p class="pull">How can agents keep their speed when they don’t understand the design system?</p>
+        </section>
+
+        <section id="insight" class="cs-sec reveal">
+          <p class="kicker"><span>2</span>UX JUDGMENT</p>
+          <h2>Treat the agent as a user of the design system — with its own needs.</h2>
+          <div class="insights">
+            <div><b>01 · NAMES</b><h4>Agents need names, not pixels.</h4><p>“Primary”, “surface”, “selected” are stable concepts an agent can reason about. A hex value is not.</p></div>
+            <div><b>02 · CHOICES</b><h4>Fewer choices, better output.</h4><p>Generation should be composition from governed building blocks, not free styling.</p></div>
+            <div><b>03 · CONTROL</b><h4>People decide direction.</h4><p>Checkpoints — prototypes, diffs, approvals — keep product judgment and final quality with the person.</p></div>
+          </div>
+        </section>
+
+        <section id="explore" class="cs-sec reveal">
+          <p class="kicker"><span>3</span>EXPLORATION</p>
+          <h2>From tokens, to schemas, to context on demand.</h2>
+          <p>I moved through three levels of “how much the agent knows”, keeping what worked at each step.</p>
+          <div class="options">
+            <div class="option">
+              <div class="viz"><svg viewBox="0 0 200 150" aria-hidden="true"><g font-family="-apple-system,Helvetica" font-size="10" fill="#3a3d42"><rect x="20" y="30" width="70" height="26" rx="6" fill="#1e9be6"/><text x="30" y="47" fill="#fff">primary</text><rect x="20" y="62" width="70" height="26" rx="6" fill="#eef6fc" stroke="#d0d5dd"/><text x="30" y="79">surface</text><rect x="20" y="94" width="70" height="26" rx="6" fill="#dceafb"/><text x="30" y="111">selected</text><rect x="112" y="40" width="70" height="70" rx="8" fill="#fff" stroke="#b42318" stroke-dasharray="4 3"/><text x="118" y="78" fill="#b42318">invented UI</text></g></svg></div>
+              <h4>Step 1 · Semantic tokens</h4>
+              <ul><li class="pro">Colors stay on-brand across themes</li><li class="con">Agents still invent components and layouts</li></ul>
+            </div>
+            <div class="option">
+              <div class="viz"><svg viewBox="0 0 200 150" aria-hidden="true"><g font-family="-apple-system,Helvetica" font-size="10" fill="#3a3d42"><rect x="16" y="28" width="76" height="94" rx="8" fill="#fff" stroke="#d0d5dd"/><text x="26" y="46">schemas</text><text x="26" y="64">templates</text><text x="26" y="82">examples</text><text x="26" y="100">tokens</text><path d="M96 75h22" stroke="#9aa3ae" stroke-width="1.5"/><circle cx="150" cy="75" r="26" fill="#f6f6f7" stroke="#d0d5dd"/><text x="134" y="72">human</text><text x="132" y="86">hands off</text></g></svg></div>
+              <h4>Step 2 · Schemas &amp; templates</h4>
+              <ul><li class="pro">Output becomes correct and consistent</li><li class="con">Someone must hand files over every time</li></ul>
+            </div>
+            <div class="option chosen">
+              <span class="badge-pick">Chosen</span>
+              <div class="viz"><svg viewBox="0 0 200 150" aria-hidden="true"><g font-family="-apple-system,Helvetica" font-size="10" fill="#3a3d42"><circle cx="40" cy="75" r="22" fill="#111214"/><text x="28" y="79" fill="#fff">agent</text><path d="M64 75h30" stroke="#111214" stroke-width="1.5"/><rect x="96" y="58" width="40" height="34" rx="8" fill="#fff" stroke="#111214"/><text x="104" y="79">MCP</text><path d="M138 66l20-18M138 75h22M138 84l20 18" stroke="#9aa3ae" stroke-width="1.5"/><text x="160" y="46">schemas</text><text x="162" y="79">rules</text><text x="160" y="110">checks</text></g></svg></div>
+              <h4>Step 3 · MCP context + validation</h4>
+              <ul><li class="pro">Agents fetch schemas, examples, rules on demand</li><li class="pro">Validation returns errors agents can fix</li><li class="pro">Humans review, not hand-feed</li></ul>
+            </div>
+          </div>
+          <details class="more"><summary>The full pipeline, step by step</summary><div>
+          <div class="flowline">
+            <div><small>01</small><b>Semantic tokens</b><p>Stable role names</p></div><i>→</i>
+            <div><small>02</small><b>Schemas &amp; templates</b><p>Governed building blocks</p></div><i>→</i>
+            <div><small>03</small><b>MCP context</b><p>Fetched from the real project</p></div><i>→</i>
+            <div><small>04</small><b>Validation &amp; repair</b><p>24 CI quality cases</p></div><i>→</i>
+            <div><small>05</small><b>Human checkpoints</b><p>Prototypes, diffs, approvals</p></div>
+          </div>
+          </div></details>
+        </section>
+
+        <section id="tradeoff" class="cs-sec reveal">
+          <p class="kicker"><span>4</span>TRADE-OFFS</p>
+          <h2>Speed and control, balanced on purpose.</h2>
+          <div class="tradeoffs">
+            <div><div class="gave"><h5>WE GAVE UP</h5><p>Free styling: agents can only compose governed components.</p></div><em>→</em><div><h5>TO GET</h5><p>Output that matches the design system, without someone hand-checking every screen.</p></div></div>
+            <div><div class="gave"><h5>WE GAVE UP</h5><p>A little speed: agents make an extra MCP call for context.</p></div><em>→</em><div><h5>TO GET</h5><p>Correct, inspectable output, and errors the agent can fix on its own.</p></div></div>
+            <div><div class="gave"><h5>WE GAVE UP</h5><p>Full automation: people approve at three checkpoints.</p></div><em>→</em><div><h5>TO GET</h5><p>Prototype, diff, and merge stay human decisions — so product judgment stays with the team.</p></div></div>
+          </div>
+        </section>
+
+        <section id="prototype" class="cs-sec reveal">
+          <p class="kicker"><span>5</span>PROTOTYPE &amp; TEST</p>
+          <h2>Every core flow was a clickable prototype before it was a feature.</h2>
+          <p>I wrote low-fidelity wireframes for each requirement, pairing a layout with numbered use cases, then turned the key flows into high-fidelity HTML prototypes. The team tested hierarchy and navigation on these before implementation expanded.</p>
+          <figure><img src="assets/prototype-hifi.png" alt="High-fidelity workbench dashboard prototype"><figcaption><b>Workbench dashboard, hi-fi.</b> Banner, onboarding checklist, and stat cards set the information hierarchy first.</figcaption></figure>
+          <div class="gallery" style="margin-top:26px">
+            <figure><img src="assets/prototype-home.png" alt="Home mode-selection prototype"><figcaption><b>Home / mode selection.</b> Three entry modes frame how a request starts.</figcaption></figure>
+            <figure><img src="assets/prototype-inbox.png" alt="Inbox prototype"><figcaption><b>Inbox / triage.</b> List and detail for agent notifications.</figcaption></figure>
+            <figure><img src="assets/prototype-login.png" alt="Login prototype"><figcaption><b>Workspace entry.</b> Value proposition and sign-in on one screen.</figcaption></figure>
+          </div>
+          <p style="margin-top:34px"><b>From wireframe to spec.</b> Twenty of the requirement wireframes are mine — the fused workbench, workspace navigation, onboarding, team home, and more. <a href="playground.html" style="border-bottom:1px solid var(--line)">See all twenty in the Playground →</a></p>
+          <div class="wf-grid" style="margin-top:20px">
+            <figure><img src="assets/wf/10-product-fusion_01-fused-workbench.jpg" alt="Fused workbench wireframe" loading="lazy"><figcaption>Fused workbench</figcaption></figure>
+            <figure><img src="assets/wf/08-e2e-platform-control_07-workspace-navigation.jpg" alt="Workspace navigation wireframe" loading="lazy"><figcaption>Workspace navigation</figcaption></figure>
+            <figure><img src="assets/wf/11-dual-lens_04-team-home.jpg" alt="Team home wireframe" loading="lazy"><figcaption>Team home</figcaption></figure>
+            <figure><img src="assets/wf/11-dual-lens_07-onboarding-tour.jpg" alt="Onboarding tour wireframe" loading="lazy"><figcaption>Onboarding tour</figcaption></figure>
+          </div>
+        </section>
+
+        <section id="result" class="cs-sec reveal">
+          <p class="kicker"><span>6</span>RESULT</p>
+          <h2>Agents compose from the system instead of guessing at it.</h2>
+          <div class="results">
+            <div><strong>6</strong><span>domain coding agents working from one shared context</span></div>
+            <div><strong>90%+</strong><span>smaller configuration through a semantic DSL</span></div>
+            <div><strong>24</strong><span>automated quality-gate cases agents can repair against</span></div>
+          </div>
+        </section>
+
+        <section id="reflect" class="cs-sec reveal">
+          <p class="kicker"><span>7</span>REFLECTION</p>
+          <h2>What I learned.</h2>
+          <p>Designing for an agent is still designing for a user: find out what it misunderstands, then remove the ambiguity. Next, I would measure how often generated screens pass review on the first try, and test the review checkpoints with developers to see where they still feel out of control.</p>
+        </section>
+      </div>
+    </div>
+
+    <a class="next-case shell" href="flowcanvas.html"><div><small>NEXT CASE</small><b>FlowCanvas — composing agent workflows</b></div><span class="pill-link"><i>→</i></span></a>
+  </main>
+
+  <footer class="site-footer shell"><span>Yuqing Xu · Seattle, WA</span><a href="mailto:xyqapply@gmail.com">Get in touch ↗</a></footer>
+  <script src="app.js"></script>
+</body>
+</html>

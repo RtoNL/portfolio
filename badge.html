@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Case study: designing a notification badge people can trust.">
+  <title>One red dot you can trust — Yuqing Xu</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23111'/%3E%3Ctext x='32' y='42' font-family='Helvetica' font-size='26' font-weight='bold' fill='white' text-anchor='middle'%3EYX%3C/text%3E%3C/svg%3E">
+  <link rel="stylesheet" href="styles.css">
+  <noscript><style>.reveal{opacity:1!important;transform:none!important}</style></noscript>
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="index.html" aria-label="Home"><b>Yuqing</b><span>Xu</span></a>
+    <nav aria-label="Primary navigation">
+      <a href="index.html#work">Work</a>
+      <a href="playground.html">Playground</a>
+      <a href="about.html">About</a>
+      <a href="mailto:xyqapply@gmail.com">Contact</a>
+      <a class="nav-resume" href="Yuqing-Xu-Resume.pdf" target="_blank" rel="noopener">Résumé</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="cs-hero shell">
+      <a class="cs-back" href="index.html#work">← All work</a>
+      <p class="kicker">CASE 04 · CODEAGENT · INTERACTION SPEC</p>
+      <h1 class="display">One red dot.<br><span>One number you can trust.</span></h1>
+      <p class="lede">A small surface with a big job: telling developers, from the sidebar, how much work is waiting on them — without ever disagreeing with the list behind it.</p>
+      <dl class="facts" style="margin-top:36px">
+        <div><dt>Role</dt><dd>Spec author — rules, scenarios, iterations</dd></div>
+        <div><dt>Surface</dt><dd>Sidebar navigation · coding task list</dd></div>
+        <div><dt>Iterations</dt><dd>Badge scope → two attention groups → nav update</dd></div>
+        <div><dt>Format</dt><dd>Requirements written as testable scenarios</dd></div>
+      </dl>
+      <dl class="tldr"><div><dt>PROBLEM</dt><dd>The badge counted everything, didn’t match the list, and got ignored.</dd></div><div><dt>DECISION</dt><dd>Count only work waiting on you; hide at zero; one shared count.</dd></div><div><dt>TRADE-OFF</dt><dd>Planning documents lose their dot — the number earns trust instead.</dd></div><div><dt>RESULT</dt><dd>The sidebar number always equals the list.</dd></div></dl>
+      <figure class="cs-cover stage"><div class="win"><span class="win-bar"><i></i><i></i><i></i></span><img src="assets/work/badge.jpg" alt="Sidebar with a red badge showing 3, next to a task list grouped into Waiting on me and Everything else"></div></figure>
+    </section>
+
+    <div class="cs-layout shell">
+      <nav class="cs-toc" aria-label="Case study sections">
+        <a href="#problem">Problem</a>
+        <a href="#explore">Exploration</a>
+        <a href="#rules">Decision</a>
+        <a href="#tradeoff">Trade-offs</a>
+        <a href="#test">Validation</a>
+        <a href="#result">Result</a>
+      </nav>
+      <div>
+        <section id="problem" class="cs-sec reveal">
+          <p class="kicker"><span>1</span>PROBLEM</p>
+          <h2>A badge that counts everything stops meaning anything.</h2>
+          <p>The workbench sidebar showed a count, but it mixed requirement documents, issues, and pull requests. People opened the workbench, saw a list that didn’t match the number, and learned to ignore the badge.</p>
+          <p class="pull">What actually deserves a red dot?</p>
+        </section>
+
+        <section id="explore" class="cs-sec reveal">
+          <p class="kicker"><span>2</span>EXPLORATION</p>
+          <h2>Three definitions of “needs attention”.</h2>
+          <div class="options">
+            <div class="option"><div class="viz"><svg viewBox="0 0 200 150" aria-hidden="true"><rect x="40" y="55" width="90" height="40" rx="8" fill="#fff" stroke="#d0d5dd"/><text x="54" y="80" font-family="-apple-system,Helvetica" font-size="12" fill="#3a3d42">Workbench</text><circle cx="148" cy="75" r="14" fill="#f04438"/><text x="139" y="80" font-family="-apple-system,Helvetica" font-size="12" fill="#fff" font-weight="700">27</text></svg></div><h4>A · Everything open</h4><ul><li class="pro">Never misses an item</li><li class="con">Always high, so always ignored</li></ul></div>
+            <div class="option"><div class="viz"><svg viewBox="0 0 200 150" aria-hidden="true"><rect x="40" y="55" width="90" height="40" rx="8" fill="#fff" stroke="#d0d5dd"/><text x="54" y="80" font-family="-apple-system,Helvetica" font-size="12" fill="#3a3d42">Workbench</text><circle cx="148" cy="75" r="14" fill="#f04438"/><text x="143" y="80" font-family="-apple-system,Helvetica" font-size="12" fill="#fff" font-weight="700">9</text></svg></div><h4>B · Grouped by requirement</h4><ul><li class="pro">Mirrors how planning works</li><li class="con">Doesn’t say what <i>I</i> should do now</li><li class="con">Doesn’t match the task list</li></ul></div>
+            <div class="option chosen"><span class="badge-pick">Chosen</span><div class="viz"><svg viewBox="0 0 200 150" aria-hidden="true"><rect x="40" y="55" width="90" height="40" rx="8" fill="#eaf4fd" stroke="#111214"/><text x="54" y="80" font-family="-apple-system,Helvetica" font-size="12" fill="#0b5cad" font-weight="600">Workbench</text><circle cx="148" cy="75" r="14" fill="#f04438"/><text x="144" y="80" font-family="-apple-system,Helvetica" font-size="12" fill="#fff" font-weight="700">3</text></svg></div><h4>C · Waiting on me</h4><ul><li class="pro">Only coding tasks that need my action</li><li class="pro">Matches the list exactly</li><li class="con">Planning views live elsewhere</li></ul></div>
+          </div>
+        </section>
+
+        <section id="rules" class="cs-sec reveal">
+          <p class="kicker"><span>3</span>DECISION</p>
+          <h2>Three rules, written so they can be tested.</h2>
+          <div class="insights">
+            <div><b>RULE 01</b><h4>Count only work waiting on you.</h4><p>Coding tasks that are in progress, blocked, or need changes. Documents never count.</p></div>
+            <div><b>RULE 02</b><h4>Silence is a state.</h4><p>With nothing waiting, the badge disappears instead of showing zero.</p></div>
+            <div><b>RULE 03</b><h4>One number, one source.</h4><p>The badge and the “Waiting on me” group come from the same count. No second formula.</p></div>
+          </div>
+        </section>
+
+        <section id="tradeoff" class="cs-sec reveal">
+          <p class="kicker"><span>4</span>TRADE-OFFS</p>
+          <h2>Less coverage, more trust.</h2>
+          <div class="tradeoffs">
+            <div><div class="gave"><h5>WE GAVE UP</h5><p>Coverage: planning documents no longer get a red dot.</p></div><em>→</em><div><h5>TO GET</h5><p>A number people trust, because it always matches the list. Planning has its own view.</p></div></div>
+            <div><div class="gave"><h5>WE GAVE UP</h5><p>A reassuring zero: with nothing waiting, the badge disappears.</p></div><em>→</em><div><h5>TO GET</h5><p>Silence that means something, instead of a dot people learn to ignore.</p></div></div>
+          </div>
+        </section>
+
+        <section id="test" class="cs-sec reveal">
+          <p class="kicker"><span>5</span>VALIDATION</p>
+          <h2>Each rule became a scenario the product is checked against.</h2>
+          <div class="flowline">
+            <div><small>WHEN</small><b>Tasks are in progress, blocked, or need changes</b><p>Then the badge equals their total.</p></div>
+            <div><small>WHEN</small><b>Only docs or finished tasks exist</b><p>Then none of them are counted.</p></div>
+            <div><small>WHEN</small><b>Nothing is waiting</b><p>Then no badge is shown.</p></div>
+            <div><small>WHEN</small><b>Any count is computed</b><p>Then badge and list use the same function.</p></div>
+          </div>
+          <p style="margin-top:24px">Follow-up iterations split the list into two attention groups and moved the entry point with the new navigation — with the same rules carried through each change.</p>
+        </section>
+
+        <section id="result" class="cs-sec reveal">
+          <p class="kicker"><span>6</span>RESULT</p>
+          <h2>The number on the sidebar is the number on the page.</h2>
+          <p>A developer can glance at the sidebar, see “3”, open the workbench, and find exactly three tasks waiting on them. Small, but it is the difference between a badge people trust and one they learn to ignore.</p>
+        </section>
+      </div>
+    </div>
+
+    <a class="next-case shell" href="tiktok.html"><div><small>BACK TO THE START</small><b>TikTok Shop — the right campaign for every creator</b></div><span class="pill-link"><i>→</i></span></a>
+  </main>
+
+  <footer class="site-footer shell"><span>Yuqing Xu · Seattle, WA</span><a href="mailto:xyqapply@gmail.com">Get in touch ↗</a></footer>
+  <script src="app.js"></script>
+</body>
+</html>

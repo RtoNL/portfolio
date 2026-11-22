@@ -6,7 +6,7 @@
   <meta name="description" content="Case study: a visual editor for composing AI-agent workflows.">
   <title>FlowCanvas agent workflow editor — Yuqing Xu</title>
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23111'/%3E%3Ctext x='32' y='42' font-family='Helvetica' font-size='26' font-weight='bold' fill='white' text-anchor='middle'%3EYX%3C/text%3E%3C/svg%3E">
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="styles.css?v=3">
   <noscript><style>.reveal{opacity:1!important;transform:none!important}</style></noscript>
 </head>
 <body>
@@ -28,10 +28,10 @@
       <h1 class="display">Composing agent workflows<br><span>without fighting the canvas.</span></h1>
       <p class="lede">A visual editor where people build AI-agent workflows from reusable nodes, branch them with conditions, and configure each step in a panel that follows their selection.</p>
       <dl class="facts" style="margin-top:36px">
-        <div><dt>Role</dt><dd>Design engineering · front end — Figma to working interactions</dd></div>
-        <div><dt>Team</dt><dd>Inspur Farris design &amp; engineering · OpenAtom farris-vue</dd></div>
+        <div><dt>Role</dt><dd>Frontend Software Engineer Intern</dd></div>
+        <div><dt>Team</dt><dd>Inspur · OpenAtom farris-vue</dd></div>
         <div><dt>Timeline</dt><dd>Jun – Aug 2025</dd></div>
-        <div><dt>Recognition</dt><dd>Top 10 repository contributor</dd></div>
+        <div><dt>Open source</dt><dd>Top 10 contributor · <a class="ext" href="https://gitee.com/ubml/farris-vue" target="_blank" rel="noopener">gitee.com/ubml/farris-vue ↗</a></dd></div>
       </dl>
       <dl class="tldr"><div><dt>PROBLEM</dt><dd>Each node type connected differently, and large graphs lagged.</dd></div><div><dt>DECISION</dt><dd>One typed port model for every node; settings that follow the selection.</dd></div><div><dt>TRADE-OFF</dt><dd>Less per-node visual freedom, for connections that behave the same everywhere.</dd></div><div><dt>RESULT</dt><dd>10+ node types on one model; ~2× faster on 50+ nodes.</dd></div></dl>
       <figure class="cs-cover stage"><div class="win"><span class="win-bar"><i></i><i></i><i></i></span><img src="assets/flowcanvas-property-panel.png" alt="FlowCanvas selector node connected to a schema-driven condition editor"></div></figure>
@@ -118,7 +118,7 @@
             </div>
           </section>
           <div class="gallery">
-            <figure><img src="assets/flowcanvas-routing.png" alt="Selector node with three routed connections"><figcaption><b>Conditions as outputs.</b> One input, multiple conditional outputs — same rule as every other node.</figcaption></figure>
+            <figure><img src="assets/flowcanvas-routing.png?v=2" alt="Selector node with three routed connections"><figcaption><b>Conditions as outputs.</b> One input, three conditional outputs — same rule as every other node. Rendered from the open-source demo.</figcaption></figure>
             <figure><img src="assets/flowcanvas-property-panel.png" alt="Schema-driven condition editor"><figcaption><b>Panel follows selection.</b> The property editor is generated from the node’s schema.</figcaption></figure>
             <figure><img src="assets/flowcanvas-architecture.png" alt="Layered editor architecture"><figcaption><b>Only what moved redraws.</b> Dragging updates the affected connections, not the whole canvas.</figcaption></figure>
           </div>
@@ -146,6 +146,6 @@
   </main>
 
   <footer class="site-footer shell"><span>Yuqing Xu · Seattle, WA</span><a href="mailto:xyqapply@gmail.com">Get in touch ↗</a></footer>
-  <script src="app.js"></script>
+  <script src="app.js?v=3"></script>
 </body>
 </html>

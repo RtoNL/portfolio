@@ -326,3 +326,48 @@ document.querySelectorAll('.reveal').forEach((el) => revealObserver.observe(el))
   track.addEventListener('pointerup', (e) => { if (sx === null) return; const dx = e.clientX - sx; if (Math.abs(dx) > 30) { go(idx + (dx < 0 ? 1 : -1)); restart(); } sx = null; });
   render(); restart();
 })();
+
+/* ---------------- click any figure image to view it full size ---------------- */
+(function zoom() {
+  const imgs = [...document.querySelectorAll('main img')].filter((i) => !i.closest('a, .phone, .mini, .ring'));
+  if (!imgs.length) return;
+  const box = document.createElement('div');
+  box.className = 'zoom-box';
+  box.setAttribute('role', 'dialog');
+  box.setAttribute('aria-label', 'Image viewer');
+  box.innerHTML = '<button class="zoom-close" aria-label="Close">×</button><div class="zoom-scroll"><img alt=""></div><p class="zoom-cap"></p>';
+  document.body.appendChild(box);
+  const big = box.querySelector('img');
+  const cap = box.querySelector('.zoom-cap');
+  const scroller = box.querySelector('.zoom-scroll');
+  let last = null;
+  function open(img) {
+    last = img;
+    big.src = img.currentSrc || img.src;
+    big.alt = img.alt;
+    const fc = img.closest('figure')?.querySelector('figcaption');
+    cap.textContent = fc ? fc.textContent : img.alt;
+    box.classList.remove('actual');
+    box.classList.add('on');
+    document.documentElement.style.overflow = 'hidden';
+    box.querySelector('.zoom-close').focus();
+  }
+  function close() {
+    box.classList.remove('on');
+    document.documentElement.style.overflow = '';
+    last?.focus?.();
+  }
+  imgs.forEach((img) => {
+    img.classList.add('zoomable');
+    img.tabIndex = 0;
+    img.addEventListener('click', () => open(img));
+    img.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(img); } });
+  });
+  big.addEventListener('click', (e) => {
+    e.stopPropagation();
+    box.classList.toggle('actual');
+    if (box.classList.contains('actual')) scroller.scrollTo(0, 0);
+  });
+  box.addEventListener('click', (e) => { if (e.target === box || e.target === scroller || e.target.classList.contains('zoom-close')) close(); });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && box.classList.contains('on')) close(); });
+})();

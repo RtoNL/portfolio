@@ -498,3 +498,24 @@ details.more>div{padding:0 0 20px}
   .tradeoffs .gave+em{background:#fafafa}
   .tldr{grid-template-columns:1fr;row-gap:0}
 }
+
+/* image viewer */
+img.zoomable{cursor:zoom-in}
+img.zoomable:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
+.zoom-box{position:fixed;inset:0;z-index:100;display:none;flex-direction:column;background:rgba(17,18,20,.92);padding:56px 24px 20px}
+.zoom-box.on{display:flex}
+.zoom-scroll{flex:1;min-height:0;overflow:auto;display:grid;place-items:center}
+.zoom-scroll img{max-width:100%;max-height:100%;object-fit:contain;border-radius:8px;cursor:zoom-in;background:#fff}
+.zoom-box.actual .zoom-scroll{place-items:start center}
+.zoom-box.actual .zoom-scroll img{max-width:none;max-height:none;width:min(1440px,calc(100vw - 48px));cursor:zoom-out}
+.zoom-cap{margin:12px auto 0;max-width:760px;text-align:center;color:#c9ccd1;font-size:13px}
+.zoom-close{position:absolute;top:12px;right:16px;width:36px;height:36px;border-radius:50%;border:0;background:rgba(255,255,255,.12);color:#fff;font-size:22px;line-height:1;cursor:pointer}
+.zoom-close:hover{background:rgba(255,255,255,.22)}
+/* wireframe grids: three per row so each one is large enough to read */
+.wf-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+@media (max-width:900px){.wf-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:560px){.wf-grid{grid-template-columns:1fr}}
+.cs-sec .wf-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+.zoom-hint{font-size:12.5px;color:var(--muted);margin:-14px 0 18px}
+a.ext{border-bottom:1px solid var(--line)}
+a.ext:hover{border-color:var(--ink)}

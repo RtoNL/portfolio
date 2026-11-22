@@ -484,3 +484,17 @@ details.more>div{padding:0 0 20px}
 .mini .dots{position:absolute;left:0;right:0;bottom:4px;display:flex;justify-content:center;gap:2px}
 .mini .dots i{width:3px;height:3px;border-radius:2px;background:rgba(255,255,255,.55)}
 .mini .dots i.on{width:8px;background:#fff}
+/* fixes: summary column spacing, mobile trade-offs, prototype CTA, context stat */
+.tldr{column-gap:28px}
+.tldr div{padding:16px 0 4px;min-width:0}
+.tldr dd{overflow-wrap:anywhere}
+.try-proto{margin-top:22px}
+.results .ctx strong{color:var(--soft)}
+.results .ctx b{color:var(--ink-2);font-weight:600}
+@media (max-width:640px){
+  .tradeoffs>div{grid-template-columns:1fr;grid-template-rows:auto auto auto}
+  .tradeoffs em{transform:none;padding:2px 0!important;height:auto;line-height:1;font-size:0}
+  .tradeoffs em:before{content:"↓";font-size:14px;color:var(--soft)}
+  .tradeoffs .gave+em{background:#fafafa}
+  .tldr{grid-template-columns:1fr;row-gap:0}
+}

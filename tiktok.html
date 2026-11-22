@@ -26,14 +26,15 @@
       <a class="cs-back" href="index.html#work">← All work</a>
       <p class="kicker">CASE 01 · TIKTOK SHOP · CREATOR PRODUCTS</p>
       <h1 class="display">The right campaign, for the right creator,<br><span>in every region.</span></h1>
-      <p class="lede">Redesigning how 430K+ creators across 10+ regions discover campaigns — from one banner for everyone to targeted, localized, measurable entry points — and prototyping every state in code before it shipped.</p>
+      <p class="lede">Improving how creators discover campaigns on TikTok Shop — from one banner for everyone to targeted, localized, measurable entry points — and validating every edge state in code before it shipped.</p>
       <dl class="facts" style="margin-top:36px">
-        <div><dt>Role</dt><dd>Design engineer (SWE intern) — UX judgment, prototyping, implementation</dd></div>
+        <div><dt>Role</dt><dd>Design engineer (SWE intern) — implementation, edge-state validation, UX detail alignment</dd></div>
         <div><dt>Team</dt><dd>Product manager, product designers, backend engineers</dd></div>
         <div><dt>Timeline</dt><dd>Sep 2025 – Jan 2026 · incl. BFCM launch</dd></div>
-        <div><dt>Note</dt><dd>Public-safe reconstruction — no internal UI or data</dd></div>
+        <div><dt>Product context</dt><dd>430K+ creators, 10+ regions · public-safe reconstruction, no internal UI or data</dd></div>
       </dl>
-      <dl class="tldr"><div><dt>PROBLEM</dt><dd>One banner showed every creator the same campaign, in every region.</dd></div><div><dt>DECISION</dt><dd>Target by segment and region, show visible pagination, and define a fallback for every field.</dd></div><div><dt>TRADE-OFF</dt><dd>Later slides get less exposure; a missing translation falls back to English.</dd></div><div><dt>RESULT</dt><dd>~25% higher click-through; ~40% fewer integration defects.</dd></div></dl>
+      <dl class="tldr"><div><dt>PROBLEM</dt><dd>One banner showed every creator the same campaign, in every region.</dd></div><div><dt>DECISION</dt><dd>Target by segment and region, show visible pagination, and define a fallback for every field.</dd></div><div><dt>TRADE-OFF</dt><dd>Later slides get less exposure; a missing translation falls back to English.</dd></div><div><dt>RESULT</dt><dd>~25% higher banner click-through. Across related multi-region releases, ~40% fewer integration defects.</dd></div></dl>
+      <a class="pill-link try-proto" href="#prototype">Try the interactive prototype <i>↓</i></a>
       <figure class="cs-cover"><img src="assets/work/tiktok-cover.jpg" alt="Three reconstructed creator home screens showing different campaigns for a new creator, a fashion seller, and a live host"></figure>
     </section>
 
@@ -63,7 +64,7 @@
 
         <section id="insight" class="cs-sec reveal">
           <p class="kicker"><span>2</span>UX JUDGMENT</p>
-          <h2>Three calls I made before touching the layout.</h2>
+          <h2>Three implementation-level UX decisions I helped resolve.</h2>
           <div class="insights">
             <div><b>01 · RELEVANCE</b><h4>Relevance beats volume.</h4><p>More banners would not help. Each creator should see campaigns targeted to their segment and region first.</p></div>
             <div><b>02 · AFFORDANCE</b><h4>If there is more, show it.</h4><p>A rotating slot only works when people can tell there is more than one item. Pagination had to be visible and tappable.</p></div>
@@ -93,7 +94,7 @@
               <ul><li class="pro">Everything visible at once</li><li class="con">Pushes creators’ own data far down</li><li class="con">Long translations multiply the height</li></ul>
             </div>
           </div>
-          <p style="margin-top:26px">I recommended <b>B</b>: it keeps the page height fixed, lets targeting do the prioritizing, and turns the slot into something we can measure and iterate on.</p>
+          <p style="margin-top:26px">I worked with product and design to align on <b>B</b>: it keeps the page height fixed, lets targeting do the prioritizing, and turns the slot into something we can measure and iterate on.</p>
         </section>
 
         <section id="tradeoff" class="cs-sec reveal">
@@ -108,8 +109,8 @@
 
         <section id="prototype" class="cs-sec reveal">
           <p class="kicker"><span>5</span>PROTOTYPE &amp; TEST</p>
-          <h2>I built the states in code, so the team reviewed reality instead of a perfect mock.</h2>
-          <p>Static frames only show the happy path. I used a coded prototype to walk PM and design through the states that usually surface after launch: different creator segments, long translations, and missing copy. Try it — this is a public-safe reconstruction of the same logic.</p>
+          <h2>Edge states, tested in code instead of a perfect mock.</h2>
+          <p>Static frames only show the happy path. During implementation I checked the states that usually surface after launch — different creator segments, long translations, and missing copy — and aligned the fixes with product and design. <i>For this portfolio retrospective, I reconstructed the states as an interactive prototype.</i> Try it.</p>
           <div class="proto-wrap" id="tt-proto">
             <div class="phone" aria-label="Interactive prototype of a creator home screen">
               <div class="phone-screen">
@@ -144,8 +145,8 @@
             </div>
           </div>
           <div class="ba" style="margin-top:22px">
-            <div><h4>WHAT THE PROTOTYPE CAUGHT</h4><p style="font-size:14.5px;margin:0">Without a fallback, a missing translation showed a raw content key to creators. Long Thai and Vietnamese titles wrapped to three lines and covered the CTA.</p></div>
-            <div><h4>WHAT WE CHANGED</h4><p style="font-size:14.5px;margin:0">Defined a fallback order for every field, capped titles at two lines with a full-text detail page, and kept CTAs to one line with truncation rules agreed with design.</p></div>
+            <div><h4>EDGE STATES WE HAD TO HANDLE</h4><p style="font-size:14.5px;margin:0">Without a fallback, a missing translation showed a raw content key to creators. Long Thai and Vietnamese titles wrapped to three lines and covered the CTA.</p></div>
+            <div><h4>HOW WE HANDLED THEM</h4><p style="font-size:14.5px;margin:0">Defined a fallback order for every field, capped titles at two lines with a full-text detail page, and kept CTAs to one line with truncation rules agreed with design. We didn’t shrink the type: smaller text would hurt readability and break the hierarchy across markets, while a fixed two-line limit kept the layout scannable within the established type scale.</p></div>
           </div>
         </section>
 
@@ -186,8 +187,8 @@
           <h2>A slot that earns its place — and a launch process that scales.</h2>
           <div class="results">
             <div><strong>~25%</strong><span>higher banner click-through rate</span></div>
-            <div><strong>~40%</strong><span>fewer frontend integration defects across multi-region releases</span></div>
-            <div><strong>430K+</strong><span>creators across 10+ regions reached through configuration</span></div>
+            <div><strong>~40%</strong><span>fewer frontend integration defects across related multi-region releases — not the carousel alone</span></div>
+            <div class="ctx"><strong>430K+</strong><span><b>Product context:</b> creators across 10+ regions on the platform</span></div>
           </div>
           <p style="margin-top:26px">The token mapping became the shared reference for designers and engineers during the BFCM launch, and new-market experiences shipped through configuration.</p>
         </section>

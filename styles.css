@@ -583,3 +583,7 @@ a.applied:hover{color:var(--ink)}
 .pnext::after{top:24px;right:9px;opacity:.7}
 /* home intro: two even lines on desktop */
 .hero-copy>p:not(.hero-name){max-width:660px;text-wrap:balance}
+/* ring: phone-shaped cards from the TikTok demos */
+.ring-stage{height:clamp(210px,22vw,280px)}
+.ring-card.ring-phone{aspect-ratio:390/844;border-radius:14px}
+.ring-card.ring-phone img{border-radius:14px;object-position:top center}

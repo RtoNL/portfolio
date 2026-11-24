@@ -38,7 +38,7 @@ document.querySelectorAll('.reveal').forEach((el) => revealObserver.observe(el))
       maxAngle: small ? 58 : 72,
     };
     cards.forEach((c, i) => {
-      const scale = c.classList.contains('tall') ? 0.62 : 1;
+      const scale = c.classList.contains('ring-phone') ? 0.5 : c.classList.contains('tall') ? 0.62 : 1;
       c.style.setProperty('--w', `${Math.round(geom.cardW * scale * (0.92 + ((i * 37) % 17) / 100))}px`);
     });
   }

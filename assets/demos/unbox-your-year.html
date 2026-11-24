@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Unbox Your Year</title>
+<style>
+:root{
+  --bg:#000; --bg2:#0d0d12; --text1:#fff; --text2:rgba(255,255,255,.72); --text3:rgba(255,255,255,.4);
+  --red:#fe2c55; --cyan:#25f4ee; --sheet:#2a2a30;
+  --font: "Inter","SF Pro Display","Helvetica Neue",Arial,sans-serif;
+  color-scheme: dark;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;background:#050507;color:var(--text1);font-family:var(--font);-webkit-font-smoothing:antialiased}
+body{display:flex;align-items:center;justify-content:center}
+.phone{position:relative;width:min(390px,100vw);height:min(844px,100dvh);background:var(--bg);overflow:hidden;border-radius:0}
+@media (min-width:500px){.phone{border-radius:36px;box-shadow:0 0 0 8px #15151a,0 30px 80px rgba(0,0,0,.6)}}
+
+/* debug */
+.dbg{position:fixed;top:10px;left:10px;z-index:99;font-size:12px;color:var(--text2);background:#15151a;border:1px solid #2a2a30;border-radius:10px;padding:8px 10px;display:flex;gap:6px;align-items:center}
+.dbg select{background:#0d0d12;color:#fff;border:1px solid #333;border-radius:6px;padding:4px 6px;font-size:12px}
+@media (max-width:760px){.dbg{top:auto;bottom:8px;left:50%;transform:translateX(-50%);opacity:.85}}
+
+/* swiper */
+.swiper{position:absolute;inset:0;overflow-y:scroll;scroll-snap-type:y mandatory;scrollbar-width:none;scroll-behavior:smooth;overscroll-behavior:contain}
+.swiper::-webkit-scrollbar{display:none}
+.swiper.locked{overflow-y:hidden}
+.page{position:relative;height:100%;width:100%;scroll-snap-align:start;scroll-snap-stop:always;overflow:hidden;background:var(--bg)}
+.page .bgfx{position:absolute;inset:0;pointer-events:none}
+.p-top{position:absolute;top:112px;left:0;right:0;padding:0 32px}
+.p-bot{position:absolute;left:0;right:0;padding:0 32px}
+.center{text-align:center}
+h1.t{font-size:34px;line-height:1.1;font-weight:900;letter-spacing:-.5px;margin-bottom:22px}
+.big{font-size:46px;font-weight:900;line-height:1.05;letter-spacing:-1px}
+.body{font-size:16px;line-height:1.8;color:var(--text1)}
+.body.dim{color:var(--text2)}
+.body p+p{margin-top:12px}
+b.red,.red{color:var(--red);font-weight:800}
+
+/* fade in */
+.fi{opacity:0}
+.page.on .fi{animation:fadeIn 3s 0s 1 forwards;animation-delay:calc(var(--d,0) * 1s)}
+@keyframes fadeIn{0%{opacity:0;animation-timing-function:step-end}55%{opacity:0;animation-timing-function:cubic-bezier(.33,0,.67,1)}66%{opacity:1;animation-timing-function:linear}100%{opacity:1}}
+@keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-20%)}}
+.next{position:absolute;bottom:30px;left:0;right:0;display:flex;justify-content:center;animation:bounce 1s ease-in-out infinite;cursor:pointer;z-index:5}
+.next svg{width:28px;height:28px;fill:var(--text3)}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;height:48px;padding:0 34px;border-radius:999px;border:0;font:700 16px var(--font);cursor:pointer;color:#000;background:#fff}
+.btn.sec{background:var(--sheet);color:#fff}
+.btn.pri{background:var(--red);color:#fff}
+.btn:disabled{opacity:.5}
+
+/* page1 */
+.box{position:absolute;left:50%;top:48%;width:190px;height:190px;transform:translate(-50%,-50%)}
+.box .body3d{position:absolute;left:0;right:0;bottom:0;height:120px;background:linear-gradient(160deg,#ff4f78,#c3123d);border-radius:12px;box-shadow:0 30px 80px rgba(254,44,85,.45)}
+.box .lid{position:absolute;left:-10px;right:-10px;top:20px;height:56px;background:linear-gradient(160deg,#ff7a97,#e0194a);border-radius:12px;transition:transform 1.2s cubic-bezier(.2,.9,.2,1),opacity 1s;transform-origin:left bottom}
+.box .ribbon{position:absolute;left:50%;width:26px;top:20px;bottom:0;background:var(--cyan);transform:translateX(-50%);opacity:.9;border-radius:4px}
+.box.open .lid{transform:translateY(-120px) rotate(-18deg);opacity:.0}
+.box .glow{position:absolute;left:50%;top:40%;width:260px;height:260px;margin:-130px;border-radius:50%;background:radial-gradient(circle,rgba(37,244,238,.55),transparent 65%);opacity:0;transition:opacity 1s}
+.box.open .glow{opacity:1}
+.box{animation:float 3s ease-in-out infinite}
+@keyframes float{0%,100%{margin-top:0}50%{margin-top:-10px}}
+.avatar{border-radius:50%;background:linear-gradient(135deg,var(--cyan),var(--red));display:flex;align-items:center;justify-content:center;font-weight:900;color:#000}
+.hi{position:absolute;top:96px;left:0;right:0;display:flex;flex-direction:column;align-items:center;gap:8px;font-size:15px;color:var(--text2)}
+
+/* page3 grid */
+.cgrid{position:absolute;left:-10%;right:-10%;top:34%;height:34%;display:grid;grid-template-columns:repeat(4,1fr);gap:10px;transform:rotate(-8deg);opacity:.85}
+.cv{border-radius:12px;position:relative;overflow:hidden;aspect-ratio:9/12}
+.cv::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 50%,rgba(0,0,0,.45))}
+.cv i{position:absolute;left:8px;bottom:8px;width:0;height:0;border-left:10px solid #fff;border-top:6px solid transparent;border-bottom:6px solid transparent;z-index:2;opacity:.9}
+
+/* page4 carousel */
+.car{position:absolute;left:0;right:0;top:50%;transform:translateY(-50%)}
+.car-scroll{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;padding:0 100px;scrollbar-width:none;height:250px;scroll-behavior:smooth}
+.car-scroll::-webkit-scrollbar{display:none}
+.car-item{flex:0 0 calc(100% - 0px);max-width:190px;scroll-snap-align:center;height:250px;border-radius:16.6px;position:relative;overflow:hidden;transition:opacity .3s}
+.car-item.dim{opacity:.4}
+.car-cap{padding:34px 32px 0 32px;font-size:16px;line-height:1.8}
+
+/* page6 podium */
+.podium{position:absolute;left:0;right:0;top:36%;height:230px;display:flex;align-items:flex-end;justify-content:center;gap:12px;padding:0 24px}
+.pod{width:96px;border-radius:14px 14px 0 0;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;padding-top:10px;gap:8px;background:linear-gradient(180deg,rgba(254,44,85,.35),rgba(254,44,85,.05))}
+.pod .pi{width:76px;height:76px;border-radius:12px}
+.pod .rk{font-weight:900;font-size:22px;color:var(--red)}
+.pod.empty .pi{background:#000;border:1px dashed #333}
+
+/* page7 */
+.brands{display:flex;flex-direction:column;align-items:flex-end;gap:14px}
+.brand{display:flex;align-items:center;gap:12px;font-weight:800;color:var(--red);font-size:18px}
+.brand .bi{width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,#fff,#aaa);display:flex;align-items:center;justify-content:center;color:#000;font-weight:900}
+
+/* page9 dots */
+.dots{position:absolute;left:36px;right:36px;top:40%;display:grid;grid-template-columns:repeat(10,1fr);gap:12px}
+.dots span{aspect-ratio:1;border-radius:50%;background:#26262c}
+.page.on .dots span.lit{animation:lit .6s forwards;animation-delay:calc(var(--i)*60ms + .4s)}
+@keyframes lit{to{background:var(--red);box-shadow:0 0 12px var(--red)}}
+
+/* page8 ring */
+.ring{position:absolute;left:50%;top:34%;width:240px;height:240px;margin-left:-120px;border-radius:50%;background:conic-gradient(var(--red) 0 72%,#1d1d22 0);-webkit-mask:radial-gradient(circle,transparent 62%,#000 63%);mask:radial-gradient(circle,transparent 62%,#000 63%);opacity:.9}
+.page.on .ring{animation:spin 2.4s cubic-bezier(.2,.9,.2,1)}
+@keyframes spin{from{transform:rotate(-200deg);opacity:0}to{transform:rotate(0);opacity:.9}}
+
+/* page10 */
+.frame{position:absolute;left:50%;top:44%;transform:translate(-50%,-50%);display:flex;flex-direction:column;align-items:center;width:100%;padding:0 40px;gap:10px;text-align:center}
+.fav{position:relative;width:132px;height:132px}
+.fav .avatar{position:absolute;inset:14px;font-size:40px}
+.fav .ring2{position:absolute;inset:0;border-radius:50%;border:5px solid transparent;background:linear-gradient(#000,#000) padding-box,conic-gradient(var(--red),#ffc53d,var(--cyan),var(--red)) border-box;box-shadow:0 0 40px rgba(254,44,85,.5)}
+.ach{line-height:1.8;font-size:15px;color:var(--text1)}
+.ach div+div{margin-top:2px}
+.foot{position:absolute;bottom:35px;left:24px;right:24px;display:flex;justify-content:space-between;align-items:center;font-size:14px}
+.logo{font-weight:900;letter-spacing:-.3px;display:flex;align-items:center;gap:6px}
+.logo i{width:14px;height:14px;background:var(--red);display:inline-block;border-radius:4px;box-shadow:-3px 0 0 var(--cyan)}
+.ctas{position:absolute;bottom:0;left:0;right:0;height:200px;background:linear-gradient(180deg,rgba(0,0,0,0) 3.24%,rgba(0,0,0,.12) 14.6%,rgba(0,0,0,.82) 56.02%,#000 80.03%)}
+.ctarow{position:absolute;bottom:54px;left:0;right:0;display:flex;gap:12px;padding:0 24px}
+.ctarow .btn{flex:1;padding:0}
+.again{position:absolute;bottom:14px;left:0;right:0;text-align:center;font-size:13px;color:var(--text3);cursor:pointer;text-decoration:underline}
+
+/* fallback */
+.fb{position:absolute;inset:0;background:radial-gradient(120% 60% at 50% 100%,#2b0a14,#000 70%)}
+.fb .emptybox{position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:300px;height:300px;opacity:.9}
+.fb .inner{position:absolute;top:200px;left:0;right:0;text-align:center;padding:0 32px}
+.fb .cta{position:absolute;bottom:45px;left:0;right:0;display:flex;justify-content:center}
+
+.toast{position:absolute;left:50%;bottom:130px;transform:translateX(-50%);background:#fff;color:#000;padding:10px 18px;border-radius:999px;font-weight:700;font-size:14px;z-index:20;opacity:0;pointer-events:none;transition:opacity .25s}
+.toast.show{opacity:1}
+.loading{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:var(--text3);font-size:14px}
+@media (prefers-reduced-motion:reduce){.fi{opacity:1!important;animation:none!important}.next,.box{animation:none}}
+</style>
+</head>
+<body>
+<div class="dbg">Scenario
+  <select id="scen">
+    <option value="full">Full year of data</option>
+    <option value="sparse">Sparse data</option>
+    <option value="newbie">New creator (no posts, no LIVE, no sales)</option>
+    <option value="nolive">Posts but no LIVE</option>
+    <option value="ineligible">Not eligible (fallback)</option>
+    <option value="lowver">Outdated app version</option>
+  </select>
+</div>
+<div class="phone" id="phone"></div>
+
+<script>
+/* ---------- mock data (public-safe, illustrative) ---------- */
+const BASE = {
+  creator_info:{name:"creator_hero"},
+  is_eligible:true,
+  earliest_post_timestamp:1763425333,
+  annual_post_count:"245",
+  peak_post_day_timestamp:1760270400,
+  peak_post_day_post_count:12,
+  peak_post_day_gmv_boost:"1.62",
+  top_3_videos_by_gmv_vv:[{vid:"1"},{vid:"2"},{vid:"3"}],
+  top_video_gmv:"8900.5", top_video_gmv_formatted:"$8,900.5",
+  top_7_videos_by_vv:[1,2,3,4,5,6,7].map(v=>({vid:String(v)})),
+  top_3_products:[{product_id:"a",sold_count:"320"},{product_id:"b",sold_count:"210"},{product_id:"c",sold_count:"96"}],
+  top_3_product_gmv_percentage:"0.42",
+  top_3_brands:[{name:"Curtain Club"},{name:"PeachyLab"},{name:"Glow Theory"}],
+  total_gmv_year:"253421.76", total_gmv_year_formatted:"$253,421.76", currency_symbol:"$",
+  best_month_timestamp:1751716800, gmv_percentage_month:"1.23",
+  customers_states_num:"23",
+  total_live_stream_cnt:"6", total_live_duration_seconds:"86000",
+  total_live_gmv:"12342.44", total_live_gmv_formatted:"$12,342.44",
+  longest_live_seconds:"7201", longest_live_date_timestamp:1712899200,
+  top_tier_live_creator:false,
+  profile_frame_info:{profile_frame_id:17498371,title:"Breakout Star",description:"Your viral moment: the single best-performing video. One and done! Your breakout era began."},
+  annual_achievements:{achievements:[1,2,3],gmv_percentage:"0.2",live_percentage:"0.15",state_num:23,live_duration_seconds:86000,total_post_cnt:245,peak_post_day_timestamp:1760270400,top1_category:"Beauty"}
+};
+const clone=o=>JSON.parse(JSON.stringify(o));
+const SCEN={
+  full:()=>clone(BASE),
+  sparse:()=>{const s=clone(BASE);Object.assign(s,{annual_post_count:"1",peak_post_day_post_count:1,peak_post_day_gmv_boost:"0",top_3_videos_by_gmv_vv:[{vid:"1"}],top_3_products:[{product_id:"a",sold_count:"3"}],top_3_brands:[{name:"PeachyLab"}],total_gmv_year:"800",total_gmv_year_formatted:"$800",customers_states_num:"3",gmv_percentage_month:"1",total_live_stream_cnt:"1",total_live_duration_seconds:"900",total_live_gmv:"0",total_live_gmv_formatted:"",longest_live_seconds:"900"});s.annual_achievements={achievements:[5],total_post_cnt:1};return s;},
+  newbie:()=>{const s=clone(BASE);Object.assign(s,{annual_post_count:"0",top_3_videos_by_gmv_vv:[],top_7_videos_by_vv:[],top_3_products:[],top_3_brands:[],total_gmv_year:"0",customers_states_num:"0",total_live_stream_cnt:"0",total_live_duration_seconds:"0",best_month_timestamp:0,earliest_post_timestamp:0});s.annual_achievements={achievements:[],total_post_cnt:0,top1_category:""};return s;},
+  nolive:()=>{const s=clone(BASE);Object.assign(s,{total_live_stream_cnt:"0",total_live_duration_seconds:"0",total_live_gmv:"0",total_live_gmv_formatted:""});s.annual_achievements.achievements=[1,3,5,6];return s;},
+  ineligible:()=>{const s=clone(BASE);s.is_eligible=false;return s;},
+  lowver:()=>clone(BASE)
+};
+
+/* ---------- helpers ---------- */
+const $=(s,r=document)=>r.querySelector(s);
+const num=v=>{const n=Number(v);return Number.isFinite(n)?n:0};
+const fmtDate=ts=>ts?new Date(ts*1000).toLocaleDateString('en-US',{month:'long',day:'numeric'}):'';
+const fmtTime=ts=>ts?new Date(ts*1000).toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit'}):'';
+const fmtMonth=ts=>ts?new Date(ts*1000).toLocaleDateString('en-US',{month:'long'}):'';
+const plural=(n,w)=>`${n} ${w}${n===1?'':'s'}`;
+const R=t=>`<b class="red">${t}</b>`;
+const pct=v=>Math.round(num(v)*100)+'%';
+const hue=i=>[340,185,265,28,150,310,210,55][i%8];
+const cover=(i,extra='')=>`background:linear-gradient(${150+i*20}deg,hsl(${hue(i)} 80% 55%),hsl(${hue(i)+50} 70% 22%));${extra}`;
+const chev='<svg viewBox="0 0 24 24"><path d="M12 16.5 4.5 9l1.4-1.4L12 13.7l6.1-6.1L19.5 9z"/></svg>';
+const fi=(html,d=0,cls='')=>`<div class="fi ${cls}" style="--d:${d}">${html}</div>`;
+
+/* ---------- pages ---------- */
+function page2(s){
+  const n=num(s.annual_achievements?.total_post_cnt);
+  const date=fmtDate(s.earliest_post_timestamp),time=fmtTime(s.earliest_post_timestamp);
+  return `<div class="page" data-name="drop"><div class="bgfx" style="background:radial-gradient(80% 40% at 50% 70%,rgba(254,44,85,.25),transparent)"></div>
+  <div class="cv" style="position:absolute;left:50%;top:48%;width:170px;transform:translate(-50%,0) rotate(-4deg);${n?cover(0):'background:#1a1a1f;border:1px dashed #333'}"><i></i></div>
+  <div class="p-top">${fi(`<h1 class="t">${n?'Your first drop':'Ready for your first drop?'}</h1>
+    <div class="body dim">${n&&date&&time
+      ?`<p>On ${R(date)} at ${R(time)} you posted your ${R('first shoppable video')}. This was just the start of turning creativity into commerce. Not everyone takes that leap.</p><p style="color:#fff">You did.</p>`
+      :`<p>Every big creator starts with a small leap. It seems you didn’t start posting this year, but we just hope we can see your voice next year!</p>`}</div>`)}</div>
+  ${n?`<div class="p-bot center" style="bottom:120px">${fi('<div class="body dim" style="font-size:14px">Not everyone takes that leap</div>',1)}</div>`:''}</div>`;
+}
+function page3(s){
+  const total=num(s.annual_post_count),pc=num(s.peak_post_day_post_count),boost=num(s.peak_post_day_gmv_boost);
+  const vids=s.top_7_videos_by_vv||[];
+  const tiles=Array.from({length:8},(_,i)=>`<div class="cv" style="${cover(vids.length?(i%vids.length):0)}"><i></i></div>`).join('');
+  const peak=pc<3
+    ?`<p>Every great journey starts with a single step. We can’t wait to see what you create in 2026!</p>`
+    :`<p>But ${R(fmtDate(s.peak_post_day_timestamp))} was different.</p><p>On that day, you dropped ${R(plural(pc,'video'))}${boost<=1?'':` and your GMV spiked ${R(Math.round(boost*100)+'%')}`} and you kept slaying. That’s a massive win!</p>`;
+  return `<div class="page" data-name="momentum"><div class="cgrid">${tiles}</div>
+  <div class="p-top center">${fi(`<h1 class="t">Your Posting Power</h1><div class="body" style="text-shadow:0 5px 10px rgba(0,0,0,.8)">You posted ${R(plural(total,'shoppable video'))} this year.</div>`)}</div>
+  <div class="p-bot center" style="bottom:100px"><div style="background:linear-gradient(0deg,#000 40%,transparent);position:absolute;inset:-60px 0 -100px"></div>${fi(`<div class="body" style="position:relative">${peak}</div>`,1)}</div></div>`;
+}
+function page4(s){
+  const v=s.top_3_videos_by_gmv_vv||[];const g=num(s.top_video_gmv);
+  const items=v.map((x,i)=>`<div class="car-item ${i?'dim':''}" style="${cover(i+2)}"></div>`).join('');
+  return `<div class="page" data-name="viral"><div class="bgfx" style="background:radial-gradient(70% 35% at 50% 50%,rgba(37,244,238,.14),transparent)"></div>
+  <div class="p-top">${fi(`<h1 class="t">Your Breakout Moment</h1>${v.length?`<div class="body">Want to know your ${R('top '+v.length)}?</div>`:''}`)}</div>
+  <div class="car">${fi(`<div class="car-scroll" id="carscroll">${items}</div>`)}
+  ${fi(`<div class="car-cap">${g&&s.top_video_gmv_formatted?`Your #1 post became a hit and drove ${R(s.top_video_gmv_formatted+' GMV')}. That’s main character energy.`:`Your #1 post became a hit. That’s main character energy.`}<br><span style="color:var(--text2)">Swipe to see your other viral videos.</span></div>`,1)}</div></div>`;
+}
+function page5(s){
+  const secs=num(s.total_live_duration_seconds),cnt=(num(s.total_live_stream_cnt)>=1&&secs>=600)?num(s.total_live_stream_cnt):0,h=Math.floor(secs/3600),m=Math.floor(secs%3600/60);
+  const dur=`${plural(h,'hour')}${m?` ${m} min`:''}`;
+  const longest=num(s.longest_live_seconds)/3600;
+  const top=cnt?`<p>This year, you locked in. You had ${R(plural(cnt,'LIVE stream'))}, totaling ${R(dur)}${s.total_live_gmv_formatted?`, generating ${R(s.total_live_gmv_formatted+' GMV')}`:''}.</p>`
+    :`<p>You have a story to tell even if you didn’t share it with the world.</p>`;
+  const bot=cnt
+    ?`${longest>=2?`<p>Your longest stream? ${R(Math.floor(longest)+' hours')} on ${R(fmtDate(s.longest_live_date_timestamp))}.</p>`:''}${s.top_tier_live_creator?`<p>Checks out since you ranked in the top of LIVE sellers.</p>`:''}<p>The camera loves commitment.</p>`
+    :`<p>And that’s powerful. When you’re ready to go LIVE, your spotlight’s waiting.</p>`;
+  return `<div class="page" data-name="live"><div class="bgfx" style="background:radial-gradient(60% 30% at 50% 52%,rgba(254,44,85,.35),transparent)"></div>
+  <div style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:120px;height:120px;border-radius:50%;background:var(--red);box-shadow:0 0 0 14px rgba(254,44,85,.2),0 0 0 34px rgba(254,44,85,.08);display:flex;align-items:center;justify-content:center;font-weight:900;font-size:22px">LIVE</div>
+  <div class="p-top center">${fi(`<h1 class="t">Your LIVE stream scene</h1><div class="body">${top}</div>`)}</div>
+  <div class="p-bot center" style="bottom:100px">${fi(`<div class="body">${bot}</div>`,1)}</div></div>`;
+}
+function page6(s){
+  const p=s.top_3_products||[];
+  const slot=(i,h)=>p[i]?`<div class="pod" style="height:${h}px"><div class="pi" style="${cover(i+4)}"></div><div class="rk">${i+1}</div></div>`:`<div class="pod empty" style="height:${h}px"><div class="pi"></div><div class="rk">${i+1}</div></div>`;
+  return `<div class="page" data-name="products"><div class="podium">${slot(1,150)}${slot(0,200)}${slot(2,120)}</div>
+  <div class="p-top center">${fi(`<h1 class="t">${p.length===1?'Your best seller':'Your best sellers'}</h1><div class="body">People couldn’t get enough of your ${R(p.length===1?'top product':'top '+p.length+' products')}</div>`)}</div>
+  <div class="p-bot center" style="bottom:100px">${fi(`<div class="body">${p.length>=3&&num(s.top_3_product_gmv_percentage)>0?`<p>Together, your top ${p.length} made up ${R(Math.round(num(s.top_3_product_gmv_percentage)*100)+'%')} of your total sales!</p>`:''}<p>You didn’t just make sales. You built favorites.</p></div>`,1)}</div></div>`;
+}
+function page7(s){
+  const cat=s.annual_achievements?.top1_category||'';const b=s.top_3_brands||[];
+  return `<div class="page" data-name="brands"><div class="bgfx" style="background:radial-gradient(60% 30% at 80% 55%,rgba(254,44,85,.22),transparent)"></div>
+  <div class="p-top" style="padding-left:32px">${fi(`<h1 class="t">Your brand power and category win</h1><div class="body">You didn’t just partner. You dominated.${cat?`<br>You owned the ${R(cat)} category…`:''}</div>`)}</div>
+  <div class="p-bot" style="bottom:130px">${fi(`<div class="brands"><div class="body" style="padding-bottom:6px">…and teamed up with</div>${b.map((x,i)=>`<div class="brand">${x.name}<span class="bi">${x.name[0]}</span></div>`).join('')}</div>
+  <div class="body" style="margin-top:70px;line-height:1.5">Brands don’t just work with anyone. They worked with you.</div>`,1)}</div></div>`;
+}
+function gmvRank(v,c){
+  if(v<1000)return `Every sale counts, and you made them.`;
+  if(v<10000)return `You’ve officially joined the ${R(c+'1k')} club this year`;
+  if(v<100000)return `You’ve officially joined the ${R(c+'10k')} club this year`;
+  return `You’ve officially joined the ${R(c+'100k')} club this year`;
+}
+function page8(s){
+  const g=num(s.total_gmv_year),bm=fmtMonth(s.best_month_timestamp),mp=num(s.gmv_percentage_month);
+  const body=g>=1?`<p style="margin-bottom:34px">Let’s talk numbers that matter. You generated ${R(s.total_gmv_year_formatted)} this year,<br>${gmvRank(g,s.currency_symbol||'$')}</p>
+    ${bm&&mp>1?`<p>And your best month? ${R(bm)} when your GMV spiked by ${R(Math.round(mp*100)+'%')}.</p>`:''}${bm&&mp<=1?`<p>And your best month? ${R(bm)}</p>`:''}`
+    :`<p>Every top creator started with their first sale — your journey to success is just beginning.</p>`;
+  return `<div class="page" data-name="gmv"><div class="ring"></div>
+  <div class="p-top center">${fi(`<h1 class="t">Your success, in every sale</h1>`)}</div>
+  <div class="p-bot center" style="bottom:130px">${fi(`<div class="body">${body}</div>`,1)}</div></div>`;
+}
+function page9(s){
+  const n=Math.min(50,num(s.annual_achievements?.state_num));
+  const dots=Array.from({length:50},(_,i)=>`<span class="${i<n?'lit':''}" style="--i:${i}"></span>`).join('');
+  return `<div class="page" data-name="states"><div class="dots">${dots}</div>
+  <div class="p-top center">${fi(`<h1 class="t" style="margin-bottom:40px">Your reach across America</h1><div class="body dim">Every dot is a state your customers came from.</div>`)}</div>
+  <div class="p-bot center" style="bottom:200px">${fi(`<div class="body">Your influence traveled. Customers in ${R(plural(n,'state'))} bought from you.</div>`,1)}</div></div>`;
+}
+/* achievements */
+function achievements(s){
+  const a=s.annual_achievements||{};const secs=num(s.total_live_duration_seconds);
+  const map={
+    1:a.gmv_percentage?`You are Top ${R(pct(a.gmv_percentage))} in GMV`:null,
+    2:a.live_percentage?`You are Top ${R(pct(a.live_percentage))} in LIVE`:null,
+    3:num(s.customers_states_num)?`Your reach across America: ${R(Math.round(num(s.customers_states_num)))}`:null,
+    4:secs?`LIVE Marathon: ${R(Math.floor(secs/3600))} hours, ${R(Math.floor(secs%3600/60))} mins`:null,
+    5:num(s.annual_post_count)?`Total posts: ${R(Math.round(num(s.annual_post_count)))}`:null,
+    6:s.peak_post_day_timestamp?`Peak Posting Day: ${R(fmtDate(s.peak_post_day_timestamp))}`:null,
+    7:a.top1_category?`Top1 Product Category: ${R(a.top1_category)}`:null
+  };
+  const list=(a.achievements||[]).map(k=>map[k]).filter(Boolean);
+  return list.length>=2?`<div class="ach">${list.map(x=>`<div>${x}</div>`).join('')}</div>`
+    :`<div class="body dim" style="font-size:15px">It’s time to flex! 2025 was more than facts and figures. It was grind and growth.<br>Share your custom badge with your real ones: your followers, your brands, and your chat. Tag us so we can follow your success story!</div>`;
+}
+function page10(s){
+  const pf=s.profile_frame_info||{};const nm=s.creator_info?.name||'';
+  return `<div class="page" data-name="ending"><div class="bgfx" style="background:radial-gradient(70% 30% at 50% 45%,rgba(254,44,85,.3),transparent)"></div>
+  <div class="frame"><div class="fav"><div class="ring2"></div><div class="avatar">${(nm[0]||'U').toUpperCase()}</div></div>
+    <div style="font-weight:900;font-size:22px;margin-top:6px">${pf.title||''}</div><div class="body dim" style="font-size:13px;line-height:1.5">${pf.description||''}</div></div>
+  <div class="p-top">${fi(`<div style="font-size:26px;font-weight:900;margin-bottom:12px">Show the world Your Year, Unboxed</div>${achievements(s)}<div style="margin-top:12px;font-weight:800;font-size:20px;color:var(--cyan)">#UnboxYourYear</div>`)}</div>
+  <div class="foot"><div class="logo"><i></i>TikTok Shop</div><div class="handle" style="opacity:0;transition:opacity .6s">${nm?'@'+nm:''}</div></div>
+  <div class="ctas"></div>
+  <div class="ctarow">${fi('<button class="btn sec" data-act="save">Save</button>',1)}${fi('<button class="btn pri" data-act="share">Share</button>',1)}</div>
+  <div class="again" data-act="again">Watch again</div></div>`;
+}
+const FB={
+  ineligible:{title:'You are not eligible for this feature',desc:'This year’s Unbox experience is designed for creators with extensive sales data. Your journey is just getting started — explore more opportunities to build momentum for 2026.',cta:'Join TikTok Shop'},
+  version:{title:'Update your app version to access the campaign',desc:'',cta:'Update'}
+};
+function fallback(kind){const f=FB[kind];return `<div class="fb"><svg class="emptybox" viewBox="0 0 200 200"><rect x="30" y="90" width="140" height="90" rx="10" fill="#c3123d"/><path d="M20 90 100 55l80 35-80 28z" fill="#ff4f78"/><rect x="92" y="55" width="16" height="125" fill="#25f4ee" opacity=".8"/></svg>
+  <div class="inner"><h1 class="t">${f.title}</h1><div class="body dim">${f.desc}</div></div><div class="cta"><button class="btn" data-act="fbcta">${f.cta}</button></div></div>`;
+}
+
+/* ---------- app ---------- */
+let S,opened=false,scen='full';
+const phone=$('#phone');
+function toast(t){let e=$('.toast',phone);if(!e){e=document.createElement('div');e.className='toast';phone.appendChild(e)}e.textContent=t;e.classList.add('show');setTimeout(()=>e.classList.remove('show'),1600)}
+
+function visiblePages(s){
+  const n=num(s.annual_post_count),p=s.top_3_products||[];
+  const L=[page2(s)];
+  if(n>=1)L.push(page3(s));
+  if(n>=1)L.push(page4(s));
+  L.push(page5(s));
+  if(p.length>0&&num(p[0].sold_count)>=1)L.push(page6(s));
+  if((s.top_3_brands||[]).length)L.push(page7(s));
+  L.push(page8(s));
+  if(num(s.customers_states_num)>=4)L.push(page9(s));
+  L.push(page10(s));
+  return L;
+}
+function withNext(html,last){return last?html:html.replace(/<\/div>$/,`<div class="next" data-act="next">${chev}</div></div>`)}
+
+function start(){
+  opened=false;S=SCEN[scen]();
+  if(scen==='lowver'){phone.innerHTML=fallback('version');return}
+  if(!S.is_eligible){phone.innerHTML=fallback('ineligible');return}
+  const nm=S.creator_info.name;
+  phone.innerHTML=`<div class="swiper locked" id="sw"><div class="page on" data-name="unbox">
+    <div class="bgfx" style="background:radial-gradient(70% 40% at 50% 50%,rgba(254,44,85,.25),transparent)"></div>
+    <div class="hi"><div class="avatar" style="width:64px;height:64px;font-size:26px">${nm[0].toUpperCase()}</div>@${nm}</div>
+    <div class="box" id="box"><div class="glow"></div><div class="body3d"></div><div class="ribbon"></div><div class="lid"></div></div>
+    <div style="position:absolute;top:196px;left:0;right:0" class="center">${fi('<div class="big">Unbox<br>Your Year</div>')}</div>
+    <div style="position:absolute;bottom:120px;left:0;right:0;display:flex;justify-content:center">${fi('<button class="btn" id="go">Unbox it!</button>',1)}</div></div></div>`;
+  $('#go').onclick=openBox;
+}
+function openBox(){
+  if(opened)return;opened=true;$('#go').disabled=true;$('#box').classList.add('open');
+  setTimeout(()=>{
+    const sw=$('#sw');const L=visiblePages(S);
+    sw.innerHTML=L.map((h,i)=>withNext(h,i===L.length-1)).join('');
+    sw.classList.remove('locked');sw.scrollTop=0;observe();
+  },2200);
+}
+function observe(){
+  const sw=$('#sw');
+  const io=new IntersectionObserver(es=>es.forEach(e=>{
+    e.target.classList.toggle('on',e.isIntersecting);
+    if(e.target.dataset.name==='ending'&&e.isIntersecting){const h=$('.handle',e.target);setTimeout(()=>h&&(h.style.opacity=1),3000)}
+  }),{root:sw,threshold:.6});
+  sw.querySelectorAll('.page').forEach(p=>io.observe(p));
+  const cs=$('#carscroll');
+  if(cs)cs.addEventListener('scroll',()=>{
+    const it=[...cs.children];const c=cs.scrollLeft+cs.clientWidth/2;
+    let best=0,bd=1e9;it.forEach((x,i)=>{const d=Math.abs(x.offsetLeft+x.offsetWidth/2-c);if(d<bd){bd=d;best=i}});
+    it.forEach((x,i)=>x.classList.toggle('dim',i!==best));
+  });
+}
+phone.addEventListener('click',e=>{
+  const a=e.target.closest('[data-act]');if(!a)return;
+  const sw=$('#sw');
+  switch(a.dataset.act){
+    case 'next':sw.scrollBy({top:sw.clientHeight,behavior:'smooth'});break;
+    case 'again':sw.scrollTo({top:0,behavior:'smooth'});break;
+    case 'save':toast('Saved to your photo gallery (demo)');break;
+    case 'share':toast('Opening share sheet · #UnboxYourYear (demo)');break;
+    case 'fbcta':toast(scen==='lowver'?'Go to App Store / Google Play (demo)':'Go to TikTok Shop self-apply page (demo)');break;
+  }
+});
+$('#scen').onchange=e=>{scen=e.target.value;start()};
+if(new URLSearchParams(location.search).has('embed'))document.querySelector('.dbg').style.display='none';
+window.setScenario=v=>{scen=v;$('#scen').value=v;start()};
+start();
+</script>
+</body>
+</html>

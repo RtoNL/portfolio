@@ -6,7 +6,7 @@
   <meta name="description" content="Case study: helping 430K+ TikTok Shop creators find the right campaign in every region.">
   <title>TikTok Shop creator campaigns — Yuqing Xu</title>
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23111'/%3E%3Ctext x='32' y='42' font-family='Helvetica' font-size='26' font-weight='bold' fill='white' text-anchor='middle'%3EYX%3C/text%3E%3C/svg%3E">
-  <link rel="stylesheet" href="styles.css?v=3">
+  <link rel="stylesheet" href="styles.css?v=4">
   <noscript><style>.reveal{opacity:1!important;transform:none!important}</style></noscript>
 </head>
 <body>
@@ -26,7 +26,7 @@
       <a class="cs-back" href="index.html#work">← All work</a>
       <p class="kicker">CASE 01 · TIKTOK SHOP · CREATOR PRODUCTS</p>
       <h1 class="display">The right campaign,<br><span>for every creator, in every region.</span></h1>
-      <p class="lede">Improving how creators discover campaigns on TikTok Shop — from one banner for everyone to targeted, localized, measurable entry points — and validating every edge state in code before it shipped.</p>
+      <p class="lede">Improving how creators discover campaigns on TikTok Shop — from one banner for everyone to a BFCM creator venue with targeted, localized, measurable entry points — and validating every edge state in code before it shipped.</p>
       <dl class="facts" style="margin-top:36px">
         <div><dt>Role</dt><dd>Software Engineer Intern</dd></div>
         <div><dt>Team</dt><dd>Global E-Commerce · TikTok Shop</dd></div>
@@ -34,8 +34,8 @@
         <div><dt>Product context</dt><dd>430K+ creators, 10+ regions · public-safe reconstruction, no internal UI or data</dd></div>
       </dl>
       <dl class="tldr"><div><dt>PROBLEM</dt><dd>One banner showed every creator the same campaign, in every region.</dd></div><div><dt>DECISION</dt><dd>Target by segment and region, show visible pagination, and define a fallback for every field.</dd></div><div><dt>TRADE-OFF</dt><dd>Later slides get less exposure; a missing translation falls back to English.</dd></div><div><dt>RESULT</dt><dd>~25% higher banner click-through. Across related multi-region releases, ~40% fewer integration defects.</dd></div></dl>
-      <a class="pill-link try-proto" href="#prototype">Try the interactive prototype <i>↓</i></a>
-      <figure class="cs-cover"><img src="assets/work/tiktok-cover.jpg" alt="Three reconstructed creator home screens showing different campaigns for a new creator, a fashion seller, and a live host"></figure>
+      <a class="pill-link try-proto" href="#prototype">Try the interactive prototypes <i>↓</i></a>
+      <figure class="cs-cover"><img src="assets/work/tiktok-bfcm-cover.jpg" alt="Three rebuilt TikTok Shop creator screens: the BFCM creator venue, the Go-LIVE reminder card, and Unbox Your Year"></figure>
     </section>
 
     <div class="cs-layout shell">
@@ -45,6 +45,7 @@
         <a href="#explore">Exploration</a>
         <a href="#tradeoff">Trade-offs</a>
         <a href="#prototype">Prototype &amp; test</a>
+        <a href="#edge">Edge states</a>
         <a href="#system">Scaling it</a>
         <a href="#result">Result</a>
         <a href="#reflect">Reflection</a>
@@ -109,39 +110,18 @@
 
         <section id="prototype" class="cs-sec reveal">
           <p class="kicker"><span>5</span>PROTOTYPE &amp; TEST</p>
-          <h2>Edge states, tested in code instead of a perfect mock.</h2>
-          <p>Static frames only show the happy path. During implementation I checked the states that usually surface after launch — different creator segments, long translations, and missing copy — and aligned the fixes with product and design. <i>For this portfolio retrospective, I reconstructed the states as an interactive prototype.</i> Try it.</p>
-          <div class="proto-wrap" id="tt-proto">
-            <div class="phone" aria-label="Interactive prototype of a creator home screen">
-              <div class="phone-screen">
-                <div class="ph-top"><b>Creator Center</b><span></span></div>
-                <div class="ph-tabs"><span class="on">Home</span><span>Campaigns</span><span>Data</span></div>
-                <div class="car" id="car">
-                  <div class="car-track" id="car-track"></div>
-                  <div class="car-dots" id="car-dots"></div>
-                </div>
-                <div class="ph-list"><div><i></i><span></span></div><div><i></i><span></span></div><div><i></i><span></span></div><div><i></i><span></span></div></div>
-              </div>
-            </div>
-            <div class="proto-ctl">
-              <h4>Who is looking?</h4>
-              <p>Targeting picks which campaigns appear and in what order.</p>
-              <div class="seg" id="seg-segment">
-                <button data-v="new" class="on">New creator</button>
-                <button data-v="fashion">Fashion seller</button>
-                <button data-v="live">Live host</button>
-              </div>
-              <h4>Which market?</h4>
-              <p>Switch languages to stress-test long titles and CTAs.</p>
-              <div class="seg" id="seg-lang">
-                <button data-v="en" class="on">English</button>
-                <button data-v="es">Español (MX)</button>
-                <button data-v="id">Bahasa Indonesia</button>
-                <button data-v="th">ไทย</button>
-                <button data-v="vi">Tiếng Việt</button>
-              </div>
-              <label class="toggle-row"><input type="checkbox" id="fallback" checked> Fall back to English when a translation is missing</label>
-              <p class="proto-log" id="proto-log">Tap a slide or a dot — each tap is logged per slide, like the real click tracking.</p>
+          <h2>The BFCM creator venue, rebuilt so you can use it.</h2>
+          <p>Static frames only show the happy path. During implementation I checked the states that usually surface after launch and aligned the fixes with product and design. <i>For this portfolio retrospective, I rebuilt the venue as a working prototype with mock data.</i></p>
+          <div class="demo-row">
+            <div class="dphone"><div class="dscr"><iframe id="demo-venue" src="assets/demos/bfcm-venue.html?embed" title="BFCM creator venue prototype" loading="lazy"></iframe></div></div>
+            <div class="demo-notes">
+              <h4>Try it</h4>
+              <ul>
+                <li><b>Tap a phase</b> in the timeline. Each BFCM phase brings its own guidance and next step, so creators always know what to do this week.</li>
+                <li><b>Switch to Campaigns.</b> Banners rotate with visible dots, and every campaign card states its reward and progress up front.</li>
+                <li><b>Filter until nothing matches.</b> The empty state explains why and how to get back, instead of a blank list.</li>
+              </ul>
+              <p class="demo-src"><a class="ext" href="assets/demos/bfcm-venue.html" target="_blank" rel="noopener">Open full screen ↗</a></p>
             </div>
           </div>
           <div class="ba" style="margin-top:22px">
@@ -150,8 +130,56 @@
           </div>
         </section>
 
+        <section id="edge" class="cs-sec reveal">
+          <p class="kicker"><span>6</span>EDGE STATES</p>
+          <h2>Two more surfaces, designed for the data creators actually have.</h2>
+          <p>Real creator data is uneven: no LIVE scheduled, zero sign-ups, a first year with no sales. Each state needed its own rule, so no creator saw a broken card or an empty promise.</p>
+
+          <div class="demo-row">
+            <div class="dphone"><div class="dscr"><iframe id="demo-live" src="assets/demos/live-reminder.html?embed" title="Go-LIVE reminder card prototype" loading="lazy"></iframe></div></div>
+            <div class="demo-notes">
+              <h4>Go-LIVE reminder card</h4>
+              <p>A card above the campaign banners that reminds creators of their next scheduled LIVE.</p>
+              <div class="seg" data-demo="demo-live" data-fn="setState">
+                <button data-v="far" class="on">More than a day away</button>
+                <button data-v="today">Today</button>
+                <button data-v="zero">No sign-ups yet</button>
+                <button data-v="empty">No LIVE scheduled</button>
+              </div>
+              <ul>
+                <li><b>Not yet, but visible.</b> More than a day out, the button reads “Prepare” and stays disabled, so the card informs without nagging.</li>
+                <li><b>Act now.</b> Within a day, it turns into a red “Go LIVE” button.</li>
+                <li><b>Hide what isn’t true yet.</b> With zero sign-ups, the avatars and count disappear instead of showing “0 registered”.</li>
+                <li><b>Fail quietly.</b> No session, or an error, means no card at all. The rest of the page never breaks.</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="demo-row">
+            <div class="dphone"><div class="dscr"><iframe id="demo-unbox" src="assets/demos/unbox-your-year.html?embed" title="Unbox Your Year prototype" loading="lazy"></iframe></div></div>
+            <div class="demo-notes">
+              <h4>Unbox Your Year</h4>
+              <p>A year-in-review story for creators. Tap “Unbox it!”, then swipe up through the pages.</p>
+              <div class="seg" data-demo="demo-unbox" data-fn="setScenario">
+                <button data-v="full" class="on">Full year</button>
+                <button data-v="sparse">Sparse data</button>
+                <button data-v="newbie">New creator</button>
+                <button data-v="nolive">No LIVE</button>
+                <button data-v="ineligible">Not eligible</button>
+                <button data-v="lowver">Old app version</button>
+              </div>
+              <ul>
+                <li><b>Skip pages with nothing to say.</b> No posts means no “top videos” page. Fewer than four customer states means no map.</li>
+                <li><b>Rewrite, don’t zero out.</b> A creator with no LIVE gets encouragement, not “0 hours”.</li>
+                <li><b>Grammar follows the data.</b> One product reads “Your best seller”; three read “Your best sellers”.</li>
+                <li><b>Every dead end has a way out.</b> Ineligible creators and outdated apps get a clear explanation and one next step.</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
         <section id="system" class="cs-sec reveal">
-          <p class="kicker"><span>6</span>SCALING IT</p>
+          <p class="kicker"><span>7</span>SCALING IT</p>
           <h2>Making consistency the default, not a heroic effort.</h2>
           <p><b>Map tokens by meaning, not by hex.</b> During BFCM, designers and engineers matched colors by hand. A shared mapping by semantic role made every review a one-line check.</p>
           <div class="map-viz">
@@ -183,7 +211,7 @@
         </section>
 
         <section id="result" class="cs-sec reveal">
-          <p class="kicker"><span>7</span>RESULT</p>
+          <p class="kicker"><span>8</span>RESULT</p>
           <h2>A slot that earns its place — and a launch process that scales.</h2>
           <div class="results">
             <div><strong>~25%</strong><span>higher banner click-through rate</span></div>
@@ -194,7 +222,7 @@
         </section>
 
         <section id="reflect" class="cs-sec reveal">
-          <p class="kicker"><span>8</span>REFLECTION</p>
+          <p class="kicker"><span>9</span>REFLECTION</p>
           <h2>What I would do next.</h2>
           <p>Click-through tells us a slide was noticed, not that it helped. Next I would pair it with campaign join and completion rates, and run short usability sessions with creators in two or three markets to hear how they decide which campaign is worth their time.</p>
         </section>
@@ -205,6 +233,6 @@
   </main>
 
   <footer class="site-footer shell"><span>Yuqing Xu · Seattle, WA</span><a href="mailto:xyqapply@gmail.com">Get in touch ↗</a></footer>
-  <script src="app.js?v=3"></script>
+  <script src="app.js?v=4"></script>
 </body>
 </html>

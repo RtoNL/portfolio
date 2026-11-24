@@ -371,3 +371,14 @@ document.querySelectorAll('.reveal').forEach((el) => revealObserver.observe(el))
   box.addEventListener('click', (e) => { if (e.target === box || e.target === scroller || e.target.classList.contains('zoom-close')) close(); });
   document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && box.classList.contains('on')) close(); });
 })();
+
+/* ---------------- drive embedded demos from the page ---------------- */
+document.querySelectorAll('.seg[data-demo]').forEach((seg) => {
+  const frame = document.getElementById(seg.dataset.demo);
+  seg.addEventListener('click', (e) => {
+    const b = e.target.closest('button');
+    if (!b || !frame) return;
+    seg.querySelectorAll('button').forEach((x) => x.classList.toggle('on', x === b));
+    try { frame.contentWindow[seg.dataset.fn](b.dataset.v); } catch (err) { /* demo not loaded yet */ }
+  });
+});

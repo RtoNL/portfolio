@@ -1,0 +1,982 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>BFCM Creator Venue</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@1,800&display=swap" rel="stylesheet">
+<style>
+  /* ---------- Design tokens (light / dark) ---------- */
+  :root {
+    --Primary: rgba(254, 44, 85, 1);
+    --UIPageFlat1: rgba(255, 255, 255, 1);
+    --BGSecondary: rgba(255, 255, 255, 1);
+    --BGInput: rgba(22, 24, 35, 0.06);
+    --BGView: rgba(22, 24, 35, 0.03);
+    --BGBrand: rgba(254, 44, 85, 0.06);
+    --BGSkeleton: rgba(241, 241, 242, 1);
+    --TextPrimary: rgba(22, 24, 35, 1);
+    --TextSecondary: rgba(22, 24, 35, 0.75);
+    --TextTertiary: rgba(22, 24, 35, 0.5);
+    --TextTertiaryAlt: rgba(22, 24, 35, 0.6);
+    --UIText1: rgba(0, 0, 0, 1);
+    --UIText2: rgba(0, 0, 0, 0.65);
+    --UIText3: rgba(0, 0, 0, 0.48);
+    --UITextPrimary: rgba(225, 5, 67, 1);
+    --LinePrimary: rgba(22, 24, 35, 0.2);
+    --LineSecondary: rgba(22, 24, 35, 0.12);
+    --ConstTextInverse: rgba(255, 255, 255, 1);
+    --ConstTextInverse2: rgba(255, 255, 255, 0.9);
+    --ConstTextInverse3: rgba(255, 255, 255, 0.75);
+    --TagGreenText: rgba(89, 128, 108, 1);
+    --TagGreenBG: rgba(239, 245, 242, 1);
+    --Tag100Text: rgba(254, 44, 85, 1);
+    --Tag100BG: rgba(254, 44, 85, 0.06);
+    --ECGoldText: rgba(182, 122, 6, 1);
+    --ECGoldBanner: rgba(253, 246, 231, 1);
+    --ECCyanText: rgba(0, 123, 123, 1);
+    --ECCyanBanner: rgba(240, 251, 251, 1);
+    --SheetBG: rgba(255, 255, 255, 1);
+    --Scrim: rgba(0, 0, 0, 0.5);
+    --Active: #C51324;
+    --font: "TikTok Sans", "Proxima Nova", -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", Arial, sans-serif;
+    --display: "Barlow Condensed", Impact, "Arial Narrow", sans-serif;
+    color-scheme: light;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --Primary: rgba(255, 59, 92, 1);
+      --UIPageFlat1: rgba(0, 0, 0, 1);
+      --BGSecondary: rgba(37, 37, 37, 1);
+      --BGInput: rgba(255, 255, 255, 0.12);
+      --BGView: rgba(255, 255, 255, 0.04);
+      --BGBrand: rgba(254, 44, 85, 0.34);
+      --BGSkeleton: rgba(255, 255, 255, 0.08);
+      --TextPrimary: rgba(255, 255, 255, 0.9);
+      --TextSecondary: rgba(255, 255, 255, 0.75);
+      --TextTertiary: rgba(255, 255, 255, 0.5);
+      --TextTertiaryAlt: rgba(255, 255, 255, 0.6);
+      --UIText1: rgba(255, 255, 255, 0.9);
+      --UIText2: rgba(255, 255, 255, 0.88);
+      --UIText3: rgba(255, 255, 255, 0.6);
+      --UITextPrimary: rgba(255, 87, 111, 1);
+      --LinePrimary: rgba(255, 255, 255, 0.2);
+      --LineSecondary: rgba(255, 255, 255, 0.12);
+      --TagGreenText: rgba(178, 255, 217, 1);
+      --TagGreenBG: rgba(89, 128, 102, 1);
+      --Tag100Text: rgba(255, 59, 92, 1);
+      --Tag100BG: rgba(254, 44, 85, 0.15);
+      --ECGoldText: rgba(255, 198, 68, 1);
+      --ECGoldBanner: rgba(50, 44, 27, 1);
+      --ECCyanText: rgba(87, 186, 186, 1);
+      --ECCyanBanner: rgba(26, 48, 49, 1);
+      --SheetBG: rgba(30, 30, 30, 1);
+      color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] {
+    --Primary: rgba(255, 59, 92, 1);
+    --UIPageFlat1: rgba(0, 0, 0, 1);
+    --BGSecondary: rgba(37, 37, 37, 1);
+    --BGInput: rgba(255, 255, 255, 0.12);
+    --BGView: rgba(255, 255, 255, 0.04);
+    --BGBrand: rgba(254, 44, 85, 0.34);
+    --BGSkeleton: rgba(255, 255, 255, 0.08);
+    --TextPrimary: rgba(255, 255, 255, 0.9);
+    --TextSecondary: rgba(255, 255, 255, 0.75);
+    --TextTertiary: rgba(255, 255, 255, 0.5);
+    --TextTertiaryAlt: rgba(255, 255, 255, 0.6);
+    --UIText1: rgba(255, 255, 255, 0.9);
+    --UIText2: rgba(255, 255, 255, 0.88);
+    --UIText3: rgba(255, 255, 255, 0.6);
+    --UITextPrimary: rgba(255, 87, 111, 1);
+    --LinePrimary: rgba(255, 255, 255, 0.2);
+    --LineSecondary: rgba(255, 255, 255, 0.12);
+    --TagGreenText: rgba(178, 255, 217, 1);
+    --TagGreenBG: rgba(89, 128, 102, 1);
+    --Tag100Text: rgba(255, 59, 92, 1);
+    --Tag100BG: rgba(254, 44, 85, 0.15);
+    --ECGoldText: rgba(255, 198, 68, 1);
+    --ECGoldBanner: rgba(50, 44, 27, 1);
+    --ECCyanText: rgba(87, 186, 186, 1);
+    --ECCyanBanner: rgba(26, 48, 49, 1);
+    --SheetBG: rgba(30, 30, 30, 1);
+    color-scheme: dark;
+  }
+
+  /* ---------- Base ---------- */
+  *, *::before, *::after { box-sizing: border-box; }
+  :root {
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+  html { height: 100%; scroll-padding-top: env(safe-area-inset-top, 0px); background: #1a0101; }
+  body {
+    margin: 0; height: 100%;
+    background: #1a0101;
+    font-family: var(--font);
+    color: var(--TextPrimary);
+    -webkit-font-smoothing: antialiased;
+    -webkit-tap-highlight-color: transparent;
+  }
+  button { font: inherit; color: inherit; background: none; border: 0; padding: 0; cursor: pointer; }
+  button:focus-visible, [tabindex]:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
+  .sheet button:focus-visible, .filter-sheet button:focus-visible { outline-color: var(--Primary); }
+
+  /* Type scale */
+  .SmallText2-Semibold { font-size: 10px; line-height: 14px; font-weight: 600; }
+  .P1-Bold { font-size: 14px; line-height: 18px; font-weight: 700; }
+  .P1-Medium { font-size: 14px; line-height: 18px; font-weight: 500; }
+  .P1-Regular { font-size: 14px; line-height: 18px; font-weight: 400; }
+  .P3-Medium { font-size: 12px; line-height: 16px; font-weight: 500; }
+  .H4-Regular { font-size: 14px; line-height: 20px; font-weight: 400; }
+  .H4-Bold { font-size: 14px; line-height: 20px; font-weight: 700; }
+  .H3-Medium { font-size: 16px; line-height: 22px; font-weight: 500; }
+  .Headline-Bold { font-size: 15px; line-height: 20px; font-weight: 700; }
+  .Headline-Medium { font-size: 15px; line-height: 20px; font-weight: 500; }
+
+  /* ---------- App frame ---------- */
+  .app {
+    position: relative; max-width: 430px; height: 100%; margin: 0 auto; overflow: hidden;
+    background: linear-gradient(158deg, #220202 7.72%, #6E0A0C 30.22%, #CB121A 75.44%);
+  }
+  @media (min-width: 480px) { .app { box-shadow: 0 0 0 1px rgba(255,255,255,0.06), 0 24px 80px rgba(0,0,0,0.6); } }
+  .scroll { position: absolute; inset: 0; overflow-y: auto; overflow-x: hidden; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+  .scroll::-webkit-scrollbar { display: none; }
+
+  /* ---------- Nav bar ---------- */
+  .nav {
+    position: absolute; top: 0; left: 0; right: 0; z-index: 50; height: 44px;
+    display: flex; align-items: center; justify-content: space-between; padding: 0 12px;
+    color: var(--ConstTextInverse);
+  }
+  .nav-bg {
+    position: absolute; inset: 0; background: #FF3B5C; opacity: 0; transition: opacity 0.2s;
+    border-bottom: 0.5px solid rgba(255,255,255,0.12);
+  }
+  .nav.scrolled .nav-bg { opacity: 1; }
+  .nav > * { position: relative; }
+  .nav-side { display: flex; align-items: center; min-width: 88px; }
+  .nav-side.end { justify-content: flex-end; gap: 20px; }
+  .icon-btn { width: 28px; height: 28px; display: grid; place-items: center; border-radius: 50%; }
+  .nav-logo { position: absolute; left: 50%; transform: translateX(-50%); }
+
+  /* ---------- Hero ---------- */
+  .top-block { position: relative; background: linear-gradient(180deg, #FF3B5C 0%, #D83A56 100%); padding-bottom: 8px; }
+  .hero { position: relative; padding: 60px 16px 20px; min-height: 196px; overflow: hidden; }
+  .hero-kicker {
+    display: inline-flex; align-items: center; gap: 6px; height: 22px; padding: 0 10px; border-radius: 11px;
+    background: rgba(0,0,0,0.18); color: #fff; font-size: 12px; font-weight: 600;
+  }
+  .hero-title {
+    margin: 10px 0 0; font-family: var(--display); font-style: italic; font-weight: 800;
+    font-size: 52px; line-height: 0.92; letter-spacing: 0.01em; color: #fff; text-transform: uppercase;
+    text-shadow: 0 2px 0 rgba(120, 0, 20, 0.35);
+  }
+  .hero-title span { display: block; font-size: 34px; line-height: 1; color: #FFE3E8; }
+  .countdown {
+    margin-top: 14px; display: inline-flex; align-items: center; gap: 8px; padding: 6px 12px 6px 10px;
+    border-radius: 999px; background: #fff; color: var(--Active); font-weight: 700; font-size: 13px;
+  }
+  .countdown b { font-variant-numeric: tabular-nums; font-weight: 700; }
+  .hero-art { position: absolute; right: -14px; top: 54px; width: 150px; height: 150px; pointer-events: none; }
+
+  /* ---------- Milestone ---------- */
+  .milestone { position: relative; z-index: 10; width: 100%; padding-bottom: 6px; margin-bottom: 20px; }
+  .milestone-inner {
+    position: relative; display: flex; flex-direction: column; align-items: flex-start; gap: 16px;
+    padding: 16px; margin: 0 16px; border-radius: 12px; border: 1px solid rgba(0,0,0,0.08);
+    background: rgba(0,0,0,0.1); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
+  }
+  .nail { position: absolute; top: -7px; }
+  .phase-scroll {
+    display: flex; align-items: center; gap: 8px; position: relative; overflow-x: scroll; height: 80px;
+    scrollbar-width: none; -ms-overflow-style: none;
+    width: calc(100% + 32px); margin-left: -16px; margin-right: -16px; padding-left: 16px; padding-right: 16px;
+  }
+  .phase-scroll::-webkit-scrollbar { display: none; }
+  .phase-card {
+    flex-shrink: 0; height: 80px; padding: 8px; border-radius: 8px; display: flex; flex-direction: column; align-items: center;
+    background: rgba(0,0,0,0.1); -webkit-backdrop-filter: blur(5px); backdrop-filter: blur(5px);
+    transition: all 0.3s ease-in-out; cursor: pointer; color: rgba(255,255,255,0.6);
+  }
+  .phase-card.selected { background: #fff; color: rgba(0,0,0,0.65); }
+  .phase-card.selected.current { color: #C51324; }
+  .phase-date { text-align: center; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100%; }
+  .phase-title-wrap { display: flex; justify-content: center; align-items: center; gap: 10px; flex: 1 0 0; align-self: stretch; }
+  .phase-title {
+    text-align: center; flex: 1 0 0; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;
+    overflow: hidden; text-overflow: ellipsis; word-break: break-word;
+  }
+  .guidance { display: flex; align-items: flex-start; gap: 8px; padding: 8px 8px 0; align-self: stretch; border-radius: 8px; }
+  .guidance-icon { display: flex; padding: 2px 0; align-items: center; flex-shrink: 0; color: var(--ConstTextInverse); }
+  .guidance-body { flex: 1; display: flex; flex-direction: column; gap: 8px; }
+  .guidance p { margin: 0; color: rgba(255,255,255,0.88); }
+  .guidance-link { display: inline-flex; align-items: center; gap: 4px; color: #F6F6F6; cursor: pointer; }
+  .guidance-inline { color: #F6F6F6; font-weight: 700; cursor: pointer; text-decoration: underline dotted; text-underline-offset: 25%; }
+
+  /* ---------- Content sheet ---------- */
+  .sheet {
+    position: relative; z-index: 10; margin-top: -24px; width: 100%; min-height: 72vh;
+    background: var(--UIPageFlat1); border-radius: 32px 32px 0 0; padding-bottom: 24px;
+  }
+  .tabs-wrap { padding: 12px 12px 8px; }
+  .tabs { display: flex; height: 44px; padding: 3px; border-radius: 999px; background: var(--BGInput); }
+  .tab {
+    flex: 1; max-width: 50%; display: flex; align-items: center; justify-content: center; gap: 2px; padding: 0 14px;
+    height: 100%; border-radius: 999px; color: var(--UIText3); transition: all 0.3s ease-in-out;
+  }
+  .tab.active { background: var(--Active); color: #fff; }
+  .tab span.label { margin-left: 6px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .tab-content { margin-top: 16px; padding: 0 16px 24px; }
+  [hidden] { display: none !important; }
+
+  /* ---------- Section header ---------- */
+  .sec-head { display: flex; align-items: center; justify-content: space-between; margin: 24px 0 12px; }
+  .sec-head:first-child { margin-top: 0; }
+  .sec-title { font-size: 17px; line-height: 22px; font-weight: 700; color: var(--TextPrimary); margin: 0; }
+  .sec-more { display: inline-flex; align-items: center; gap: 2px; font-size: 13px; font-weight: 500; color: var(--TextTertiary); }
+
+  /* ---------- Products tab ---------- */
+  .cats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+  .cat { display: flex; flex-direction: column; align-items: center; gap: 8px; }
+  .cat-icon { width: 56px; height: 56px; border-radius: 18px; display: grid; place-items: center; }
+  .cat-label { font-size: 12px; line-height: 15px; font-weight: 500; color: var(--TextSecondary); text-align: center; }
+  .market-card {
+    margin-top: 20px; display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 14px 14px 14px 16px;
+    border-radius: 12px; background: var(--BGBrand); border: 0.5px solid var(--Tag100BG);
+  }
+  .market-card h3 { margin: 0 0 4px; font-size: 15px; line-height: 20px; font-weight: 700; color: var(--TextPrimary); }
+  .market-card p { margin: 0 0 10px; font-size: 12px; line-height: 16px; color: var(--TextSecondary); }
+  .btn-primary {
+    display: inline-flex; align-items: center; justify-content: center; gap: 2px; height: 32px; padding: 0 14px; border-radius: 6px;
+    background: var(--Primary); color: #fff; font-size: 13px; font-weight: 600;
+  }
+  .thumbs { display: flex; flex-shrink: 0; }
+  .thumb {
+    width: 52px; height: 52px; border-radius: 10px; display: grid; place-items: center; font-size: 26px;
+    border: 2px solid var(--UIPageFlat1); margin-left: -14px; background: #fff3;
+  }
+  .thumb:first-child { margin-left: 0; }
+  .carousel { display: flex; gap: 10px; overflow-x: auto; margin: 0 -16px; padding: 0 16px; scrollbar-width: none; scroll-snap-type: x proximity; }
+  .carousel::-webkit-scrollbar { display: none; }
+  .pcard { flex: 0 0 140px; scroll-snap-align: start; scroll-margin-left: 16px; }
+  .pimg { position: relative; width: 140px; height: 140px; border-radius: 8px; display: grid; place-items: center; font-size: 56px; overflow: hidden; }
+  .pbadge { position: absolute; left: 6px; top: 6px; padding: 2px 6px; border-radius: 4px; font-size: 10px; line-height: 14px; font-weight: 600; background: var(--TagGreenBG); color: var(--TagGreenText); }
+  .pbadge.boost { background: var(--ECGoldBanner); color: var(--ECGoldText); }
+  .pbadge.pick { background: var(--Tag100BG); color: var(--Tag100Text); }
+  .ptitle { margin: 8px 0 4px; font-size: 13px; line-height: 17px; font-weight: 500; color: var(--TextPrimary); display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+  .pprice { font-size: 15px; line-height: 20px; font-weight: 700; color: var(--TextPrimary); }
+  .pmeta { margin-top: 2px; font-size: 11px; line-height: 15px; color: var(--TextTertiary); }
+  .pmeta b { color: var(--UITextPrimary); font-weight: 600; }
+
+  /* ---------- Banners ---------- */
+  .banner-wrap { position: relative; }
+  .banner-track { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; border-radius: 12px; scrollbar-width: none; }
+  .banner-track::-webkit-scrollbar { display: none; }
+  .banner { flex: 0 0 100%; scroll-snap-align: start; height: 112px; padding: 16px 18px; color: #fff; position: relative; overflow: hidden; display: flex; flex-direction: column; justify-content: center; }
+  .banner h4 { margin: 0 0 4px; font-size: 18px; line-height: 22px; font-weight: 800; max-width: 70%; }
+  .banner p { margin: 0; font-size: 12px; line-height: 16px; opacity: 0.92; max-width: 66%; }
+  .banner-deco { position: absolute; right: -10px; bottom: -14px; font-size: 76px; opacity: 0.95; transform: rotate(-10deg); }
+  .banner-dots { position: absolute; left: 0; right: 0; bottom: 4px; }
+  .dots { display: flex; width: 100%; justify-content: center; align-items: center; padding: 3px 6px; pointer-events: none; }
+  .dot { width: 12px; height: 12px; padding: 3px; display: flex; justify-content: center; align-items: center; }
+  .dot i { display: block; border-radius: 50%; transition: all 0.3s; }
+  .bottom-banners { margin-top: 12px; display: flex; flex-direction: column; gap: 12px; }
+  .bottom-banners .banner { border-radius: 12px; flex-basis: auto; height: 88px; }
+  .bottom-banners .banner h4 { font-size: 16px; }
+
+  /* ---------- Filters ---------- */
+  .filter-row { display: flex; align-items: center; gap: 8px; margin: 20px 0 12px; }
+  .chips { display: flex; gap: 8px; overflow-x: auto; flex: 1; scrollbar-width: none; min-width: 0; }
+  .chips::-webkit-scrollbar { display: none; }
+  .toggle {
+    flex-shrink: 0; display: flex; align-items: center; padding: 9px 16px; border-radius: 6px; border: 1px solid transparent;
+    background: var(--BGView); color: var(--TextPrimary); font-size: 14px; line-height: 18px; font-weight: 400;
+    transition: background 0.2s, border-color 0.2s; white-space: nowrap;
+  }
+  .toggle.selected { border-color: var(--TextPrimary); font-weight: 500; }
+  .filter-btn { display: inline-flex; align-items: center; gap: 4px; flex-shrink: 0; padding: 9px 12px; border-radius: 6px; border: 1px solid transparent; background: var(--BGView); color: var(--TextPrimary); font-size: 14px; line-height: 18px; }
+  .filter-btn.selected { border-color: var(--TextPrimary); font-weight: 500; }
+  .filter-btn .num { min-width: 16px; height: 16px; border-radius: 8px; padding: 0 4px; background: var(--Primary); color: #fff; font-size: 11px; line-height: 16px; font-weight: 700; text-align: center; }
+
+  /* ---------- Activity cards ---------- */
+  .activity { padding-bottom: 12px; position: relative; }
+  .card {
+    position: relative; width: 100%; display: flex; flex-direction: column; padding: 16px; overflow: hidden;
+    border-radius: 12px; background: var(--BGSecondary); border: 0.5px solid var(--LinePrimary);
+  }
+  .new-tag {
+    position: absolute; left: 0; top: 0; z-index: 2; padding: 2px 8px 2px 8px; border-radius: 12px 0 8px 0;
+    background: var(--Primary); color: #fff; font-size: 11px; line-height: 15px; font-weight: 700;
+  }
+  .task { flex-direction: row; align-items: center; justify-content: space-between; gap: 12px; }
+  .task .title { color: var(--TextTertiaryAlt); }
+  .task .header { margin-top: 4px; color: var(--TextPrimary); }
+  .task .subheader { margin-top: 2px; color: var(--TextSecondary); display: inline-flex; align-items: center; gap: 2px; }
+  .progress { margin-top: 10px; height: 4px; border-radius: 2px; background: var(--BGInput); overflow: hidden; }
+  .progress i { display: block; height: 100%; background: var(--Primary); border-radius: 2px; }
+  .progress-text { margin-top: 4px; font-size: 11px; color: var(--TextTertiary); }
+  .btn-action { flex-shrink: 0; width: 70px; height: 40px; border-radius: 6px; background: var(--Primary); color: #fff; }
+  .btn-action.ghost { background: var(--BGInput); color: var(--TextPrimary); }
+  .challenge { flex-direction: column; gap: 12px; }
+  .ch-top { display: flex; gap: 12px; }
+  .ch-icon { width: 52px; height: 52px; border-radius: 12px; display: grid; place-items: center; flex-shrink: 0; background: linear-gradient(145deg, #FFC122, #FE7C02); }
+  .ch-theme { color: var(--TextTertiaryAlt); }
+  .ch-title { margin-top: 2px; color: var(--TextPrimary); }
+  .ch-time { display: inline-block; margin-top: 6px; padding: 1px 6px; border-radius: 4px; background: var(--Tag100BG); color: var(--Tag100Text); font-size: 11px; line-height: 16px; font-weight: 600; }
+  .ch-reward { color: var(--TextSecondary); }
+  .ch-reward b { color: var(--UITextPrimary); font-weight: 700; }
+  .ch-bottom { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+  .avatars { display: flex; align-items: center; }
+  .avatar { width: 22px; height: 22px; border-radius: 50%; border: 1.5px solid var(--BGSecondary); margin-left: -7px; display: grid; place-items: center; font-size: 10px; font-weight: 700; color: #fff; }
+  .avatar:first-child { margin-left: 0; }
+  .avatars-note { margin-left: 8px; font-size: 12px; color: var(--TextTertiary); }
+  .btn-sm { height: 32px; padding: 0 16px; border-radius: 6px; background: var(--Primary); color: #fff; font-size: 14px; font-weight: 600; }
+  .btn-sm.ghost { background: var(--BGInput); color: var(--TextPrimary); }
+  .parent {
+    flex-direction: row; align-items: center; gap: 12px; border: 0;
+    background: linear-gradient(135deg, #3B0A10 0%, #7A0F1C 100%);
+  }
+  .parent-covers { position: relative; width: 64px; height: 64px; flex-shrink: 0; }
+  .parent-covers i { position: absolute; width: 48px; height: 48px; border-radius: 10px; display: grid; place-items: center; font-style: normal; font-size: 24px; border: 2px solid rgba(255,255,255,0.9); }
+  .parent-covers i:nth-child(1) { left: 0; top: 0; z-index: 3; }
+  .parent-covers i:nth-child(2) { left: 10px; top: 8px; z-index: 2; opacity: 0.85; }
+  .parent-covers i:nth-child(3) { left: 20px; top: 16px; z-index: 1; opacity: 0.7; }
+  .parent-body { flex: 1; min-width: 0; }
+  .parent-title { color: var(--ConstTextInverse); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .parent-period { margin-top: 4px; color: var(--ConstTextInverse); }
+  .parent-count { margin-top: 2px; color: var(--ConstTextInverse2); font-size: 12px; line-height: 16px; }
+  .parent-chev { color: var(--ConstTextInverse3); flex-shrink: 0; }
+
+  /* ---------- Empty ---------- */
+  .empty { display: flex; flex-direction: column; align-items: center; margin: 48px 0; }
+  .empty svg { margin-bottom: 20px; }
+  .empty .h { color: var(--UIText1); margin-bottom: 8px; text-align: center; }
+  .empty .s { color: var(--UIText3); text-align: center; }
+
+  /* ---------- Filter bottom sheet ---------- */
+  .scrim { position: absolute; inset: 0; z-index: 90; background: var(--Scrim); opacity: 0; pointer-events: none; transition: opacity 0.25s; }
+  .scrim.open { opacity: 1; pointer-events: auto; }
+  .filter-sheet {
+    position: absolute; left: 0; right: 0; bottom: 0; z-index: 100; max-height: 82%; display: flex; flex-direction: column;
+    background: var(--SheetBG); color: var(--TextPrimary); border-radius: 16px 16px 0 0;
+    transform: translateY(102%); transition: transform 0.3s ease; padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+  .filter-sheet.open { transform: translateY(0); }
+  .fs-head { display: flex; align-items: center; justify-content: center; position: relative; height: 52px; flex-shrink: 0; }
+  .fs-head h3 { margin: 0; font-size: 16px; font-weight: 700; }
+  .fs-close { position: absolute; right: 12px; top: 12px; width: 28px; height: 28px; display: grid; place-items: center; color: var(--TextTertiary); }
+  .fs-body { overflow-y: auto; padding: 4px 16px 16px; }
+  .fs-group { margin-bottom: 20px; }
+  .fs-group h4 { margin: 0 0 10px; font-size: 14px; line-height: 18px; font-weight: 600; color: var(--TextPrimary); }
+  .fs-opts { display: flex; flex-wrap: wrap; gap: 8px; }
+  .fs-foot { display: flex; gap: 12px; padding: 12px 16px; border-top: 0.5px solid var(--LineSecondary); flex-shrink: 0; }
+  .fs-foot button { flex: 1; height: 44px; border-radius: 8px; font-size: 15px; font-weight: 600; }
+  .fs-reset { background: var(--BGInput); color: var(--TextPrimary); }
+  .fs-apply { background: var(--Primary); color: #fff; }
+
+  /* ---------- Toast ---------- */
+  .toast {
+    position: absolute; left: 50%; bottom: 48px; z-index: 200; transform: translate(-50%, 12px); opacity: 0; pointer-events: none;
+    max-width: 80%; padding: 10px 16px; border-radius: 8px; background: rgba(84,84,84,0.92); color: #fff; font-size: 14px; line-height: 18px; text-align: center;
+    transition: opacity 0.2s, transform 0.2s;
+  }
+  .toast.show { opacity: 1; transform: translate(-50%, 0); }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { transition-duration: 0.01ms !important; scroll-behavior: auto !important; }
+  }
+</style>
+</head>
+<body>
+<div class="app" id="app">
+  <!-- Nav bar -->
+  <header class="nav" id="nav">
+    <div class="nav-bg"></div>
+    <div class="nav-side">
+      <button class="icon-btn" id="btnBack" aria-label="Back">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M15 5l-7 7 7 7" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+    </div>
+    <svg class="nav-logo" width="109" height="20" viewBox="0 0 109 20" role="img" aria-label="Black Friday and Cyber Monday">
+      <text x="54.5" y="10" text-anchor="middle" fill="#fff" font-family="Barlow Condensed, Impact, Arial Narrow, sans-serif" font-style="italic" font-weight="800" font-size="12.5" letter-spacing="0.5">BLACK FRIDAY</text>
+      <text x="54.5" y="19" text-anchor="middle" fill="#FFD2DA" font-family="Barlow Condensed, Impact, Arial Narrow, sans-serif" font-style="italic" font-weight="800" font-size="8.5" letter-spacing="1.4">&amp; CYBER MONDAY</text>
+    </svg>
+    <div class="nav-side end">
+      <button class="icon-btn" id="btnInfo" aria-label="About Black Friday Cyber Monday">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2"/><path d="M12 11v5.2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="7.8" r="1.2" fill="currentColor"/></svg>
+      </button>
+      <button class="icon-btn" id="btnShare" aria-label="Share">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M13.5 4.5l7 6.8-7 6.7v-4c-4.6 0-7.4 1.4-9.5 4.6.5-5.2 3.2-9.2 9.5-9.9v-4.2z" fill="currentColor"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <div class="scroll" id="scroll">
+    <div class="top-block">
+      <!-- Top background card -->
+      <section class="hero">
+        <span class="hero-kicker">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.6 7L12 17.2 5.8 20.9l1.6-7L2 9.2l7.1-.6L12 2z" fill="#fff"/></svg>
+          Creator Venue
+        </span>
+        <h1 class="hero-title">Black Friday<span>&amp; Cyber Monday</span></h1>
+        <div class="countdown" aria-live="off">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2.2"/><path d="M12 7v5.5l3.5 2" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span>Ends in <b id="countdown">--</b></span>
+        </div>
+        <svg class="hero-art" viewBox="0 0 150 150" fill="none" aria-hidden="true">
+          <circle cx="86" cy="76" r="64" fill="rgba(255,255,255,0.10)"/>
+          <circle cx="86" cy="76" r="44" fill="rgba(255,255,255,0.10)"/>
+          <g transform="rotate(14 80 80)">
+            <path d="M40 52h64a6 6 0 0 1 6 6l-5 52a8 8 0 0 1-8 7H47a8 8 0 0 1-8-7l-5-52a6 6 0 0 1 6-6z" fill="#fff"/>
+            <path d="M58 52v-6a16 16 0 0 1 32 0v6" stroke="#fff" stroke-width="6" stroke-linecap="round"/>
+            <path d="M74 66l4.6 9.4 10.4 1.5-7.5 7.3 1.8 10.3-9.3-4.9-9.3 4.9 1.8-10.3-7.5-7.3 10.4-1.5L74 66z" fill="#FE2C55"/>
+          </g>
+          <path d="M126 22l3 7 7 3-7 3-3 7-3-7-7-3 7-3 3-7z" fill="#fff" opacity="0.9"/>
+          <path d="M22 96l2 4.6 4.6 2-4.6 2-2 4.6-2-4.6-4.6-2 4.6-2 2-4.6z" fill="#fff" opacity="0.7"/>
+        </svg>
+      </section>
+
+      <!-- Milestone -->
+      <section class="milestone" id="milestone">
+        <div class="milestone-inner">
+          <svg class="nail" style="left:86px" width="9" height="20" viewBox="0 0 9 20" fill="none" aria-hidden="true"><circle cx="4.5" cy="16.5" r="3.5" fill="#454545"/><path d="M1.92773 3.83803C1.92773 2.41787 3.079 1.2666 4.49916 1.2666C5.91932 1.2666 7.07059 2.41787 7.07059 3.83803V15.1618C7.07059 16.582 5.91932 17.7333 4.49916 17.7333C3.079 17.7333 1.92773 16.582 1.92773 15.1618V3.83803Z" fill="#FE375F"/><path d="M1.92773 3.83803C1.92773 2.41787 3.079 1.2666 4.49916 1.2666C5.91932 1.2666 7.07059 2.41787 7.07059 3.83803V15.1618C7.07059 16.582 5.91932 17.7333 4.49916 17.7333C3.079 17.7333 1.92773 16.582 1.92773 15.1618V3.83803Z" fill="#BEBEBE"/></svg>
+          <svg class="nail" style="right:86px" width="9" height="20" viewBox="0 0 9 20" fill="none" aria-hidden="true"><circle cx="4.5" cy="16.5" r="3.5" fill="#454545"/><path d="M1.92773 3.83803C1.92773 2.41787 3.079 1.2666 4.49916 1.2666C5.91932 1.2666 7.07059 2.41787 7.07059 3.83803V15.1618C7.07059 16.582 5.91932 17.7333 4.49916 17.7333C3.079 17.7333 1.92773 16.582 1.92773 15.1618V3.83803Z" fill="#FE375F"/><path d="M1.92773 3.83803C1.92773 2.41787 3.079 1.2666 4.49916 1.2666C5.91932 1.2666 7.07059 2.41787 7.07059 3.83803V15.1618C7.07059 16.582 5.91932 17.7333 4.49916 17.7333C3.079 17.7333 1.92773 16.582 1.92773 15.1618V3.83803Z" fill="#BEBEBE"/></svg>
+
+          <div class="phase-scroll" id="phaseScroll"></div>
+          <div class="guidance" id="guidance"></div>
+        </div>
+      </section>
+    </div>
+
+    <!-- Content sheet -->
+    <main class="sheet">
+      <div class="tabs-wrap">
+        <div class="tabs" role="tablist">
+          <button class="tab Headline-Bold active" role="tab" id="tabProducts" aria-selected="true">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5.5 8h13l1.1 11.2a1.6 1.6 0 0 1-1.6 1.8H6a1.6 1.6 0 0 1-1.6-1.8L5.5 8z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M9 8V7a3 3 0 0 1 6 0v1" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M12 11.5l1 2 2.2.3-1.6 1.5.4 2.2-2-1.1-2 1.1.4-2.2-1.6-1.5 2.2-.3 1-2z" fill="currentColor"/></svg>
+            <span class="label">Marketplace</span>
+          </button>
+          <button class="tab Headline-Bold" role="tab" id="tabCampaigns" aria-selected="false">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 10.5v3a1 1 0 0 0 1 1h2.2l5.3 3.8a.8.8 0 0 0 1.3-.7V6.4a.8.8 0 0 0-1.3-.7L7.2 9.5H5a1 1 0 0 0-1 1z" fill="currentColor"/><path d="M17 9.2a4.2 4.2 0 0 1 0 5.6M19.2 6.8a7.6 7.6 0 0 1 0 10.4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+            <span class="label">Campaigns</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="tab-content">
+        <!-- Products tab -->
+        <div id="panelProducts">
+          <div class="sec-head"><h2 class="sec-title">Shop by category</h2></div>
+          <div class="cats" id="cats"></div>
+
+          <div class="market-card">
+            <div>
+              <h3>Find products worth promoting</h3>
+              <p>Browse the full Black Friday marketplace with samples and boosted commission.</p>
+              <button class="btn-primary" data-toast="Opens the product marketplace">Browse products
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M9 5l7 7-7 7" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </button>
+            </div>
+            <div class="thumbs" aria-hidden="true">
+              <div class="thumb" style="background:#FFE4E8">🧴</div>
+              <div class="thumb" style="background:#E3F3FF">🎧</div>
+              <div class="thumb" style="background:#FFF0D6">👟</div>
+            </div>
+          </div>
+
+          <div id="carousels"></div>
+        </div>
+
+        <!-- Campaigns tab -->
+        <div id="panelCampaigns" hidden>
+          <div id="topBanners"></div>
+          <div class="filter-row">
+            <div class="chips" id="chips"></div>
+            <button class="filter-btn" id="filterBtn" aria-haspopup="dialog"></button>
+          </div>
+          <div id="activityList"></div>
+          <div class="bottom-banners" id="bottomBanners"></div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- Filter sheet -->
+  <div class="scrim" id="scrim"></div>
+  <section class="filter-sheet" id="filterSheet" role="dialog" aria-label="Filters" aria-hidden="true">
+    <div class="fs-head">
+      <h3>Filters</h3>
+      <button class="fs-close" id="fsClose" aria-label="Close filters">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>
+      </button>
+    </div>
+    <div class="fs-body" id="fsBody"></div>
+    <div class="fs-foot">
+      <button class="fs-reset" id="fsReset">Reset</button>
+      <button class="fs-apply" id="fsApply">Apply</button>
+    </div>
+  </section>
+
+  <div class="toast" id="toast" role="status"></div>
+</div>
+
+<script>
+(function () {
+  "use strict";
+
+  /* ============================================================
+     Mock data (public-safe, illustrative)
+     ============================================================ */
+  var Y = 2026;
+  var PHASES = [
+    { title: "Warm-up", date_range: "Oct 20 - Nov 1", start: [9, 20], end: [10, 1],
+      guidance_text: "Build your showcase early. Post teaser videos and add products with <1>#BFCMShowcase</1> so followers are ready.",
+      guidance_link_text: "", guidance_link_url: ["#"] },
+    { title: "Durable", date_range: "Nov 2 - Nov 8", start: [10, 2], end: [10, 8],
+      guidance_text: "Home and gadget gifts sell early. Pair product videos with <1>#DurableDeals</1> and check free samples in Marketplace.",
+      guidance_link_text: "", guidance_link_url: ["#"] },
+    { title: "Beauty & Care", date_range: "Nov 9 - Nov 15", start: [10, 9], end: [10, 15],
+      guidance_text: "Gift sets and skincare lead this week. Join a Beauty challenge to compete for cash rewards.",
+      guidance_link_text: "See Beauty challenges", guidance_link_url: ["#"] },
+    { title: "Smart Wellness", date_range: "Nov 16 - Nov 22", start: [10, 16], end: [10, 22],
+      guidance_text: "Wearables and wellness products are trending. Show real routines with <1>#SmartWellness</1> and <2>#BFCMPicks</2>.",
+      guidance_link_text: "", guidance_link_url: ["#", "#"] },
+    { title: "Fashion", date_range: "Nov 23 - Nov 26", start: [10, 23], end: [10, 26],
+      guidance_text: "Outfit-of-the-week videos perform best right before Black Friday. Add a LIVE session to catch late shoppers.",
+      guidance_link_text: "Join a Fashion LIVE task", guidance_link_url: ["#"] },
+    { title: "Peak Days", date_range: "Nov 27 - Dec 1", start: [10, 27], end: [11, 1],
+      guidance_text: "Black Friday and Cyber Monday are here. Go LIVE daily and post often to capture peak traffic.",
+      guidance_link_text: "Join a LIVE challenge", guidance_link_url: ["#"] }
+  ];
+
+  var CATEGORIES = [
+    { key: "durable", label: "Durable", bg: "#E3F0FF", fg: "#2B5DB9",
+      icon: '<path d="M4 11.5L12 5l8 6.5V19a1 1 0 0 1-1 1h-4.5v-5h-5v5H5a1 1 0 0 1-1-1v-7.5z" fill="currentColor"/>' },
+    { key: "beauty", label: "Beauty & Care", bg: "#FFE4EA", fg: "#E10543",
+      icon: '<path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8L12 3z" fill="currentColor"/><path d="M18.5 15l.8 2.2 2.2.8-2.2.8-.8 2.2-.8-2.2-2.2-.8 2.2-.8.8-2.2z" fill="currentColor"/>' },
+    { key: "fashion", label: "Fashion", bg: "#FFF0D6", fg: "#B67A06",
+      icon: '<path d="M12 6.5a2 2 0 1 1 2 2c-1 .3-2 .9-2 2v.5M3.5 18.5l8.5-6 8.5 6a1 1 0 0 1-.6 1.8H4.1a1 1 0 0 1-.6-1.8z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>' },
+    { key: "wellness", label: "Smart Wellness", bg: "#DDF5F4", fg: "#007B7B",
+      icon: '<path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z" fill="currentColor"/>' }
+  ];
+
+  var CAROUSELS = [
+    { title: "Free samples for you", badge: "Free sample", cls: "", items: [
+      { t: "Hydrating Face Serum 30ml", p: "$24.99", e: "🧴", bg: "#FFE4EA", m: "Commission <b>12%</b>" },
+      { t: "Portable Blender Cup, 400ml", p: "$29.99", e: "🥤", bg: "#E3F0FF", m: "Commission <b>15%</b>" },
+      { t: "Cloud Comfort Slides", p: "$19.99", e: "🩴", bg: "#FFF0D6", m: "Commission <b>10%</b>" },
+      { t: "Smart Sleep Eye Mask", p: "$34.99", e: "😴", bg: "#DDF5F4", m: "Commission <b>18%</b>" }
+    ]},
+    { title: "Commission boost", badge: "Boosted", cls: "boost", items: [
+      { t: "Wireless Earbuds Pro", p: "$49.99", e: "🎧", bg: "#E3F0FF", m: "Commission <b>10% + 5%</b>" },
+      { t: "Air Fryer 4QT Digital", p: "$59.00", e: "🍟", bg: "#FFF0D6", m: "Commission <b>8% + 6%</b>" },
+      { t: "Vitamin C Gummies, 60ct", p: "$14.99", e: "🍬", bg: "#FFE4EA", m: "Commission <b>20% + 5%</b>" },
+      { t: "Oversized Fleece Hoodie", p: "$39.50", e: "🧥", bg: "#EDE7FF", m: "Commission <b>12% + 4%</b>" }
+    ]},
+    { title: "Top picks", badge: "Top pick", cls: "pick", items: [
+      { t: "LED Sunset Projection Lamp", p: "$21.99", e: "🪔", bg: "#FFF0D6", m: "1.2K sold" },
+      { t: "Heatless Curl Set", p: "$12.99", e: "🎀", bg: "#FFE4EA", m: "3.4K sold" },
+      { t: "Mini Massage Gun", p: "$44.99", e: "💆", bg: "#DDF5F4", m: "860 sold" },
+      { t: "Stainless Tumbler 40oz", p: "$27.99", e: "🧋", bg: "#E3F0FF", m: "5.1K sold" }
+    ]}
+  ];
+
+  var TOP_BANNERS = [
+    { h: "Black Friday Creator Sale", s: "Earn up to 2x commission on top picks", bg: "linear-gradient(120deg,#FF3B5C,#C51324)", e: "🛍️" },
+    { h: "Go LIVE, get boosted", s: "Extra traffic for LIVE sessions Nov 27 - 30", bg: "linear-gradient(120deg,#20D5EC,#007B8A)", e: "📣" },
+    { h: "Cyber Monday Challenge", s: "Win up to $1,200 in cash rewards", bg: "linear-gradient(120deg,#FFC122,#B67A06)", e: "🏆" }
+  ];
+  var BOTTOM_BANNERS = [
+    { h: "Explore more campaigns", s: "Long-term programs open all year", bg: "linear-gradient(120deg,#4B4B52,#1E1E24)", e: "🧭" },
+    { h: "New creator starter tasks", s: "Finish your first tasks and unlock rewards", bg: "linear-gradient(120deg,#8A5CF6,#4A2BB5)", e: "🌱" }
+  ];
+
+  // type: task | challenge | campaign ; content: video | live
+  var ACTIVITIES = [
+    { id: "a1", type: "challenge", isNew: true, joined: false, content: "video", category: ["beauty"],
+      theme: "Video GMV", title: "Fall Sale | Creator Video Clash", time: "Ends in 7 days",
+      reward: "Win up to <b>$1200 cash</b>", joinedNote: "2113 joined" },
+    { id: "a2", type: "campaign", isNew: true, joined: false, content: "video", category: ["durable", "fashion"],
+      title: "Material Sourcing Campaign", period: "Oct 5 - Dec 1", count: 3, emojis: ["📦", "🎬", "🛒"], tints: ["#FFE4EA", "#E3F0FF", "#FFF0D6"] },
+    { id: "a3", type: "task", isNew: false, joined: false, content: "live", category: ["fashion"],
+      title: "Promotion task", header: "Go LIVE 3 times", subheader: "View all requirements", progress: [0, 3] },
+    { id: "a4", type: "task", isNew: false, joined: true, content: "video", category: ["durable"],
+      title: "Content task", header: "Post 5 product videos", subheader: "View all requirements", progress: [2, 5] },
+    { id: "a5", type: "challenge", isNew: false, joined: true, content: "live", category: ["wellness"],
+      theme: "LIVE GMV", title: "Smart Wellness LIVE Showdown", time: "Ends in 3 days",
+      reward: "Win up to <b>$800 cash</b>", joinedNote: "864 joined" },
+    { id: "a6", type: "campaign", isNew: false, joined: false, content: "live", category: ["beauty", "wellness"],
+      title: "Live Room Spotlight", period: "Nov 1 - Nov 30", count: 1, emojis: ["📺"], tints: ["#EDE7FF"] },
+    { id: "a7", type: "challenge", isNew: false, joined: false, content: "video", category: ["fashion"],
+      theme: "Video GMV", title: "Fashion Video Sprint", time: "Starts tomorrow",
+      reward: "Win up to <b>$500 cash</b>", joinedNote: "412 joined" },
+    { id: "a8", type: "campaign", isNew: false, joined: false, content: "video", category: ["durable", "beauty", "fashion", "wellness"],
+      title: "Long-term Creator Program", period: "Jun 1 - Jun 30, 2027", count: 2, emojis: ["🌟", "💎"], tints: ["#FFF0D6", "#DDF5F4"] }
+  ];
+
+  var FILTER_GROUPS = [
+    { key: "status", title: "Status", opts: [["joined", "Joined"], ["not_joined", "Not joined"]] },
+    { key: "type", title: "Type", opts: [["task", "Tasks"], ["challenge", "Challenges"], ["campaign", "Campaigns"]] },
+    { key: "category", title: "Product category", opts: [["durable", "Durable"], ["beauty", "Beauty & Care"], ["fashion", "Fashion"], ["wellness", "Smart Wellness"]] },
+    { key: "content", title: "Content format", opts: [["video", "Video"], ["live", "LIVE"]] }
+  ];
+  var QUICK = [["status", "joined", "Joined"], ["type", "task", "Tasks"], ["type", "challenge", "Challenges"], ["type", "campaign", "Campaigns"]];
+
+  /* ============================================================
+     Helpers
+     ============================================================ */
+  function $(id) { return document.getElementById(id); }
+  function esc(s) { return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;"); }
+  var toastTimer;
+  function toast(msg) {
+    var el = $("toast");
+    el.textContent = msg;
+    el.classList.add("show");
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(function () { el.classList.remove("show"); }, 1800);
+  }
+  var CHEV = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" class="shrink-0"><path d="M9 5l7 7-7 7" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+
+  /* ============================================================
+     Nav + scroll
+     ============================================================ */
+  var scrollEl = $("scroll");
+  var navEl = $("nav");
+  var ticking = false;
+  scrollEl.addEventListener("scroll", function () {
+    if (ticking) { return; }
+    ticking = true;
+    setTimeout(function () {
+      navEl.classList.toggle("scrolled", scrollEl.scrollTop > 60);
+      ticking = false;
+    }, 100);
+  }, { passive: true });
+  $("btnBack").addEventListener("click", function () { toast("Closes the page"); });
+  $("btnInfo").addEventListener("click", function () { toast("Opens the BFCM overview page"); });
+  $("btnShare").addEventListener("click", function () {
+    var done = function () { toast("Text copied"); };
+    try {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(location.href).then(done, done);
+      } else { done(); }
+    } catch (e) { done(); }
+  });
+  document.addEventListener("click", function (e) {
+    var t = e.target.closest("[data-toast]");
+    if (t) { toast(t.getAttribute("data-toast")); }
+  });
+
+  /* ============================================================
+     Countdown + current phase
+     ============================================================ */
+  var END = new Date(Y, 11, 1, 23, 59, 59).getTime();
+  function pad(n) { return n < 10 ? "0" + n : "" + n; }
+  function tick() {
+    var left = Math.max(0, END - Date.now());
+    var d = Math.floor(left / 86400000);
+    var h = Math.floor(left / 3600000) % 24;
+    var m = Math.floor(left / 60000) % 60;
+    var s = Math.floor(left / 1000) % 60;
+    $("countdown").textContent = (d > 0 ? d + (d === 1 ? " day " : " days ") : "") + pad(h) + ":" + pad(m) + ":" + pad(s);
+  }
+  tick();
+  setInterval(tick, 1000);
+
+  function currentPhaseIndex() {
+    var now = Date.now();
+    for (var i = 0; i < PHASES.length; i++) {
+      var p = PHASES[i];
+      var a = new Date(Y, p.start[0], p.start[1]).getTime();
+      var b = new Date(Y, p.end[0], p.end[1], 23, 59, 59).getTime();
+      if (now >= a && now <= b) { return i; }
+    }
+    return now < new Date(Y, PHASES[0].start[0], PHASES[0].start[1]).getTime() ? 0 : PHASES.length - 1;
+  }
+
+  /* ============================================================
+     Milestone
+     ============================================================ */
+  var CURRENT = currentPhaseIndex();
+  var selected = CURRENT;
+
+  function maxDateWidth() {
+    var ctx;
+    try { ctx = document.createElement("canvas").getContext("2d"); } catch (e) { ctx = null; }
+    if (!ctx) { return 76; }
+    ctx.font = '600 10px "TikTok Sans", -apple-system, "Helvetica Neue", Arial, sans-serif';
+    var max = 0;
+    PHASES.forEach(function (p) { max = Math.max(max, Math.ceil(ctx.measureText(p.date_range).width) + 16); });
+    return Math.max(76, max);
+  }
+  var CARD_W = maxDateWidth();
+
+  function renderPhases() {
+    $("phaseScroll").innerHTML = PHASES.map(function (p, i) {
+      var cls = "phase-card" + (i === selected ? " selected" : "") + (i === CURRENT ? " current" : "");
+      return '<div class="' + cls + '" data-i="' + i + '" role="button" tabindex="0" style="width:' + CARD_W + 'px">' +
+        '<div class="phase-date SmallText2-Semibold">' + esc(p.date_range) + '</div>' +
+        '<div class="phase-title-wrap"><div class="phase-title P1-Bold">' + esc(p.title) + '</div></div></div>';
+    }).join("");
+  }
+
+  function renderGuidance() {
+    var p = PHASES[selected];
+    var hasInline = p.guidance_text.indexOf("<1>") > -1;
+    var body;
+    if (hasInline) {
+      var html = esc(p.guidance_text).replace(/&lt;(\d)&gt;(.*?)&lt;\/\1&gt;/g, function (m, n, txt) {
+        return '<span class="guidance-inline H4-Bold" data-link="' + (Number(n) - 1) + '">' + txt + "</span>";
+      });
+      body = '<p class="H4-Regular">' + html + "</p>";
+    } else {
+      body = '<div style="display:flex;flex-direction:column;gap:2px">' +
+        '<p class="H4-Regular">' + esc(p.guidance_text) + "</p>" +
+        (p.guidance_link_text ? '<span class="guidance-link H4-Bold" data-link="0" role="button" tabindex="0">' + esc(p.guidance_link_text) + CHEV + "</span>" : "") +
+        "</div>";
+    }
+    $("guidance").innerHTML =
+      '<div class="guidance-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 18h6M10 21h4M12 3a6.5 6.5 0 0 0-3.6 11.9c.7.5 1.1 1.2 1.1 2.1h5c0-.9.4-1.6 1.1-2.1A6.5 6.5 0 0 0 12 3z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>' +
+      '<div class="guidance-body">' + body + "</div>";
+  }
+
+  function centerSelected(smooth) {
+    var c = $("phaseScroll");
+    var card = c.children[selected];
+    if (!card) { return; }
+    var left = card.offsetLeft - (c.offsetWidth - card.offsetWidth) / 2;
+    c.scrollTo({ left: Math.max(0, left), behavior: smooth ? "smooth" : "auto" });
+  }
+
+  function selectPhase(i) {
+    selected = i;
+    renderPhases();
+    renderGuidance();
+    centerSelected(true);
+  }
+  $("phaseScroll").addEventListener("click", function (e) {
+    var c = e.target.closest(".phase-card");
+    if (c) { selectPhase(Number(c.getAttribute("data-i"))); }
+  });
+  $("phaseScroll").addEventListener("keydown", function (e) {
+    var c = e.target.closest(".phase-card");
+    if (c && (e.key === "Enter" || e.key === " ")) { e.preventDefault(); selectPhase(Number(c.getAttribute("data-i"))); }
+  });
+  $("guidance").addEventListener("click", function (e) {
+    var l = e.target.closest("[data-link]");
+    if (l) { toast("Opens link " + (Number(l.getAttribute("data-link")) + 1)); }
+  });
+  renderPhases();
+  renderGuidance();
+  requestAnimationFrame(function () { centerSelected(false); });
+
+  /* ============================================================
+     Tabs
+     ============================================================ */
+  function setTab(i) {
+    var p = i === 0;
+    $("tabProducts").classList.toggle("active", p);
+    $("tabCampaigns").classList.toggle("active", !p);
+    $("tabProducts").setAttribute("aria-selected", p);
+    $("tabCampaigns").setAttribute("aria-selected", !p);
+    $("panelProducts").hidden = !p;
+    $("panelCampaigns").hidden = p;
+  }
+  $("tabProducts").addEventListener("click", function () { setTab(0); });
+  $("tabCampaigns").addEventListener("click", function () { setTab(1); });
+
+  /* ============================================================
+     Products tab
+     ============================================================ */
+  $("cats").innerHTML = CATEGORIES.map(function (c) {
+    return '<button class="cat" data-toast="Opens ' + esc(c.label) + ' products">' +
+      '<span class="cat-icon" style="background:' + c.bg + ";color:" + c.fg + '"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" aria-hidden="true">' + c.icon + "</svg></span>" +
+      '<span class="cat-label">' + esc(c.label) + "</span></button>";
+  }).join("");
+
+  $("carousels").innerHTML = CAROUSELS.map(function (c) {
+    return '<div class="sec-head"><h2 class="sec-title">' + esc(c.title) + '</h2>' +
+      '<button class="sec-more" data-toast="Opens the full list">See all' + CHEV + "</button></div>" +
+      '<div class="carousel">' + c.items.map(function (it) {
+        return '<div class="pcard" data-toast="Opens product details">' +
+          '<div class="pimg" style="background:' + it.bg + '"><span class="pbadge ' + c.cls + '">' + esc(c.badge) + "</span><span aria-hidden=\"true\">" + it.e + "</span></div>" +
+          '<div class="ptitle">' + esc(it.t) + '</div><div class="pprice">' + esc(it.p) + '</div><div class="pmeta">' + it.m + "</div></div>";
+      }).join("") + "</div>";
+  }).join("");
+
+  /* ============================================================
+     Banners with pagination dots (scroll-snap carousel)
+     ============================================================ */
+  function dotsHTML(total, idx) {
+    if (total <= 1) { return ""; }
+    var out = "";
+    for (var i = 0; i < total; i++) {
+      var active = i === idx;
+      var size = 6;
+      if (!active && i >= total - 2) { size = i === total - 2 ? 4.8 : 4; }
+      out += '<div class="dot"><i style="width:' + size + "px;height:" + size + "px;background:" + (active ? "rgba(255,255,255,1)" : "rgba(255,255,255,0.3)") + '"></i></div>';
+    }
+    return '<div class="dots" role="status" aria-label="Slide ' + (idx + 1) + " of " + total + '">' + out + "</div>";
+  }
+  function bannerHTML(b) {
+    return '<div class="banner" style="background:' + b.bg + '" data-toast="Opens the activity page"><h4>' + esc(b.h) + "</h4><p>" + esc(b.s) + '</p><span class="banner-deco" aria-hidden="true">' + b.e + "</span></div>";
+  }
+  function mountBanners() {
+    var wrap = $("topBanners");
+    wrap.innerHTML = '<div class="banner-wrap"><div class="banner-track" id="bTrack">' + TOP_BANNERS.map(bannerHTML).join("") + '</div><div class="banner-dots" id="bDots"></div></div>';
+    var track = $("bTrack"), dots = $("bDots"), cur = 0;
+    dots.innerHTML = dotsHTML(TOP_BANNERS.length, 0);
+    track.addEventListener("scroll", function () {
+      var i = Math.round(track.scrollLeft / track.clientWidth);
+      if (i !== cur) { cur = i; dots.innerHTML = dotsHTML(TOP_BANNERS.length, cur); }
+    }, { passive: true });
+    $("bottomBanners").innerHTML = BOTTOM_BANNERS.map(bannerHTML).join("");
+  }
+  mountBanners();
+
+  /* ============================================================
+     Activities + filters
+     ============================================================ */
+  var applied = { status: [], type: [], category: [], content: [] };
+  var draft = null;
+
+  function matches(a, f) {
+    if (f.status.length && f.status.indexOf(a.joined ? "joined" : "not_joined") < 0) { return false; }
+    if (f.type.length && f.type.indexOf(a.type) < 0) { return false; }
+    if (f.category.length && !a.category.some(function (c) { return f.category.indexOf(c) > -1; })) { return false; }
+    if (f.content.length && f.content.indexOf(a.content) < 0) { return false; }
+    return true;
+  }
+  function dimCount(f) { return Object.keys(f).filter(function (k) { return f[k].length > 0; }).length; }
+  function has(f, k, v) { return f[k].indexOf(v) > -1; }
+  function flip(f, k, v) {
+    var i = f[k].indexOf(v);
+    if (i > -1) { f[k].splice(i, 1); } else { f[k].push(v); }
+  }
+  function ordered(list) {
+    var fresh = list.filter(function (a) { return a.isNew; });
+    var rest = list.filter(function (a) { return !a.isNew; });
+    return fresh.concat(rest);
+  }
+
+  function taskCard(a) {
+    var pct = a.progress ? Math.round((a.progress[0] / a.progress[1]) * 100) : 0;
+    return '<div class="card task">' +
+      '<div style="min-width:0;flex:1"><div class="P3-Medium title">' + esc(a.title) + '</div>' +
+      '<div class="P1-Medium header">' + esc(a.header) + '</div>' +
+      '<div class="P1-Regular subheader" role="button" data-toast="Shows all requirements">' + esc(a.subheader) + CHEV + "</div>" +
+      (a.joined ? '<div class="progress"><i style="width:' + pct + '%"></i></div><div class="progress-text">' + a.progress[0] + "/" + a.progress[1] + " completed</div>" : "") +
+      '</div><button class="btn-action Headline-Medium' + (a.joined ? " ghost" : "") + '" data-toast="Opens task details">' + (a.joined ? "View" : "Go") + "</button></div>";
+  }
+  var GRADS = ["linear-gradient(135deg,#FF8A5C,#FE2C55)", "linear-gradient(135deg,#20D5EC,#2B5DB9)", "linear-gradient(135deg,#FFC122,#FE7C02)"];
+  function challengeCard(a) {
+    var av = ["A", "M", "J"].map(function (c, i) { return '<span class="avatar" style="background:' + GRADS[i] + '">' + c + "</span>"; }).join("");
+    return '<div class="card challenge">' +
+      '<div class="ch-top"><div class="ch-icon" aria-hidden="true"><svg width="28" height="28" viewBox="0 0 24 24" fill="none"><path d="M7 4h10v4a5 5 0 0 1-10 0V4z" fill="#fff"/><path d="M7 5.5H4.5v1.2A3 3 0 0 0 7.5 9.7M17 5.5h2.5v1.2a3 3 0 0 1-3 3M12 13v4M8.5 20h7M10 17h4" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>' +
+      '<div style="min-width:0"><div class="P3-Medium ch-theme">' + esc(a.theme) + '</div><div class="P1-Medium ch-title">' + esc(a.title) + '</div><span class="ch-time">' + esc(a.time) + "</span></div></div>" +
+      '<div class="P1-Regular ch-reward">' + a.reward + "</div>" +
+      '<div class="ch-bottom"><div class="avatars">' + av + '<span class="avatars-note">' + esc(a.joinedNote) + '</span></div>' +
+      '<button class="btn-sm' + (a.joined ? " ghost" : "") + '" data-toast="Opens the challenge page">' + (a.joined ? "View" : "Join") + "</button></div></div>";
+  }
+  function parentCard(a) {
+    var covers = a.emojis.map(function (e, i) { return '<i style="background:' + a.tints[i] + '">' + e + "</i>"; }).join("");
+    return '<div class="card parent" role="button" tabindex="0" data-toast="Opens the campaign list">' +
+      '<div class="parent-covers" aria-hidden="true">' + covers + "</div>" +
+      '<div class="parent-body"><div class="P1-Bold parent-title">' + esc(a.title) + '</div>' +
+      '<div class="P3-Medium parent-period">' + esc(a.period) + '</div>' +
+      '<div class="parent-count">' + a.count + (a.count === 1 ? " campaign" : " campaigns") + "</div></div>" +
+      '<span class="parent-chev"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M9 5l7 7-7 7" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div>';
+  }
+
+  function renderList() {
+    var list = ordered(ACTIVITIES.filter(function (a) { return matches(a, applied); }));
+    if (!list.length) {
+      $("activityList").innerHTML =
+        '<div class="empty"><svg width="130" height="96" viewBox="0 0 130 96" fill="none" aria-hidden="true">' +
+        '<ellipse cx="65" cy="86" rx="46" ry="7" fill="rgba(128,128,128,0.15)"/>' +
+        '<rect x="22" y="14" width="86" height="62" rx="10" fill="rgba(128,128,128,0.14)"/>' +
+        '<rect x="34" y="28" width="38" height="7" rx="3.5" fill="rgba(128,128,128,0.3)"/>' +
+        '<rect x="34" y="42" width="62" height="6" rx="3" fill="rgba(128,128,128,0.22)"/>' +
+        '<rect x="34" y="54" width="48" height="6" rx="3" fill="rgba(128,128,128,0.22)"/>' +
+        '<circle cx="98" cy="64" r="13" fill="#FE2C55"/><path d="M92 64h12M98 58v12" stroke="#fff" stroke-width="2.4" stroke-linecap="round" transform="rotate(45 98 64)"/></svg>' +
+        '<div class="H3-Medium h">No activities yet</div><div class="P1-Regular s">More campaigns are coming, stay tuned!</div></div>';
+      return;
+    }
+    $("activityList").innerHTML = list.map(function (a) {
+      var inner = a.type === "task" ? taskCard(a) : a.type === "challenge" ? challengeCard(a) : parentCard(a);
+      return '<div class="activity" data-id="' + a.id + '">' + (a.isNew ? '<span class="new-tag">New</span>' : "") + inner + "</div>";
+    }).join("");
+  }
+
+  function renderChips() {
+    $("chips").innerHTML = QUICK.map(function (q) {
+      var on = has(applied, q[0], q[1]);
+      return '<button class="toggle' + (on ? " selected" : "") + '" aria-pressed="' + on + '" data-k="' + q[0] + '" data-v="' + q[1] + '">' + q[2] + "</button>";
+    }).join("");
+    var n = dimCount(applied);
+    var fb = $("filterBtn");
+    fb.className = "filter-btn" + (n ? " selected" : "");
+    fb.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 6h16M7 12h10M10 18h4" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg><span>Filters</span>' + (n ? '<span class="num">' + n + "</span>" : "");
+  }
+  $("chips").addEventListener("click", function (e) {
+    var b = e.target.closest(".toggle");
+    if (!b) { return; }
+    flip(applied, b.getAttribute("data-k"), b.getAttribute("data-v"));
+    renderChips();
+    renderList();
+  });
+
+  function clone(f) { var o = {}; Object.keys(f).forEach(function (k) { o[k] = f[k].slice(); }); return o; }
+  function renderSheet() {
+    $("fsBody").innerHTML = FILTER_GROUPS.map(function (g) {
+      return '<div class="fs-group"><h4>' + g.title + '</h4><div class="fs-opts">' + g.opts.map(function (o) {
+        var on = has(draft, g.key, o[0]);
+        return '<button class="toggle' + (on ? " selected" : "") + '" aria-pressed="' + on + '" data-k="' + g.key + '" data-v="' + o[0] + '">' + o[1] + "</button>";
+      }).join("") + "</div></div>";
+    }).join("");
+    var n = ACTIVITIES.filter(function (a) { return matches(a, draft); }).length;
+    $("fsApply").textContent = n ? "Show " + n + (n === 1 ? " result" : " results") : "Apply";
+  }
+  function openSheet() {
+    draft = clone(applied);
+    renderSheet();
+    $("scrim").classList.add("open");
+    $("filterSheet").classList.add("open");
+    $("filterSheet").setAttribute("aria-hidden", "false");
+  }
+  function closeSheet() {
+    $("scrim").classList.remove("open");
+    $("filterSheet").classList.remove("open");
+    $("filterSheet").setAttribute("aria-hidden", "true");
+  }
+  $("filterBtn").addEventListener("click", openSheet);
+  $("scrim").addEventListener("click", closeSheet);
+  $("fsClose").addEventListener("click", closeSheet);
+  $("fsBody").addEventListener("click", function (e) {
+    var b = e.target.closest(".toggle");
+    if (!b) { return; }
+    flip(draft, b.getAttribute("data-k"), b.getAttribute("data-v"));
+    renderSheet();
+  });
+  $("fsReset").addEventListener("click", function () {
+    draft = { status: [], type: [], category: [], content: [] };
+    renderSheet();
+  });
+  $("fsApply").addEventListener("click", function () {
+    applied = clone(draft);
+    closeSheet();
+    renderChips();
+    renderList();
+  });
+  document.addEventListener("keydown", function (e) { if (e.key === "Escape") { closeSheet(); } });
+
+  renderChips();
+  renderList();
+})();
+</script>
+</body>
+</html>

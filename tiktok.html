@@ -6,7 +6,7 @@
   <meta name="description" content="Case study: helping 430K+ TikTok Shop creators find the right campaign in every region.">
   <title>TikTok Shop creator campaigns — Yuqing Xu</title>
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23111'/%3E%3Ctext x='32' y='42' font-family='Helvetica' font-size='26' font-weight='bold' fill='white' text-anchor='middle'%3EYX%3C/text%3E%3C/svg%3E">
-  <link rel="stylesheet" href="styles.css?v=4">
+  <link rel="stylesheet" href="styles.css?v=5">
   <noscript><style>.reveal{opacity:1!important;transform:none!important}</style></noscript>
 </head>
 <body>
@@ -26,14 +26,14 @@
       <a class="cs-back" href="index.html#work">← All work</a>
       <p class="kicker">CASE 01 · TIKTOK SHOP · CREATOR PRODUCTS</p>
       <h1 class="display">The right campaign,<br><span>for every creator, in every region.</span></h1>
-      <p class="lede">Improving how creators discover campaigns on TikTok Shop — from one banner for everyone to a BFCM creator venue with targeted, localized, measurable entry points — and validating every edge state in code before it shipped.</p>
+      <p class="lede">Improving how creators discover campaigns on TikTok Shop — from one banner for everyone to a BFCM creator venue with targeted, localized entry points, plus the surfaces around it. Every one of them needed a rule for the state where a creator's data is missing.</p>
       <dl class="facts" style="margin-top:36px">
         <div><dt>Role</dt><dd>Software Engineer Intern</dd></div>
         <div><dt>Team</dt><dd>Global E-Commerce · TikTok Shop</dd></div>
         <div><dt>Timeline</dt><dd>Sep 2025 – Jan 2026 · incl. BFCM launch</dd></div>
         <div><dt>Product context</dt><dd>430K+ creators, 10+ regions · public-safe reconstruction, no internal UI or data</dd></div>
       </dl>
-      <dl class="tldr"><div><dt>PROBLEM</dt><dd>One banner showed every creator the same campaign, in every region.</dd></div><div><dt>DECISION</dt><dd>Target by segment and region, show visible pagination, and define a fallback for every field.</dd></div><div><dt>TRADE-OFF</dt><dd>Later slides get less exposure; a missing translation falls back to English.</dd></div><div><dt>RESULT</dt><dd>~25% higher banner click-through. Across related multi-region releases, ~40% fewer integration defects.</dd></div></dl>
+      <dl class="tldr"><div><dt>PROBLEM</dt><dd>One slot spoke to every creator the same way — and every surface assumed a creator who already has data.</dd></div><div><dt>DECISION</dt><dd>Target by segment and region, show only states that are true, and define a fallback for every field.</dd></div><div><dt>TRADE-OFF</dt><dd>Later slides get less exposure; some pages get skipped; a missing translation falls back to English.</dd></div><div><dt>RESULT</dt><dd>~25% higher banner click-through. Across related multi-region releases, ~40% fewer integration defects.</dd></div></dl>
       <a class="pill-link try-proto" href="#prototype">Try the interactive prototypes <i>↓</i></a>
       <figure class="cs-cover"><img src="assets/work/tiktok-bfcm-cover.jpg?v=2" alt="Three rebuilt TikTok Shop creator screens: the BFCM creator venue, the Go-LIVE reminder card, and Unbox Your Year"></figure>
     </section>
@@ -54,22 +54,69 @@
       <div>
         <section id="problem" class="cs-sec reveal">
           <p class="kicker"><span>1</span>PROBLEM</p>
-          <h2>One banner was trying to speak to every creator — and ended up speaking to none.</h2>
+          <h2>One slot spoke to everyone — and every surface assumed a creator who already has data.</h2>
           <p>Campaigns are how TikTok Shop creators find new earning opportunities. The creator home had a single promotional slot, and it showed the same message to a brand-new creator in Indonesia and an established live host in the US.</p>
+          <p>The surfaces built around that slot carried the same assumption: a creator with sales history, a scheduled LIVE, and a full year of content. In reality the data is uneven — no LIVE this week, zero sign-ups, a first year with no sales, a translation that was never written.</p>
           <div class="bvsa">
-            <div><h5>BEFORE · ONE MESSAGE FOR EVERYONE</h5><div class="phones"><div class="mini"><b style="background:#9aa3ae">Shop campaign</b><span></span><span></span><span></span><small>New · ID</small></div><div class="mini"><b style="background:#9aa3ae">Shop campaign</b><span></span><span></span><span></span><small>Fashion · MX</small></div><div class="mini"><b style="background:#9aa3ae">Shop campaign</b><span></span><span></span><span></span><small>Live · US</small></div></div><p>Same banner, whoever and wherever you are.</p></div>
-            <div><h5>AFTER · THE RIGHT CAMPAIGN FIRST</h5><div class="phones"><div class="mini"><b style="background:#3b6cf6">Start your first campaign<em class="dots"><i class="on"></i><i></i><i></i></em></b><span></span><span></span><span></span><small>New · ID</small></div><div class="mini"><b style="background:#c0466e">Fall fashion week picks<em class="dots"><i class="on"></i><i></i><i></i></em></b><span></span><span></span><span></span><small>Fashion · MX</small></div><div class="mini"><b style="background:#e46b2e">Go live: holiday deals<em class="dots"><i class="on"></i><i></i><i></i></em></b><span></span><span></span><span></span><small>Live · US</small></div></div><p>Targeted by segment and region, localized, with visible pagination.</p></div>
+            <div>
+              <h5>BEFORE · ONE MESSAGE, NO STATE RULES</h5>
+              <div class="pbwrap">
+                <div class="pscreen">
+                  <div class="pnav"><span class="plogo">♪</span><b>Creator Center</b><span class="pacts"><i></i><i></i><i class="av"></i></span></div>
+                  <div class="pbody">
+                    <div class="pgreet">Hi, Aisyah<span>New creator · Indonesia</span></div>
+                    <div class="pstats"><div class="pstat"><b>0</b>Orders</div><div class="pstat"><b>$0</b>GMV</div><div class="pstat"><b>0</b>LIVE</div></div>
+                    <div class="pcard grey"><h6>Shop campaign</h6><p>Promote your products this season</p></div>
+                    <div class="proll"><i></i><i></i><i></i></div>
+                  </div>
+                </div>
+                <div class="pnotes">
+                  <div class="pnote"><small>NEW · ID</small>Same card, no image</div>
+                  <div class="pnote"><small>FASHION · MX</small>Same card, no image</div>
+                  <div class="pnote"><small>LIVE · US</small>Same card, no image</div>
+                </div>
+              </div>
+              <p class="pbcap">Same banner, whoever and wherever you are — and no rule for the empty version of it.</p>
+            </div>
+            <div>
+              <h5>AFTER · THE RIGHT THING FIRST, EVERY STATE COVERED</h5>
+              <div class="pbwrap">
+                <div class="pscreen">
+                  <div class="pnav"><span class="plogo">♪</span><b>Creator Center</b><span class="pacts"><i></i><i></i><i class="av"></i></span></div>
+                  <div class="pbody">
+                    <div class="pgreet">Hi, Marcus<span>Live host · United States</span></div>
+                    <div class="pstats"><div class="pstat"><b>128</b>Orders</div><div class="pstat"><b>$4.1K</b>GMV</div><div class="pstat"><b>3</b>LIVE</div></div>
+                    <div class="phero">
+                      <div class="pcard brand">
+                        <span class="ppill">BFCM · LIVE · US</span>
+                        <h6>Go live:<br>holiday deals</h6>
+                        <p>Deals your viewers can shop tonight</p>
+                        <span class="pcta">Set up your LIVE</span>
+                        <span class="pdots"><i class="on"></i><i></i><i></i></span>
+                      </div>
+                      <div class="pnext"></div>
+                    </div>
+                  </div>
+                </div>
+                <div class="pnotes">
+                  <div class="pnote"><small>NEW · ID</small>Start your first campaign</div>
+                  <div class="pnote"><small>FASHION · MX</small>Fall fashion week picks</div>
+                  <div class="pnote on"><small>LIVE · US</small>Go live: holiday deals</div>
+                </div>
+              </div>
+              <p class="pbcap">Targeted by segment and region, localized, with a defined answer for missing data.</p>
+            </div>
           </div>
-          <p class="pull">How might we help each creator notice the one campaign that fits them — without rebuilding the page for every market?</p>
+          <p class="pull">How might we show each creator the one thing that fits them — without assuming data they don't have yet?</p>
         </section>
 
         <section id="insight" class="cs-sec reveal">
           <p class="kicker"><span>2</span>UX JUDGMENT</p>
-          <h2>Three implementation-level UX decisions I helped resolve.</h2>
+          <h2>Three rules I applied, across three surfaces.</h2>
           <div class="insights">
-            <div><b>01 · RELEVANCE</b><h4>Relevance beats volume.</h4><p>More banners would not help. Each creator should see campaigns targeted to their segment and region first.</p></div>
-            <div><b>02 · AFFORDANCE</b><h4>If there is more, show it.</h4><p>A rotating slot only works when people can tell there is more than one item. Pagination had to be visible and tappable.</p></div>
-            <div><b>03 · REAL CONTENT</b><h4>Design for the longest string.</h4><p>Localized titles and missing translations break layouts. Every slide needed a defined fallback, not a blank or a raw key.</p></div>
+            <div><b>01 · RELEVANCE</b><h4>Relevance beats volume.</h4><p>More banners would not help. Targeting by segment and region decides what a creator sees first, so the slot does not have to say everything at once.</p><a class="applied" href="#prototype">Applied in · BFCM creator venue ↓</a></div>
+            <div><b>02 · TRUTHFUL STATE</b><h4>Show only what is true.</h4><p>No LIVE scheduled means no card; zero sign-ups means no avatar row reading “0 registered”. A surface that can’t be true should not be drawn.</p><a class="applied" href="#live-demo">Applied in · Go-LIVE reminder card ↓</a></div>
+            <div><b>03 · DEGRADATION</b><h4>Skip, rewrite, or explain.</h4><p>A year without posts skips that page. A creator with no LIVE gets encouragement, not “0 hours”. A dead end always gets a reason and one next step.</p><a class="applied" href="#unbox-demo">Applied in · Unbox Your Year ↓</a></div>
           </div>
         </section>
 
@@ -100,11 +147,13 @@
 
         <section id="tradeoff" class="cs-sec reveal">
           <p class="kicker"><span>4</span>TRADE-OFFS</p>
-          <h2>What the carousel cost — and why it was worth it.</h2>
+          <h2>What each decision cost — and why it was worth it.</h2>
           <div class="tradeoffs">
-            <div><div class="gave"><h5>WE GAVE UP</h5><p>Equal exposure: slides two and three are seen less than the first.</p></div><em>→</em><div><h5>TO GET</h5><p>A fixed-height slot. Targeting decides the order, so the most relevant campaign is always first.</p></div></div>
-            <div><div class="gave"><h5>WE GAVE UP</h5><p>Perfect language: a missing translation falls back to English.</p></div><em>→</em><div><h5>TO GET</h5><p>No creator misses a campaign because of a blank card or a raw content key.</p></div></div>
-            <div><div class="gave"><h5>WE GAVE UP</h5><p>Simplicity: configuration can be wrong in new ways.</p></div><em>→</em><div><h5>TO GET</h5><p>New markets ship as configuration, guarded by schema validation and feature flags.</p></div></div>
+            <div><div class="gave"><h5>WE GAVE UP · VENUE</h5><p>Equal exposure: slides two and three are seen less than the first.</p></div><em>→</em><div><h5>TO GET</h5><p>A fixed-height slot. Targeting decides the order, so the most relevant campaign is always first.</p></div></div>
+            <div><div class="gave"><h5>WE GAVE UP · GO-LIVE CARD</h5><p>Completeness: a creator with no session sees nothing where a card could have been.</p></div><em>→</em><div><h5>TO GET</h5><p>No empty promise. The card only claims what is actually scheduled, so its “Go LIVE” button means something.</p></div></div>
+            <div><div class="gave"><h5>WE GAVE UP · UNBOX</h5><p>A “complete” year: a creator with few posts gets a shorter story, not a full one.</p></div><em>→</em><div><h5>TO GET</h5><p>Nothing to feel bad about — no “0 hours”, no empty category pages, and a story that ends on a next step.</p></div></div>
+            <div><div class="gave"><h5>WE GAVE UP · ALL SURFACES</h5><p>Perfect language: a missing translation falls back to English.</p></div><em>→</em><div><h5>TO GET</h5><p>No creator sees a blank card or a raw content key, in any market.</p></div></div>
+            <div><div class="gave"><h5>WE GAVE UP · ALL SURFACES</h5><p>Simplicity: configuration can be wrong in new ways.</p></div><em>→</em><div><h5>TO GET</h5><p>New markets ship as configuration, guarded by schema validation and feature flags.</p></div></div>
           </div>
         </section>
 
@@ -135,7 +184,7 @@
           <h2>Two more surfaces, designed for the data creators actually have.</h2>
           <p>Real creator data is uneven: no LIVE scheduled, zero sign-ups, a first year with no sales. Each state needed its own rule, so no creator saw a broken card or an empty promise.</p>
 
-          <div class="demo-row">
+          <div class="demo-row" id="live-demo">
             <div class="dphone"><div class="dscr"><iframe id="demo-live" src="assets/demos/live-reminder.html?embed" title="Go-LIVE reminder card prototype" loading="lazy"></iframe></div></div>
             <div class="demo-notes">
               <h4>Go-LIVE reminder card</h4>
@@ -155,7 +204,7 @@
             </div>
           </div>
 
-          <div class="demo-row">
+          <div class="demo-row" id="unbox-demo">
             <div class="dphone"><div class="dscr"><iframe id="demo-unbox" src="assets/demos/unbox-your-year.html?embed" title="Unbox Your Year prototype" loading="lazy"></iframe></div></div>
             <div class="demo-notes">
               <h4>Unbox Your Year</h4>
@@ -218,7 +267,8 @@
             <div><strong>~40%</strong><span>fewer frontend integration defects across related multi-region releases — not the carousel alone</span></div>
             <div class="ctx"><strong>430K+</strong><span><b>Product context:</b> creators across 10+ regions on the platform</span></div>
           </div>
-          <p style="margin-top:26px">The token mapping became the shared reference for designers and engineers during the BFCM launch, and new-market experiences shipped through configuration.</p>
+          <p style="margin-top:26px">The ~25% is the slot’s own number. The Go-LIVE card and Unbox Your Year aren’t measured separately here; what they share with the slot is the same three rules, applied to every state a creator can be in.</p>
+          <p>The token mapping became the shared reference for designers and engineers during the BFCM launch, and new-market experiences shipped through configuration.</p>
         </section>
 
         <section id="reflect" class="cs-sec reveal">
@@ -233,6 +283,6 @@
   </main>
 
   <footer class="site-footer shell"><span>Yuqing Xu · Seattle, WA</span><a href="mailto:xyqapply@gmail.com">Get in touch ↗</a></footer>
-  <script src="app.js?v=4"></script>
+  <script src="app.js?v=5"></script>
 </body>
 </html>

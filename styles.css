@@ -595,3 +595,7 @@ a.applied:hover{color:var(--ink)}
 .ring-cap{margin:30px 0 0;font-size:11px;letter-spacing:.14em;color:var(--muted);text-align:center;text-transform:uppercase}
 .ring-stage{height:clamp(280px,27vw,370px)}
 .ring-cap{margin-top:14px}
+/* ring v4: crisp edges on white */
+.ring-stage{-webkit-mask-image:none;mask-image:none}
+.ring-card.ring-phone{box-shadow:0 0 0 1px rgba(22,24,35,.08),var(--sh)}
+.ring-card.ring-phone.is-hot{box-shadow:0 0 0 1px rgba(22,24,35,.1),0 30px 60px rgba(17,18,20,.28),0 8px 18px rgba(17,18,20,.1)}

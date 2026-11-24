@@ -57,7 +57,8 @@ document.querySelectorAll('.reveal').forEach((el) => revealObserver.observe(el))
       const z = radius * (1 - Math.cos(rad)) - depth;
       const y = (1 - Math.cos(rad)) * lift * 2.2;
       const isHot = card === hot;
-      const fade = (Math.abs(theta) > maxAngle ? Math.max(0, 1 - (Math.abs(theta) - maxAngle) / 10) : 1) * (Math.abs(theta) > step * 1.5 ? 0.8 : 1);
+      // in view: never below .85 so light posters stay solid; past maxAngle: fade out fully
+      const fade = Math.abs(theta) > maxAngle ? Math.max(0, 0.85 - (Math.abs(theta) - maxAngle) / 12) : Math.max(0.85, Math.abs(theta) > step * 1.5 ? 0.9 : 1);
       card.style.transform =
         `translate3d(${x}px, calc(-50% + ${y}px), ${z + (isHot ? 90 : 0)}px) rotateY(${-theta * 0.5}deg) scale(${isHot ? 1.05 : 1})`;
       card.style.opacity = fade.toFixed(3);

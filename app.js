@@ -18,7 +18,7 @@ document.querySelectorAll('.reveal').forEach((el) => revealObserver.observe(el))
   if (!stage || !cards.length) return;
 
   const n = cards.length;
-  const step = 16;              // degrees between cards
+  const step = 22;              // degrees between cards
   const span = step * n;        // full loop length in degrees
   let offset = 0;               // current drift in degrees
   let hot = null;               // hovered card
@@ -31,15 +31,15 @@ document.querySelectorAll('.reveal').forEach((el) => revealObserver.observe(el))
     const w = stage.clientWidth;
     const small = w < 640;
     geom = {
-      radius: small ? w * 1.05 : Math.min(980, w * 0.7),
+      radius: small ? w * 1.05 : Math.min(470, w * 0.34),
       depth: small ? 120 : 170,
-      cardW: small ? 120 : Math.max(150, Math.min(215, w * 0.15)),
-      lift: small ? 18 : 34,
-      maxAngle: small ? 58 : 72,
+      cardW: small ? 150 : Math.max(180, Math.min(215, w * 0.15)),
+      lift: small ? 6 : 12,
+      maxAngle: small ? 40 : 50,
     };
     cards.forEach((c, i) => {
       const scale = c.classList.contains('ring-phone') ? 0.5 : c.classList.contains('tall') ? 0.62 : 1;
-      c.style.setProperty('--w', `${Math.round(geom.cardW * scale * (0.92 + ((i * 37) % 17) / 100))}px`);
+      c.style.setProperty('--w', `${Math.round(geom.cardW * (c.classList.contains('ring-phone') ? 0.62 : scale))}px`);
     });
   }
 
@@ -57,9 +57,9 @@ document.querySelectorAll('.reveal').forEach((el) => revealObserver.observe(el))
       const z = radius * (1 - Math.cos(rad)) - depth;
       const y = (1 - Math.cos(rad)) * lift * 2.2;
       const isHot = card === hot;
-      const fade = Math.abs(theta) > maxAngle ? Math.max(0, 1 - (Math.abs(theta) - maxAngle) / 10) : 1;
+      const fade = (Math.abs(theta) > maxAngle ? Math.max(0, 1 - (Math.abs(theta) - maxAngle) / 10) : 1) * (Math.abs(theta) > step * 1.5 ? 0.8 : 1);
       card.style.transform =
-        `translate3d(${x}px, calc(-50% + ${y}px), ${z + (isHot ? 90 : 0)}px) rotateY(${-theta * 0.9}deg) scale(${isHot ? 1.05 : 1})`;
+        `translate3d(${x}px, calc(-50% + ${y}px), ${z + (isHot ? 90 : 0)}px) rotateY(${-theta * 0.5}deg) scale(${isHot ? 1.05 : 1})`;
       card.style.opacity = fade.toFixed(3);
       card.style.zIndex = String(1000 + Math.round(z));
       card.style.pointerEvents = fade < 0.2 ? 'none' : 'auto';

@@ -587,3 +587,11 @@ a.applied:hover{color:var(--ink)}
 .ring-stage{height:clamp(210px,22vw,280px)}
 .ring-card.ring-phone{aspect-ratio:390/844;border-radius:14px}
 .ring-card.ring-phone img{border-radius:14px;object-position:top center}
+/* ring v3: one shape, labels always on */
+.ring-stage{height:clamp(250px,24vw,320px)}
+.ring-card span{opacity:1!important;transform:none!important;bottom:-24px;font-size:11px;letter-spacing:.06em;color:var(--muted)}
+.ring-card.is-hot span{color:var(--ink)}
+.ring-card.is-hot{box-shadow:0 30px 60px rgba(17,18,20,.28),0 8px 18px rgba(17,18,20,.1)}
+.ring-cap{margin:30px 0 0;font-size:11px;letter-spacing:.14em;color:var(--muted);text-align:center;text-transform:uppercase}
+.ring-stage{height:clamp(280px,27vw,370px)}
+.ring-cap{margin-top:14px}

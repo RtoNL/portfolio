@@ -599,3 +599,6 @@ a.applied:hover{color:var(--ink)}
 .ring-stage{-webkit-mask-image:none;mask-image:none}
 .ring-card.ring-phone{box-shadow:0 0 0 1px rgba(22,24,35,.08),var(--sh)}
 .ring-card.ring-phone.is-hot{box-shadow:0 0 0 1px rgba(22,24,35,.1),0 30px 60px rgba(17,18,20,.28),0 8px 18px rgba(17,18,20,.1)}
+/* labels stay solid; only a card leaving the stage fades its label */
+.ring-card span{opacity:var(--lab,1)!important}
+.ring-card img{transition:none}

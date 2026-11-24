@@ -18,7 +18,7 @@ document.querySelectorAll('.reveal').forEach((el) => revealObserver.observe(el))
   if (!stage || !cards.length) return;
 
   const n = cards.length;
-  const step = 22;              // degrees between cards
+  const step = 19;              // degrees between cards
   const span = step * n;        // full loop length in degrees
   let offset = 0;               // current drift in degrees
   let hot = null;               // hovered card
@@ -30,8 +30,14 @@ document.querySelectorAll('.reveal').forEach((el) => revealObserver.observe(el))
   function measure() {
     const w = stage.clientWidth;
     const small = w < 640;
+    // Cards fade out only where the loop wraps around. Size the radius so that point
+    // sits just past the left/right edge of the stage: every card on screen is solid.
+    const cardW = small ? 150 * 0.62 : Math.max(180, Math.min(215, w * 0.15)) * 0.62;
+    const fadeStart = span / 2 - 8;
+    const edgeRadius = (w / 2 + cardW / 2 + 24) / Math.sin((fadeStart * Math.PI) / 180);
     geom = {
-      radius: small ? w * 1.05 : Math.min(470, w * 0.34),
+      radius: edgeRadius,
+      fadeStart,
       depth: small ? 120 : 170,
       cardW: small ? 150 : Math.max(180, Math.min(215, w * 0.15)),
       lift: small ? 6 : 12,
@@ -57,11 +63,13 @@ document.querySelectorAll('.reveal').forEach((el) => revealObserver.observe(el))
       const z = radius * (1 - Math.cos(rad)) - depth;
       const y = (1 - Math.cos(rad)) * lift * 2.2;
       const isHot = card === hot;
-      // in view: never below .85 so light posters stay solid; past maxAngle: fade out fully
-      const fade = Math.abs(theta) > maxAngle ? Math.max(0, 0.85 - (Math.abs(theta) - maxAngle) / 12) : Math.max(0.85, Math.abs(theta) > step * 1.5 ? 0.9 : 1);
+      // solid while on screen; fades only past fadeStart, which lies beyond the stage edge
+      const fade = Math.abs(theta) > geom.fadeStart ? Math.max(0, 1 - (Math.abs(theta) - geom.fadeStart) / 8) : 1;
       card.style.transform =
         `translate3d(${x}px, calc(-50% + ${y}px), ${z + (isHot ? 90 : 0)}px) rotateY(${-theta * 0.5}deg) scale(${isHot ? 1.05 : 1})`;
-      card.style.opacity = fade.toFixed(3);
+      card.style.opacity = '1';
+      card.querySelector('img').style.opacity = fade.toFixed(3);
+      card.style.setProperty('--lab', fade > 0.6 ? '1' : (fade / 0.6).toFixed(3));
       card.style.zIndex = String(1000 + Math.round(z));
       card.style.pointerEvents = fade < 0.2 ? 'none' : 'auto';
     });

@@ -574,3 +574,12 @@ a.applied:hover{color:var(--ink)}
 .ppill{background:rgba(0,0,0,.32);color:#fff}
 .pnext{background:linear-gradient(150deg,#ff6b3d,#fe2c55);opacity:.55}
 .results .ctx b{display:block;margin-bottom:2px;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:500}
+/* before/after polish */
+.pscreen{min-height:310px}
+.pscreen .pbody{flex:1}
+.pnext{position:relative;overflow:hidden}
+.pnext::before,.pnext::after{content:"";position:absolute;left:5px;right:5px;height:2px;border-radius:2px;background:rgba(255,255,255,.75)}
+.pnext::before{top:16px}
+.pnext::after{top:24px;right:9px;opacity:.7}
+/* home intro: two even lines on desktop */
+.hero-copy>p:not(.hero-name){max-width:660px;text-wrap:balance}

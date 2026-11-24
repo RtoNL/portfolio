@@ -602,3 +602,18 @@ a.applied:hover{color:var(--ink)}
 /* labels stay solid; only a card leaving the stage fades its label */
 .ring-card span{opacity:var(--lab,1)!important}
 .ring-card img{transition:none}
+/* featured case: show the full three-phone cover, stack below 900px */
+.case-card.featured .img{aspect-ratio:16/9}
+@media (max-width:900px){
+  .case-card.featured{grid-template-columns:1fr;gap:0}
+  .case-card.featured small{margin-top:16px}
+  /* two-column range: a card left alone on the last row spans the full width */
+  .case-cards>.case-card:not(.featured):last-child:nth-child(even){grid-column:1/-1;display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);column-gap:28px;align-items:center}
+  .case-cards>.case-card:not(.featured):last-child:nth-child(even) .img{grid-row:1/5}
+  .case-cards>.case-card:not(.featured):last-child:nth-child(even) small{margin-top:0}
+}
+@media (max-width:640px){
+  .case-cards>.case-card:not(.featured):last-child:nth-child(even){grid-template-columns:1fr}
+  .case-cards>.case-card:not(.featured):last-child:nth-child(even) .img{grid-row:auto}
+  .case-cards>.case-card:not(.featured):last-child:nth-child(even) small{margin-top:16px}
+}

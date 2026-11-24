@@ -573,3 +573,4 @@ a.applied:hover{color:var(--ink)}
 .demo-row{scroll-margin-top:90px}
 .ppill{background:rgba(0,0,0,.32);color:#fff}
 .pnext{background:linear-gradient(150deg,#ff6b3d,#fe2c55);opacity:.55}
+.results .ctx b{display:block;margin-bottom:2px;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:500}

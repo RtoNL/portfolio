@@ -6,7 +6,7 @@
   <meta name="description" content="Case study: helping 430K+ TikTok Shop creators find the right campaign in every region.">
   <title>TikTok Shop creator campaigns — Yuqing Xu</title>
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23111'/%3E%3Ctext x='32' y='42' font-family='Helvetica' font-size='26' font-weight='bold' fill='white' text-anchor='middle'%3EYX%3C/text%3E%3C/svg%3E">
-  <link rel="stylesheet" href="styles.css?v=5">
+  <link rel="stylesheet" href="styles.css?v=6">
   <noscript><style>.reveal{opacity:1!important;transform:none!important}</style></noscript>
 </head>
 <body>
@@ -79,7 +79,7 @@
               <p class="pbcap">Same banner, whoever and wherever you are — and no rule for the empty version of it.</p>
             </div>
             <div>
-              <h5>AFTER · THE RIGHT THING FIRST, EVERY STATE COVERED</h5>
+              <h5>AFTER · THE RIGHT THING FIRST, A RULE FOR EACH STATE</h5>
               <div class="pbwrap">
                 <div class="pscreen">
                   <div class="pnav"><span class="plogo">♪</span><b>Creator Center</b><span class="pacts"><i></i><i></i><i class="av"></i></span></div>
@@ -152,8 +152,6 @@
             <div><div class="gave"><h5>WE GAVE UP · VENUE</h5><p>Equal exposure: slides two and three are seen less than the first.</p></div><em>→</em><div><h5>TO GET</h5><p>A fixed-height slot. Targeting decides the order, so the most relevant campaign is always first.</p></div></div>
             <div><div class="gave"><h5>WE GAVE UP · GO-LIVE CARD</h5><p>Completeness: a creator with no session sees nothing where a card could have been.</p></div><em>→</em><div><h5>TO GET</h5><p>No empty promise. The card only claims what is actually scheduled, so its “Go LIVE” button means something.</p></div></div>
             <div><div class="gave"><h5>WE GAVE UP · UNBOX</h5><p>A “complete” year: a creator with few posts gets a shorter story, not a full one.</p></div><em>→</em><div><h5>TO GET</h5><p>Nothing to feel bad about — no “0 hours”, no empty category pages, and a story that ends on a next step.</p></div></div>
-            <div><div class="gave"><h5>WE GAVE UP · ALL SURFACES</h5><p>Perfect language: a missing translation falls back to English.</p></div><em>→</em><div><h5>TO GET</h5><p>No creator sees a blank card or a raw content key, in any market.</p></div></div>
-            <div><div class="gave"><h5>WE GAVE UP · ALL SURFACES</h5><p>Simplicity: configuration can be wrong in new ways.</p></div><em>→</em><div><h5>TO GET</h5><p>New markets ship as configuration, guarded by schema validation and feature flags.</p></div></div>
           </div>
         </section>
 
@@ -166,7 +164,7 @@
             <div class="demo-notes">
               <h4>Try it</h4>
               <ul>
-                <li><b>Tap a phase</b> in the timeline. Each BFCM phase brings its own guidance and next step, so creators always know what to do this week.</li>
+                <li><b>Tap a phase</b> in the timeline. Each BFCM phase brings its own guidance and next step, so creators can see what to do this week.</li>
                 <li><b>Switch to Campaigns.</b> Banners rotate with visible dots, and every campaign card states its reward and progress up front.</li>
                 <li><b>Filter until nothing matches.</b> The empty state explains why and how to get back, instead of a blank list.</li>
               </ul>
@@ -182,7 +180,7 @@
         <section id="edge" class="cs-sec reveal">
           <p class="kicker"><span>6</span>EDGE STATES</p>
           <h2>Two more surfaces, designed for the data creators actually have.</h2>
-          <p>Real creator data is uneven: no LIVE scheduled, zero sign-ups, a first year with no sales. Each state needed its own rule, so no creator saw a broken card or an empty promise.</p>
+          <p>Real creator data is uneven: no LIVE scheduled, zero sign-ups, a first year with no sales. Each covered state had an explicit rule, preventing blank cards and misleading promises in the implemented flows.</p>
 
           <div class="demo-row" id="live-demo">
             <div class="dphone"><div class="dscr"><iframe id="demo-live" src="assets/demos/live-reminder.html?embed" title="Go-LIVE reminder card prototype" loading="lazy"></iframe></div></div>
@@ -199,7 +197,7 @@
                 <li><b>Not yet, but visible.</b> More than a day out, the button reads “Prepare” and stays disabled, so the card informs without nagging.</li>
                 <li><b>Act now.</b> Within a day, it turns into a red “Go LIVE” button.</li>
                 <li><b>Hide what isn’t true yet.</b> With zero sign-ups, the avatars and count disappear instead of showing “0 registered”.</li>
-                <li><b>Fail quietly.</b> No session, or an error, means no card at all. The rest of the page never breaks.</li>
+                <li><b>Fail quietly.</b> No session, or an error, means no card at all, and the rest of the page still renders.</li>
               </ul>
             </div>
           </div>
@@ -265,9 +263,9 @@
           <div class="results">
             <div><strong>~25%</strong><span>higher banner click-through rate</span></div>
             <div><strong>~40%</strong><span>fewer frontend integration defects across related multi-region releases — not the carousel alone</span></div>
-            <div class="ctx"><strong>430K+</strong><span><b>Product context:</b> creators across 10+ regions on the platform</span></div>
+            <div class="ctx"><strong>430K+</strong><span><b>Product context</b>creators across 10+ regions on the platform</span></div>
           </div>
-          <p style="margin-top:26px">The ~25% is the slot’s own number. The Go-LIVE card and Unbox Your Year aren’t measured separately here; what they share with the slot is the same three rules, applied to every state a creator can be in.</p>
+          <p style="margin-top:26px">The ~25% is the slot’s own number. The Go-LIVE card and Unbox Your Year aren’t measured separately here; what they share with the slot is the same three rules, applied to each state we covered.</p>
           <p>The token mapping became the shared reference for designers and engineers during the BFCM launch, and new-market experiences shipped through configuration.</p>
         </section>
 
@@ -283,6 +281,6 @@
   </main>
 
   <footer class="site-footer shell"><span>Yuqing Xu · Seattle, WA</span><a href="mailto:xyqapply@gmail.com">Get in touch ↗</a></footer>
-  <script src="app.js?v=5"></script>
+  <script src="app.js?v=6"></script>
 </body>
 </html>
